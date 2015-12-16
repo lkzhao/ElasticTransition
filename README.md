@@ -34,26 +34,25 @@ Clone and add ElasticTransition folder into your project.
 ## Example
 
 ##### 1. in your view controller
-```
+```swift
+var transition = ElasticTransition()
+override func viewDidLoad() {
+  super.viewDidLoad()
 
-  var transition = ElasticTransition()
-  override func viewDidLoad() {
-    super.viewDidLoad()
+  // this setup the pan gesturerecognizer & transition delegate
+  transition.backViewController = self
+  transition.segueIdentifier = "menu" // supplied segue is triggered when drag start
 
-    // this setup the pan gesturerecognizer & transition delegate
-    transition.backViewController = self
-    transition.segueIdentifier = "menu" // supplied segue is triggered when drag start
+  // customization
+  transition.sticky = false
+  transition.panThreshold = 0.3
+  transition.fancyTransform = false
+  // ...
+}
 
-    // customization
-    transition.sticky = false
-    transition.panThreshold = 0.3
-    transition.fancyTransform = false
-    // ...
-  }
-
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    transition.frontViewController = segue.destinationViewController
-  }
+override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+  transition.frontViewController = segue.destinationViewController
+}
 ```
 
 ##### 2. Your modal view controller must implement ElasticMenuTransitionDelegate
@@ -61,10 +60,11 @@ You can do this either by using storyboard or programatically. See example proje
 
 
 ## Todo
-
-1. Support lower iOS versions(maybe by dropping UIKit Dynamics and use facebook Pop)
-2. More settings to customize
-3. Support navigation controller transition
+1. Better Guide and Documentation
+2. Cleanup Interface
+3. Support lower iOS versions(maybe by dropping UIKit Dynamics and use facebook Pop)
+4. More settings to customize
+5. Support navigation controller transition
 
 ## Author
 
