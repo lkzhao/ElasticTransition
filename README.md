@@ -37,7 +37,9 @@ override func viewDidLoad() {
 
   // this setup the pan gesturerecognizer & transition delegate
   transition.backViewController = self
-  transition.segueIdentifier = "menu" // supplied segue is triggered when drag start
+
+  // this tells the transition which segue to trigger when drag start
+  transition.segueIdentifier = "menu"
 
   // customization
   transition.edge = .Left
@@ -60,7 +62,7 @@ protocol ElasticMenuTransitionDelegate{
 }
 ```
 
-You can do this either by using storyboard(IBOutlet) or programatically. See the example project.
+You can do this either by using storyboard ( *IBOutlet* ) or programatically. See the example project.
 
 ##### Important **NOTE** for implementing ElasticMenuTransitionDelegate:
 * contentView should be a subview of self.view
