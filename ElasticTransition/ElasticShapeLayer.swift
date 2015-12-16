@@ -1,17 +1,35 @@
-//
-//  ElasticShapeLayer.swift
-//  ElasticTransition
-//
-//  Created by Luke Zhao on 2015-11-26.
-//  Copyright © 2015 lukezhao. All rights reserved.
-//
+/*
+
+The MIT License (MIT)
+
+Copyright (c) 2015 Luke Zhao <me@lkzhao.com>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+*/
 
 import UIKit
 
 let π:CGFloat = CGFloat(M_PI)
-enum Edge{
+public enum Edge{
   case Top, Bottom, Left, Right
-  func opposite() -> Edge{
+  public func opposite() -> Edge{
     switch self {
     case .Left:
       return .Right
@@ -23,7 +41,7 @@ enum Edge{
       return .Bottom
     }
   }
-  func toUIRectEdge() -> UIRectEdge{
+  public func toUIRectEdge() -> UIRectEdge{
     switch self {
     case .Left:
       return .Left
@@ -37,45 +55,45 @@ enum Edge{
   }
 }
 
-extension CGPoint{
-  func transform(t:CGAffineTransform) -> CGPoint{
+public extension CGPoint{
+  public func transform(t:CGAffineTransform) -> CGPoint{
     return CGPointApplyAffineTransform(self, t)
   }
 }
 
-class ElasticShapeLayer: CAShapeLayer {
-  var edge:Edge = .Bottom{
+public class ElasticShapeLayer: CAShapeLayer {
+  public var edge:Edge = .Bottom{
     didSet{
       path = currentPath()
     }
   }
-  var dragPoint:CGPoint = CGPointZero{
+  public var dragPoint:CGPoint = CGPointZero{
     didSet{
       path = currentPath()
     }
   }
   
-  var radiusFactor:CGFloat = 0.25{
+  public var radiusFactor:CGFloat = 0.25{
     didSet{
       if radiusFactor < 0{
         radiusFactor = 0
       }
     }
   }
-  var clip:Bool = false
+  public var clip:Bool = false
   
-  override init() {
+  override public init() {
     super.init()
     
     backgroundColor = UIColor.clearColor().CGColor
     fillColor = UIColor.blackColor().CGColor
     actions = ["path" : NSNull(), "position" : NSNull(), "bounds" : NSNull()]
   }
-  override init(layer: AnyObject) {
+  override public init(layer: AnyObject) {
     super.init(layer: layer)
   }
 
-  required init?(coder aDecoder: NSCoder) {
+  required public init?(coder aDecoder: NSCoder) {
       fatalError("init(coder:) has not been implemented")
   }
   

@@ -1,24 +1,42 @@
-//
-//  ElasticMenuViewController.swift
-//  ElasticTransition
-//
-//  Created by Luke Zhao on 2015-11-30.
-//  Copyright © 2015 lukezhao. All rights reserved.
-//
+/*
+
+The MIT License (MIT)
+
+Copyright (c) 2015 Luke Zhao <me@lkzhao.com>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+*/
 
 import UIKit
 
-class ElasticMenuViewController: UIViewController, ElasticMenuTransitionDelegate {
-  var contentView: UIView!{
+public class ElasticMenuViewController: UIViewController, ElasticMenuTransitionDelegate {
+  public var contentView: UIView!{
     return tableView
   }
   var tableView: UITableView!
   
-  var edge:UIRectEdge{
+  public var edge:UIRectEdge{
     return .Left
   }
   var menuWidthConstraint: NSLayoutConstraint!
-  var menuWidth:CGFloat{
+  public var menuWidth:CGFloat{
     get{
       return menuWidthConstraint.constant
     }
@@ -28,13 +46,13 @@ class ElasticMenuViewController: UIViewController, ElasticMenuTransitionDelegate
     }
   }
   
-  var backgroundColor:UIColor?{
+  public var backgroundColor:UIColor?{
     didSet{
       view.backgroundColor = backgroundColor
     }
   }
   
-  override func viewDidLoad() {
+  public override func viewDidLoad() {
     super.viewDidLoad()
     tableView = UITableView(frame: CGRectZero)
     
@@ -64,7 +82,7 @@ class ElasticMenuViewController: UIViewController, ElasticMenuTransitionDelegate
     tableView.contentInset = UIEdgeInsetsMake(60, 0, 0, 0)
   }
   
-  override func preferredStatusBarStyle() -> UIStatusBarStyle {
+  public override func preferredStatusBarStyle() -> UIStatusBarStyle {
     return .LightContent
   }
   
@@ -79,10 +97,10 @@ class ElasticMenuViewController: UIViewController, ElasticMenuTransitionDelegate
 }
 
 extension ElasticMenuViewController:UITableViewDelegate, UITableViewDataSource{
-  func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+  public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     return 1
   }
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+  public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: nil)
     cell.textLabel?.text = menu[indexPath.row]
     cell.backgroundColor = UIColor.clearColor()
@@ -90,7 +108,7 @@ extension ElasticMenuViewController:UITableViewDelegate, UITableViewDataSource{
     cell.selectionStyle = .None
     return cell
   }
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return menu.count
   }
 }

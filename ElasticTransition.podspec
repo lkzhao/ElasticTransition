@@ -1,22 +1,17 @@
-#
-# Be sure to run `pod lib lint ElasticTransition.podspec' to ensure this is a
-# valid spec before submitting.
-#
-# Any lines starting with a # are optional, but their use is encouraged
-# To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
-#
-
 Pod::Spec.new do |s|
   s.name             = "ElasticTransition"
   s.version          = "1.0.0"
   s.summary          = "A UIKit custom modal transition that simulates an elastic drag. Written in Swift."
 
   s.description      = <<-DESC
+                        A UIKit custom modal transition that simulates an elastic drag. Written in Swift.
                         Best for side menu and navigation transition.
+
+                        This is inspired by DGElasticPullToRefresh from gontovnik.
                        DESC
 
   s.homepage         = "https://github.com/lkzhao/ElasticTransition"
-  # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
+  s.screenshots     = "https://github.com/lkzhao/ElasticTransition/blob/master/demo.gif?raw=true"
   s.license          = 'MIT'
   s.author           = { "Luke" => "lzhaoyilun@gmail.com" }
   s.source           = { :git => "https://github.com/lkzhao/ElasticTransition.git", :tag => s.version.to_s }
@@ -26,5 +21,5 @@ Pod::Spec.new do |s|
   s.source_files = 'ElasticTransition/*.swift'
 
   s.frameworks = ['UIKit', 'Foundation']
-  # s.dependency 'AFNetworking', '~> 2.3'
+  # s.dependency 'pop', '~> 1.0'
 end

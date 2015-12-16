@@ -1,14 +1,32 @@
-//
-//  ElasticTransition.swift
-//  ElasticTransition
-//
-//  Created by Luke Zhao on 2015-11-30.
-//  Copyright © 2015 lukezhao. All rights reserved.
-//
+/*
+
+The MIT License (MIT)
+
+Copyright (c) 2015 Luke Zhao <me@lkzhao.com>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+*/
 
 import UIKit
 
-protocol ElasticMenuTransitionDelegate{
+public protocol ElasticMenuTransitionDelegate{
   var contentView:UIView! {get}
 }
 
@@ -78,14 +96,14 @@ class CustomSnapBehavior:UIDynamicBehavior {
   }
 }
 
-class ElasticTransition: EdgePanTransition{
-  var radiusFactor:CGFloat = 0.5
-  var sticky:Bool = false
-  var origin:CGPoint?
-  var containerColor:UIColor? = UIColor(red: 152/255, green: 174/255, blue: 196/255, alpha: 1.0)
-  var transform:((progress:CGFloat, view:UIView) -> Void)?
-  var fancyTransform = true
-  var useTranlation = true
+public class ElasticTransition: EdgePanTransition{
+  public var radiusFactor:CGFloat = 0.5
+  public var sticky:Bool = false
+  public var origin:CGPoint?
+  public var containerColor:UIColor? = UIColor(red: 152/255, green: 174/255, blue: 196/255, alpha: 1.0)
+  public var transform:((progress:CGFloat, view:UIView) -> Void)?
+  public var fancyTransform = true
+  public var useTranlation = true
   
   private var menuWidth:CGFloat{
     switch edge{
@@ -328,16 +346,16 @@ class ElasticTransition: EdgePanTransition{
   }
 }
 
-class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning, UIViewControllerTransitioningDelegate, UIGestureRecognizerDelegate{
-  var transitionDuration = 0.7
-  var panThreshold:CGFloat = 0.2
-  var edge:Edge = .Left{
+public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning, UIViewControllerTransitioningDelegate, UIGestureRecognizerDelegate{
+  public var transitionDuration = 0.7
+  public var panThreshold:CGFloat = 0.2
+  public var edge:Edge = .Left{
     didSet{
       enterPanGesture.edges = edge.toUIRectEdge()
     }
   }
-  var segueIdentifier = "menu"
-  var backViewController: UIViewController! {
+  public var segueIdentifier = "menu"
+  public var backViewController: UIViewController! {
     didSet {
       backViewController.view.addGestureRecognizer(self.enterPanGesture)
       backViewController.transitioningDelegate = self
@@ -345,7 +363,7 @@ class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning, UIView
     }
   }
   
-  var frontViewController: UIViewController! {
+  public var frontViewController: UIViewController! {
     didSet {
       frontViewController.transitioningDelegate = self
       frontViewController.modalPresentationStyle = .OverCurrentContext;
@@ -354,11 +372,11 @@ class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning, UIView
   }
   
   var transitioning = false
-  func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+  public func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
     return !transitioning
   }
   
-  func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+  public func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
     if touch.view!.isKindOfClass(UISlider.self) {
       return false
     }
@@ -455,7 +473,7 @@ class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning, UIView
     }
   }
   
-  func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+  public func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
     self.transitionContext = transitionContext
     container = transitionContext.containerView()
     fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
@@ -477,7 +495,7 @@ class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning, UIView
     
     setup()
   }
-  func startInteractiveTransition(transitionContext: UIViewControllerContextTransitioning){
+  public func startInteractiveTransition(transitionContext: UIViewControllerContextTransitioning){
     animateTransition(transitionContext)
   }
   
@@ -513,24 +531,24 @@ class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning, UIView
   }
   
   
-  func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+  public func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
     return transitionDuration
   }
-  func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+  public func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
     self.presenting = true
     return self
   }
-  func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+  public func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
     self.presenting = false
     return self
   }
   
-  func interactionControllerForPresentation(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+  public func interactionControllerForPresentation(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
     self.presenting = true
     return self.interactive ? self : nil
   }
   
-  func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+  public func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
     self.presenting = false
     return self.interactive ? self : nil
   }
