@@ -1,6 +1,6 @@
 //
-//  ElasticTransitionManager.swift
-//  ElasticDropdownMenu
+//  ElasticTransition.swift
+//  ElasticTransition
 //
 //  Created by Luke Zhao on 2015-11-30.
 //  Copyright © 2015 lukezhao. All rights reserved.
@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ElasticMenuTransitionDelegate{
-  var menuView:UIView! {get}
+  var contentView:UIView! {get}
 }
 
 
@@ -78,7 +78,7 @@ class CustomSnapBehavior:UIDynamicBehavior {
   }
 }
 
-class ElasticTransitionManager: EdgePanTransitionManager{
+class ElasticTransition: EdgePanTransition{
   var radiusFactor:CGFloat = 0.5
   var sticky:Bool = false
   var origin:CGPoint?
@@ -90,9 +90,9 @@ class ElasticTransitionManager: EdgePanTransitionManager{
   private var menuWidth:CGFloat{
     switch edge{
     case .Left, .Right:
-      return menuView.bounds.width
+      return contentView.bounds.width
     case .Top, .Bottom:
-      return menuView.bounds.height
+      return contentView.bounds.height
     }
   }
   
@@ -103,7 +103,7 @@ class ElasticTransitionManager: EdgePanTransitionManager{
   private var lc:DynamicItem!
   private var cb:CustomSnapBehavior!
   private var lb:CustomSnapBehavior!
-  private var menuView:UIView!
+  private var contentView:UIView!
   private var stickDistance:CGFloat{
     return sticky ? menuWidth * panThreshold : 0
   }
@@ -169,16 +169,16 @@ class ElasticTransitionManager: EdgePanTransitionManager{
     let progress = 1 - lc.center.distance(finalPoint) / initialPoint.distance(finalPoint)
     switch edge{
     case .Left:
-      menuView.frame.origin.x = min(cc.center.x, lc.center.x) - menuWidth
+      contentView.frame.origin.x = min(cc.center.x, lc.center.x) - menuWidth
       maskLayer.frame = CGRectMake(0, 0, lc.center.x, size.height)
     case .Right:
-      menuView.frame.origin.x = max(cc.center.x, lc.center.x)
+      contentView.frame.origin.x = max(cc.center.x, lc.center.x)
       maskLayer.frame = CGRectMake(lc.center.x, 0, size.width - lc.center.x, size.height)
     case .Bottom:
-      menuView.frame.origin.y = max(cc.center.y, lc.center.y)
+      contentView.frame.origin.y = max(cc.center.y, lc.center.y)
       maskLayer.frame = CGRectMake(0, lc.center.y, size.width, size.height - lc.center.y)
     case .Top:
-      menuView.frame.origin.y = min(cc.center.y, lc.center.y) - menuWidth
+      contentView.frame.origin.y = min(cc.center.y, lc.center.y) - menuWidth
       maskLayer.frame = CGRectMake(0, 0, size.width, lc.center.y)
     }
     maskLayer.dragPoint = maskLayer.convertPoint(cc.center, fromLayer: container.layer)
@@ -207,7 +207,7 @@ class ElasticTransitionManager: EdgePanTransitionManager{
   override func setup(){
     super.setup()
     if let menuViewController = frontViewController as? ElasticMenuTransitionDelegate{
-      menuView = menuViewController.menuView
+      contentView = menuViewController.contentView
     }else{
       fatalError("frontViewController must be supplied and must be a ElasticMenuTransitionDelegate")
     }
@@ -328,7 +328,7 @@ class ElasticTransitionManager: EdgePanTransitionManager{
   }
 }
 
-class EdgePanTransitionManager: NSObject, UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning, UIViewControllerTransitioningDelegate, UIGestureRecognizerDelegate{
+class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning, UIViewControllerTransitioningDelegate, UIGestureRecognizerDelegate{
   var transitionDuration = 0.7
   var panThreshold:CGFloat = 0.2
   var edge:Edge = .Left{
@@ -339,9 +339,6 @@ class EdgePanTransitionManager: NSObject, UIViewControllerAnimatedTransitioning,
   var segueIdentifier = "menu"
   var backViewController: UIViewController! {
     didSet {
-      enterPanGesture.delegate = self
-      enterPanGesture.addTarget(self, action:"handleOnstagePan:")
-      enterPanGesture.edges = edge.toUIRectEdge()
       backViewController.view.addGestureRecognizer(self.enterPanGesture)
       backViewController.transitioningDelegate = self
       backViewController.modalPresentationStyle = .OverCurrentContext;
@@ -350,11 +347,9 @@ class EdgePanTransitionManager: NSObject, UIViewControllerAnimatedTransitioning,
   
   var frontViewController: UIViewController! {
     didSet {
-      exitPanGesture.delegate = self
-      exitPanGesture.addTarget(self, action:"handleOffstagePan:")
-      frontViewController.view.addGestureRecognizer(self.exitPanGesture)
       frontViewController.transitioningDelegate = self
       frontViewController.modalPresentationStyle = .OverCurrentContext;
+      frontViewController.view.addGestureRecognizer(self.exitPanGesture)
     }
   }
   
@@ -395,6 +390,15 @@ class EdgePanTransitionManager: NSObject, UIViewControllerAnimatedTransitioning,
     didSet{
       update()
     }
+  }
+  
+  override init(){
+    super.init()
+    enterPanGesture.delegate = self
+    enterPanGesture.addTarget(self, action:"handleOnstagePan:")
+    enterPanGesture.edges = edge.toUIRectEdge()
+    exitPanGesture.delegate = self
+    exitPanGesture.addTarget(self, action:"handleOffstagePan:")
   }
   
   private func update(){

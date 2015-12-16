@@ -1,16 +1,16 @@
 //
 //  CustomMenuViewController.swift
-//  ElasticMenuViewController
+//  ElasticTransition
 //
 //  Created by Luke Zhao on 2015-12-09.
-//  Copyright © 2015 luke-z. All rights reserved.
+//  Copyright © 2015 lkzhao. All rights reserved.
 //
 
 import UIKit
 
 class CustomMenuViewController: UIViewController, ElasticMenuTransitionDelegate {
   
-  @IBOutlet weak var menuView: UIView!
+  @IBOutlet weak var contentView: UIView!
   
   override func viewDidLoad() {
     super.viewDidLoad()

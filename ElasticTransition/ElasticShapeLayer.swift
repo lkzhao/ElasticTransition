@@ -1,6 +1,6 @@
 //
 //  ElasticShapeLayer.swift
-//  ElasticDropdownMenu
+//  ElasticTransition
 //
 //  Created by Luke Zhao on 2015-11-26.
 //  Copyright © 2015 lukezhao. All rights reserved.

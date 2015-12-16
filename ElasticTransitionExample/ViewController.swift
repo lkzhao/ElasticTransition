@@ -1,9 +1,9 @@
 //
 //  ViewController.swift
-//  ElasticMenuViewController
+//  ElasticTransition
 //
 //  Created by Luke Zhao on 2015-12-08.
-//  Copyright © 2015 luke-z. All rights reserved.
+//  Copyright © 2015 lkzhao. All rights reserved.
 //
 
 import UIKit
@@ -24,7 +24,7 @@ class Menu {
 
 class ViewController: UITableViewController {
   
-  var transitionManager = ElasticTransitionManager()
+  var transition = ElasticTransition()
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -32,13 +32,12 @@ class ViewController: UITableViewController {
       Menu("Left TableView Menu", "options", "menu"),
       Menu("Right TableView Menu", "basic menu that subclass ElasticMenuViewController", "rmenu", .Right),
       Menu("Custom Menu", "build in storyboard", "cmenu", .Bottom),
-      Menu("Right Detail", "with low radiusFactor", "detail", .Right),
     ]
-    transitionManager.segueIdentifier = "menu"
-    transitionManager.backViewController = self
-    transitionManager.sticky = false
-    transitionManager.panThreshold = 0.3
-    transitionManager.fancyTransform = false
+    transition.segueIdentifier = "menu"
+    transition.backViewController = self
+    transition.sticky = false
+    transition.panThreshold = 0.3
+    transition.fancyTransform = false
     self.clearsSelectionOnViewWillAppear = true
   }
   
@@ -50,8 +49,7 @@ class ViewController: UITableViewController {
   }
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    segue.destinationViewController.transitioningDelegate = transitionManager
-    transitionManager.frontViewController = segue.destinationViewController
+    transition.frontViewController = segue.destinationViewController
   }
   
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -69,9 +67,9 @@ class ViewController: UITableViewController {
   }
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    transitionManager.origin = tableView.cellForRowAtIndexPath(indexPath)?.center
-    transitionManager.segueIdentifier = menus[indexPath.item].identifier
-    transitionManager.edge = menus[indexPath.item].edge
+    transition.origin = tableView.cellForRowAtIndexPath(indexPath)?.center
+    transition.segueIdentifier = menus[indexPath.item].identifier
+    transition.edge = menus[indexPath.item].edge
     performSegueWithIdentifier(menus[indexPath.item].identifier, sender: self)
   }
   

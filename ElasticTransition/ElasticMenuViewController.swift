@@ -1,6 +1,6 @@
 //
 //  ElasticMenuViewController.swift
-//  ElasticDropdownMenu
+//  ElasticTransition
 //
 //  Created by Luke Zhao on 2015-11-30.
 //  Copyright © 2015 lukezhao. All rights reserved.
@@ -9,7 +9,7 @@
 import UIKit
 
 class ElasticMenuViewController: UIViewController, ElasticMenuTransitionDelegate {
-  var menuView: UIView!{
+  var contentView: UIView!{
     return tableView
   }
   var tableView: UITableView!

@@ -1,9 +1,9 @@
 //
 //  RightMenuViewController.swift
-//  ElasticMenuViewController
+//  ElasticTransition
 //
 //  Created by Luke Zhao on 2015-12-09.
-//  Copyright © 2015 luke-z. All rights reserved.
+//  Copyright © 2015 lkzhao. All rights reserved.
 //
 
 import UIKit

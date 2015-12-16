@@ -1,9 +1,9 @@
 //
 //  LeftMenuViewController.swift
-//  ElasticMenuViewController
+//  ElasticTransition
 //
 //  Created by Luke Zhao on 2015-12-08.
-//  Copyright © 2015 luke-z. All rights reserved.
+//  Copyright © 2015 lkzhao. All rights reserved.
 //
 
 import UIKit
@@ -30,14 +30,14 @@ class SliderCell:UITableViewCell{
   }
 }
 class LeftMenuViewController: UIViewController, ElasticMenuTransitionDelegate {
-  @IBOutlet weak var menuView: UIView!
+  @IBOutlet weak var contentView: UIView!
   @IBOutlet weak var tableView: UITableView!
   
   var menu:[LeftMenuType] = []
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    let tm = self.transitioningDelegate as! ElasticTransitionManager
+    let tm = self.transitioningDelegate as! ElasticTransition
     menu = [
       .Switch(name: "Sticky", on:tm.sticky, onChange: {on in
         tm.sticky = on

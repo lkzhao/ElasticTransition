@@ -13,7 +13,6 @@
 		B12BC09E1C21FA470016D774 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B12BC09D1C21FA470016D774 /* Assets.xcassets */; };
 		B12BC0A11C21FA470016D774 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B12BC09F1C21FA470016D774 /* LaunchScreen.storyboard */; };
 		B12BC0AC1C21FA7E0016D774 /* CustomMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BC0A81C21FA7E0016D774 /* CustomMenuViewController.swift */; };
-		B12BC0AD1C21FA7E0016D774 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BC0A91C21FA7E0016D774 /* DetailViewController.swift */; };
 		B12BC0AE1C21FA7E0016D774 /* LeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BC0AA1C21FA7E0016D774 /* LeftMenuViewController.swift */; };
 		B12BC0AF1C21FA7E0016D774 /* RightMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BC0AB1C21FA7E0016D774 /* RightMenuViewController.swift */; };
 		B12BC0B31C21FA910016D774 /* ElasticMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BC0B01C21FA910016D774 /* ElasticMenuViewController.swift */; };
@@ -30,7 +29,6 @@
 		B12BC0A01C21FA470016D774 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B12BC0A21C21FA470016D774 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B12BC0A81C21FA7E0016D774 /* CustomMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomMenuViewController.swift; sourceTree = "<group>"; };
-		B12BC0A91C21FA7E0016D774 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		B12BC0AA1C21FA7E0016D774 /* LeftMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftMenuViewController.swift; sourceTree = "<group>"; };
 		B12BC0AB1C21FA7E0016D774 /* RightMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightMenuViewController.swift; sourceTree = "<group>"; };
 		B12BC0B01C21FA910016D774 /* ElasticMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ElasticMenuViewController.swift; path = ElasticTransition/ElasticMenuViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -72,7 +70,6 @@
 				B12BC0961C21FA470016D774 /* AppDelegate.swift */,
 				B12BC0981C21FA470016D774 /* ViewController.swift */,
 				B12BC0A81C21FA7E0016D774 /* CustomMenuViewController.swift */,
-				B12BC0A91C21FA7E0016D774 /* DetailViewController.swift */,
 				B12BC0AA1C21FA7E0016D774 /* LeftMenuViewController.swift */,
 				B12BC0AB1C21FA7E0016D774 /* RightMenuViewController.swift */,
 				B12BC09A1C21FA470016D774 /* Main.storyboard */,
@@ -169,7 +166,6 @@
 				B12BC0AC1C21FA7E0016D774 /* CustomMenuViewController.swift in Sources */,
 				B12BC0B51C21FA910016D774 /* ElasticTransition.swift in Sources */,
 				B12BC0971C21FA470016D774 /* AppDelegate.swift in Sources */,
-				B12BC0AD1C21FA7E0016D774 /* DetailViewController.swift in Sources */,
 				B12BC0B41C21FA910016D774 /* ElasticShapeLayer.swift in Sources */,
 				B12BC0AF1C21FA7E0016D774 /* RightMenuViewController.swift in Sources */,
 				B12BC0AE1C21FA7E0016D774 /* LeftMenuViewController.swift in Sources */,
@@ -286,6 +282,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ElasticTransitionExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lkzhao.ElasticTransitionExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -297,6 +294,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ElasticTransitionExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lkzhao.ElasticTransitionExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";

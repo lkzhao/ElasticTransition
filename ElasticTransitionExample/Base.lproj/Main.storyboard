@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15A279b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="3Db-2n-pay">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -120,15 +119,15 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="menuView" destination="HlI-gV-Dhe" id="OeY-dy-KRX"/>
+                        <outlet property="contentView" destination="HlI-gV-Dhe" id="NhP-vT-LYe"/>
                         <outlet property="tableView" destination="Qw6-wF-qBr" id="GSN-KC-zEF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QCY-e5-o4S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-24" y="1207"/>
+            <point key="canvasLocation" x="-6" y="1207"/>
         </scene>
-        <!--ElasticMenuViewController-->
+        <!--ElasticTransition-->
         <scene sceneID="o0b-eX-exW">
             <objects>
                 <tableViewController id="MAh-cR-lp4" customClass="ViewController" customModule="ElasticTransitionExample" customModuleProvider="target" sceneMemberID="viewController">
@@ -167,12 +166,11 @@
                             <outlet property="delegate" destination="MAh-cR-lp4" id="VY4-8w-tSQ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="ElasticMenuViewController" id="8ov-3q-O4Z"/>
+                    <navigationItem key="navigationItem" title="ElasticTransition" id="8ov-3q-O4Z"/>
                     <connections>
                         <segue destination="rAa-YP-XjS" kind="presentation" identifier="rmenu" modalPresentationStyle="overFullScreen" id="ree-FM-xOw"/>
                         <segue destination="dMk-jf-SM1" kind="presentation" identifier="menu" modalPresentationStyle="overFullScreen" id="cB2-Sm-fBk"/>
                         <segue destination="Foz-KP-l0e" kind="presentation" identifier="cmenu" id="DsC-xw-pTc"/>
-                        <segue destination="B7Z-Vk-Hmb" kind="show" identifier="detail" id="Hyb-87-rSP"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fsu-3g-ksZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -199,6 +197,7 @@
         <!--Right Menu View Controller-->
         <scene sceneID="yrD-a4-7Qy">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wvQ-oq-YMC" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="rAa-YP-XjS" customClass="RightMenuViewController" customModule="ElasticTransitionExample" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yNK-q3-RWx"/>
@@ -210,9 +209,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="wvQ-oq-YMC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="909" y="458"/>
+            <point key="canvasLocation" x="875" y="1207"/>
         </scene>
         <!--Custom Menu View Controller-->
         <scene sceneID="vgI-jr-hq7">
@@ -261,42 +259,12 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="menuView" destination="ejg-4q-4y5" id="S1t-vg-EUO"/>
+                        <outlet property="contentView" destination="ejg-4q-4y5" id="DgJ-Ki-79Z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gSC-Rq-vl1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="310" y="1207"/>
-        </scene>
-        <!--Detail View Controller-->
-        <scene sceneID="xKC-vE-evH">
-            <objects>
-                <viewController id="B7Z-Vk-Hmb" customClass="DetailViewController" customModule="ElasticTransitionExample" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="HMP-eF-ked"/>
-                        <viewControllerLayoutGuide type="bottom" id="fNn-m3-Vdb"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="jbv-4S-1CC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Detail View Controller" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="joT-Ne-8N3">
-                                <rect key="frame" x="78" y="98" width="165" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" red="0.43529411759999997" green="0.1764705882" blue="0.69019607839999997" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstItem="joT-Ne-8N3" firstAttribute="top" secondItem="HMP-eF-ked" secondAttribute="bottom" constant="34" id="EMC-Hk-iih"/>
-                            <constraint firstItem="joT-Ne-8N3" firstAttribute="centerX" secondItem="jbv-4S-1CC" secondAttribute="centerX" id="yer-BP-WNH"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dHt-lG-Mq5" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="909" y="1207"/>
+            <point key="canvasLocation" x="440" y="1207"/>
         </scene>
     </scenes>
 </document>
