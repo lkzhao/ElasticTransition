@@ -62,10 +62,10 @@ protocol ElasticMenuTransitionDelegate{
 
 You can do this either by using storyboard(IBOutlet) or programatically. See the example project.
 
-Note:
+##### Important **NOTE** for implementing ElasticMenuTransitionDelegate:
 * contentView should be a subview of self.view
 * contentView should be placed along the edge specified to the transition
-* contentView should have a *clear* background color
+* contentView should have a **clear** background color
 * lastly, set self.view.backgroundColor to be the color you desire
 
 ## How does it work?
