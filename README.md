@@ -11,7 +11,7 @@ A UIKit custom modal transition that simulates an elastic drag. Written in Swift
 ## Requirements
 
 * Xcode 7 or higher
-* iOS 9.0 or higher (Update is coming to support lower versions)
+* iOS 9.0 or higher (an update is coming to support lower versions)
 * ARC
 * Swift 2.0
 
@@ -29,7 +29,7 @@ pod "ElasticTransition"
 
 ## Usage
 
-##### 1. in your view controller
+##### 1. In your view controller
 ```swift
 var transition = ElasticTransition()
 override func viewDidLoad() {
@@ -40,6 +40,7 @@ override func viewDidLoad() {
   transition.segueIdentifier = "menu" // supplied segue is triggered when drag start
 
   // customization
+  transition.edge = .Left
   transition.sticky = false
   transition.panThreshold = 0.3
   transition.fancyTransform = false
@@ -52,8 +53,23 @@ override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 ```
 
 ##### 2. Your modal view controller must implement ElasticMenuTransitionDelegate
-You can do this either by using storyboard or programatically. See example project.
 
+```swift
+protocol ElasticMenuTransitionDelegate{
+  var contentView:UIView! {get}
+}
+```
+
+You can do this either by using storyboard or programatically. See the example project.
+
+Note:
+* contentView should be a subview of self.view
+* contentView should be placed along the edge specified to the transition
+* contentView should have a clear background color
+* lastly, set self.view.backgroundColor to be the color you desire
+
+## How does it work?
+If you want to know the detail of the implementation, see it [here](https://github.com/lkzhao/ElasticTransition/blob/master/howdoesitwork.md)
 
 ## Todo
 1. Better Guide and Documentation
