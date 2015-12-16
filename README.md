@@ -29,7 +29,7 @@ pod "ElasticTransition"
 
 ## Usage
 
-##### 1. In your view controller
+##### 1. In your view controller, do the following
 ```swift
 var transition = ElasticTransition()
 override func viewDidLoad() {
@@ -52,7 +52,7 @@ override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 }
 ```
 
-##### 2. Your modal view controller must implement ElasticMenuTransitionDelegate
+##### 2. Implement ElasticMenuTransitionDelegate in your modal view controller
 
 ```swift
 protocol ElasticMenuTransitionDelegate{
@@ -60,12 +60,12 @@ protocol ElasticMenuTransitionDelegate{
 }
 ```
 
-You can do this either by using storyboard or programatically. See the example project.
+You can do this either by using storyboard(IBOutlet) or programatically. See the example project.
 
 Note:
 * contentView should be a subview of self.view
 * contentView should be placed along the edge specified to the transition
-* contentView should have a clear background color
+* contentView should have a *clear* background color
 * lastly, set self.view.backgroundColor to be the color you desire
 
 ## How does it work?
