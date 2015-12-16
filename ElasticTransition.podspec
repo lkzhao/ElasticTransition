@@ -15,11 +15,13 @@ Pod::Spec.new do |s|
   s.license          = 'MIT'
   s.author           = { "Luke" => "lzhaoyilun@gmail.com" }
   s.source           = { :git => "https://github.com/lkzhao/ElasticTransition.git", :tag => s.version.to_s }
-  s.platform     = :ios, '9.0'
+  
+  s.ios.deployment_target  = '9.0'
+  s.ios.frameworks         = 'UIKit', 'Foundation'
+
   s.requires_arc = true
 
   s.source_files = 'ElasticTransition/*.swift'
 
-  s.frameworks = ['UIKit', 'Foundation']
   # s.dependency 'pop', '~> 1.0'
 end

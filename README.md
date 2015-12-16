@@ -23,7 +23,7 @@ coming soon.
 
 ####Manual
 
-Clone and add ElasticTransition folder into your project.
+[Download](https://github.com/lkzhao/ElasticTransition/archive/master.zip) and add ElasticTransition folder into your project.
 
 ## Usage
 
