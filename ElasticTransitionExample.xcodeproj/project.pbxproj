@@ -1,0 +1,330 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B12BC0971C21FA470016D774 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BC0961C21FA470016D774 /* AppDelegate.swift */; };
+		B12BC0991C21FA470016D774 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BC0981C21FA470016D774 /* ViewController.swift */; };
+		B12BC09C1C21FA470016D774 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B12BC09A1C21FA470016D774 /* Main.storyboard */; };
+		B12BC09E1C21FA470016D774 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B12BC09D1C21FA470016D774 /* Assets.xcassets */; };
+		B12BC0A11C21FA470016D774 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B12BC09F1C21FA470016D774 /* LaunchScreen.storyboard */; };
+		B12BC0AC1C21FA7E0016D774 /* CustomMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BC0A81C21FA7E0016D774 /* CustomMenuViewController.swift */; };
+		B12BC0AD1C21FA7E0016D774 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BC0A91C21FA7E0016D774 /* DetailViewController.swift */; };
+		B12BC0AE1C21FA7E0016D774 /* LeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BC0AA1C21FA7E0016D774 /* LeftMenuViewController.swift */; };
+		B12BC0AF1C21FA7E0016D774 /* RightMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BC0AB1C21FA7E0016D774 /* RightMenuViewController.swift */; };
+		B12BC0B31C21FA910016D774 /* ElasticMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BC0B01C21FA910016D774 /* ElasticMenuViewController.swift */; };
+		B12BC0B41C21FA910016D774 /* ElasticShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BC0B11C21FA910016D774 /* ElasticShapeLayer.swift */; };
+		B12BC0B51C21FA910016D774 /* ElasticTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BC0B21C21FA910016D774 /* ElasticTransition.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		B12BC0931C21FA470016D774 /* ElasticTransitionExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ElasticTransitionExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B12BC0961C21FA470016D774 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B12BC0981C21FA470016D774 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B12BC09B1C21FA470016D774 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B12BC09D1C21FA470016D774 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B12BC0A01C21FA470016D774 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B12BC0A21C21FA470016D774 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B12BC0A81C21FA7E0016D774 /* CustomMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomMenuViewController.swift; sourceTree = "<group>"; };
+		B12BC0A91C21FA7E0016D774 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		B12BC0AA1C21FA7E0016D774 /* LeftMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftMenuViewController.swift; sourceTree = "<group>"; };
+		B12BC0AB1C21FA7E0016D774 /* RightMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightMenuViewController.swift; sourceTree = "<group>"; };
+		B12BC0B01C21FA910016D774 /* ElasticMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ElasticMenuViewController.swift; path = ElasticTransition/ElasticMenuViewController.swift; sourceTree = SOURCE_ROOT; };
+		B12BC0B11C21FA910016D774 /* ElasticShapeLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ElasticShapeLayer.swift; path = ElasticTransition/ElasticShapeLayer.swift; sourceTree = SOURCE_ROOT; };
+		B12BC0B21C21FA910016D774 /* ElasticTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ElasticTransition.swift; path = ElasticTransition/ElasticTransition.swift; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B12BC0901C21FA470016D774 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B12BC08A1C21FA470016D774 = {
+			isa = PBXGroup;
+			children = (
+				B12BC0951C21FA470016D774 /* ElasticTransitionExample */,
+				B12BC0941C21FA470016D774 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B12BC0941C21FA470016D774 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B12BC0931C21FA470016D774 /* ElasticTransitionExample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B12BC0951C21FA470016D774 /* ElasticTransitionExample */ = {
+			isa = PBXGroup;
+			children = (
+				B12BC0B61C21FA960016D774 /* ElasticTransition */,
+				B12BC0961C21FA470016D774 /* AppDelegate.swift */,
+				B12BC0981C21FA470016D774 /* ViewController.swift */,
+				B12BC0A81C21FA7E0016D774 /* CustomMenuViewController.swift */,
+				B12BC0A91C21FA7E0016D774 /* DetailViewController.swift */,
+				B12BC0AA1C21FA7E0016D774 /* LeftMenuViewController.swift */,
+				B12BC0AB1C21FA7E0016D774 /* RightMenuViewController.swift */,
+				B12BC09A1C21FA470016D774 /* Main.storyboard */,
+				B12BC09D1C21FA470016D774 /* Assets.xcassets */,
+				B12BC09F1C21FA470016D774 /* LaunchScreen.storyboard */,
+				B12BC0A21C21FA470016D774 /* Info.plist */,
+			);
+			path = ElasticTransitionExample;
+			sourceTree = "<group>";
+		};
+		B12BC0B61C21FA960016D774 /* ElasticTransition */ = {
+			isa = PBXGroup;
+			children = (
+				B12BC0B01C21FA910016D774 /* ElasticMenuViewController.swift */,
+				B12BC0B11C21FA910016D774 /* ElasticShapeLayer.swift */,
+				B12BC0B21C21FA910016D774 /* ElasticTransition.swift */,
+			);
+			name = ElasticTransition;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B12BC0921C21FA470016D774 /* ElasticTransitionExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B12BC0A51C21FA470016D774 /* Build configuration list for PBXNativeTarget "ElasticTransitionExample" */;
+			buildPhases = (
+				B12BC08F1C21FA470016D774 /* Sources */,
+				B12BC0901C21FA470016D774 /* Frameworks */,
+				B12BC0911C21FA470016D774 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ElasticTransitionExample;
+			productName = ElasticTransitionExample;
+			productReference = B12BC0931C21FA470016D774 /* ElasticTransitionExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B12BC08B1C21FA470016D774 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = lkzhao;
+				TargetAttributes = {
+					B12BC0921C21FA470016D774 = {
+						CreatedOnToolsVersion = 7.2;
+					};
+				};
+			};
+			buildConfigurationList = B12BC08E1C21FA470016D774 /* Build configuration list for PBXProject "ElasticTransitionExample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B12BC08A1C21FA470016D774;
+			productRefGroup = B12BC0941C21FA470016D774 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B12BC0921C21FA470016D774 /* ElasticTransitionExample */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B12BC0911C21FA470016D774 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B12BC0A11C21FA470016D774 /* LaunchScreen.storyboard in Resources */,
+				B12BC09E1C21FA470016D774 /* Assets.xcassets in Resources */,
+				B12BC09C1C21FA470016D774 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B12BC08F1C21FA470016D774 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B12BC0991C21FA470016D774 /* ViewController.swift in Sources */,
+				B12BC0B31C21FA910016D774 /* ElasticMenuViewController.swift in Sources */,
+				B12BC0AC1C21FA7E0016D774 /* CustomMenuViewController.swift in Sources */,
+				B12BC0B51C21FA910016D774 /* ElasticTransition.swift in Sources */,
+				B12BC0971C21FA470016D774 /* AppDelegate.swift in Sources */,
+				B12BC0AD1C21FA7E0016D774 /* DetailViewController.swift in Sources */,
+				B12BC0B41C21FA910016D774 /* ElasticShapeLayer.swift in Sources */,
+				B12BC0AF1C21FA7E0016D774 /* RightMenuViewController.swift in Sources */,
+				B12BC0AE1C21FA7E0016D774 /* LeftMenuViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		B12BC09A1C21FA470016D774 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B12BC09B1C21FA470016D774 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		B12BC09F1C21FA470016D774 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B12BC0A01C21FA470016D774 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B12BC0A31C21FA470016D774 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B12BC0A41C21FA470016D774 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B12BC0A61C21FA470016D774 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = ElasticTransitionExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lkzhao.ElasticTransitionExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		B12BC0A71C21FA470016D774 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = ElasticTransitionExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lkzhao.ElasticTransitionExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B12BC08E1C21FA470016D774 /* Build configuration list for PBXProject "ElasticTransitionExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B12BC0A31C21FA470016D774 /* Debug */,
+				B12BC0A41C21FA470016D774 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B12BC0A51C21FA470016D774 /* Build configuration list for PBXNativeTarget "ElasticTransitionExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B12BC0A61C21FA470016D774 /* Debug */,
+				B12BC0A71C21FA470016D774 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B12BC08B1C21FA470016D774 /* Project object */;
+}
