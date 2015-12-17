@@ -1,5 +1,5 @@
 //
-//  LeftMenuViewController.swift
+//  OptionsViewController.swift
 //  ElasticTransition
 //
 //  Created by Luke Zhao on 2015-12-08.
@@ -29,7 +29,7 @@ class SliderCell:UITableViewCell{
     onChange?(value: sender.value)
   }
 }
-class LeftMenuViewController: UIViewController, ElasticMenuTransitionDelegate {
+class OptionsViewController: UIViewController, ElasticMenuTransitionDelegate {
   @IBOutlet weak var contentView: UIView!
   @IBOutlet weak var tableView: UITableView!
   
@@ -53,7 +53,6 @@ class LeftMenuViewController: UIViewController, ElasticMenuTransitionDelegate {
       }),
     ]
     tableView.reloadData()
-    tableView.contentInset = UIEdgeInsets(top: 60, left: 0, bottom: 0, right: 0)
   }
   
   override func preferredStatusBarStyle() -> UIStatusBarStyle {
@@ -61,7 +60,7 @@ class LeftMenuViewController: UIViewController, ElasticMenuTransitionDelegate {
   }
 }
 
-extension LeftMenuViewController: UITableViewDelegate, UITableViewDataSource{
+extension OptionsViewController: UITableViewDelegate, UITableViewDataSource{
   func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     return 1
   }

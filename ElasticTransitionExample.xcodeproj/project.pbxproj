@@ -8,32 +8,32 @@
 
 /* Begin PBXBuildFile section */
 		B12BC0971C21FA470016D774 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BC0961C21FA470016D774 /* AppDelegate.swift */; };
-		B12BC0991C21FA470016D774 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BC0981C21FA470016D774 /* ViewController.swift */; };
 		B12BC09C1C21FA470016D774 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B12BC09A1C21FA470016D774 /* Main.storyboard */; };
 		B12BC09E1C21FA470016D774 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B12BC09D1C21FA470016D774 /* Assets.xcassets */; };
 		B12BC0A11C21FA470016D774 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B12BC09F1C21FA470016D774 /* LaunchScreen.storyboard */; };
-		B12BC0AC1C21FA7E0016D774 /* CustomMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BC0A81C21FA7E0016D774 /* CustomMenuViewController.swift */; };
-		B12BC0AE1C21FA7E0016D774 /* LeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BC0AA1C21FA7E0016D774 /* LeftMenuViewController.swift */; };
-		B12BC0AF1C21FA7E0016D774 /* RightMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BC0AB1C21FA7E0016D774 /* RightMenuViewController.swift */; };
+		B12BC0AC1C21FA7E0016D774 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BC0A81C21FA7E0016D774 /* AboutViewController.swift */; };
+		B12BC0AE1C21FA7E0016D774 /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BC0AA1C21FA7E0016D774 /* OptionsViewController.swift */; };
+		B12BC0AF1C21FA7E0016D774 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BC0AB1C21FA7E0016D774 /* MenuViewController.swift */; };
 		B12BC0B31C21FA910016D774 /* ElasticMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BC0B01C21FA910016D774 /* ElasticMenuViewController.swift */; };
 		B12BC0B41C21FA910016D774 /* ElasticShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BC0B11C21FA910016D774 /* ElasticShapeLayer.swift */; };
 		B12BC0B51C21FA910016D774 /* ElasticTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BC0B21C21FA910016D774 /* ElasticTransition.swift */; };
+		B12BC0B81C222C8F0016D774 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BC0B71C222C8F0016D774 /* InitialViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		B12BC0931C21FA470016D774 /* ElasticTransitionExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ElasticTransitionExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B12BC0961C21FA470016D774 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B12BC0981C21FA470016D774 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B12BC09B1C21FA470016D774 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B12BC09D1C21FA470016D774 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B12BC0A01C21FA470016D774 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B12BC0A21C21FA470016D774 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B12BC0A81C21FA7E0016D774 /* CustomMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomMenuViewController.swift; sourceTree = "<group>"; };
-		B12BC0AA1C21FA7E0016D774 /* LeftMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftMenuViewController.swift; sourceTree = "<group>"; };
-		B12BC0AB1C21FA7E0016D774 /* RightMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightMenuViewController.swift; sourceTree = "<group>"; };
+		B12BC0A81C21FA7E0016D774 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		B12BC0AA1C21FA7E0016D774 /* OptionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
+		B12BC0AB1C21FA7E0016D774 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		B12BC0B01C21FA910016D774 /* ElasticMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ElasticMenuViewController.swift; path = ElasticTransition/ElasticMenuViewController.swift; sourceTree = SOURCE_ROOT; };
 		B12BC0B11C21FA910016D774 /* ElasticShapeLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ElasticShapeLayer.swift; path = ElasticTransition/ElasticShapeLayer.swift; sourceTree = SOURCE_ROOT; };
 		B12BC0B21C21FA910016D774 /* ElasticTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ElasticTransition.swift; path = ElasticTransition/ElasticTransition.swift; sourceTree = SOURCE_ROOT; };
+		B12BC0B71C222C8F0016D774 /* InitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InitialViewController.swift; path = ../../InitialViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,10 +68,10 @@
 			children = (
 				B12BC0B61C21FA960016D774 /* ElasticTransition */,
 				B12BC0961C21FA470016D774 /* AppDelegate.swift */,
-				B12BC0981C21FA470016D774 /* ViewController.swift */,
-				B12BC0A81C21FA7E0016D774 /* CustomMenuViewController.swift */,
-				B12BC0AA1C21FA7E0016D774 /* LeftMenuViewController.swift */,
-				B12BC0AB1C21FA7E0016D774 /* RightMenuViewController.swift */,
+				B12BC0B71C222C8F0016D774 /* InitialViewController.swift */,
+				B12BC0A81C21FA7E0016D774 /* AboutViewController.swift */,
+				B12BC0AA1C21FA7E0016D774 /* OptionsViewController.swift */,
+				B12BC0AB1C21FA7E0016D774 /* MenuViewController.swift */,
 				B12BC09A1C21FA470016D774 /* Main.storyboard */,
 				B12BC09D1C21FA470016D774 /* Assets.xcassets */,
 				B12BC09F1C21FA470016D774 /* LaunchScreen.storyboard */,
@@ -161,14 +161,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B12BC0991C21FA470016D774 /* ViewController.swift in Sources */,
 				B12BC0B31C21FA910016D774 /* ElasticMenuViewController.swift in Sources */,
-				B12BC0AC1C21FA7E0016D774 /* CustomMenuViewController.swift in Sources */,
+				B12BC0AC1C21FA7E0016D774 /* AboutViewController.swift in Sources */,
+				B12BC0B81C222C8F0016D774 /* InitialViewController.swift in Sources */,
 				B12BC0B51C21FA910016D774 /* ElasticTransition.swift in Sources */,
 				B12BC0971C21FA470016D774 /* AppDelegate.swift in Sources */,
 				B12BC0B41C21FA910016D774 /* ElasticShapeLayer.swift in Sources */,
-				B12BC0AF1C21FA7E0016D774 /* RightMenuViewController.swift in Sources */,
-				B12BC0AE1C21FA7E0016D774 /* LeftMenuViewController.swift in Sources */,
+				B12BC0AF1C21FA7E0016D774 /* MenuViewController.swift in Sources */,
+				B12BC0AE1C21FA7E0016D774 /* OptionsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

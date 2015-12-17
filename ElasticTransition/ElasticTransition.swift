@@ -299,7 +299,7 @@ public class ElasticTransition: EdgePanTransition{
     lb.action = {
       if finalPoint.distance(self.cc.center) < 1 &&
          finalPoint.distance(self.lc.center) < 1 &&
-         self.lastPoint.distance(self.cc.center) < 0.05{
+        self.lastPoint.distance(self.cc.center) < 0.05{
           self.cc.center = finalPoint
           self.lc.center = finalPoint
           self.updateShape()
@@ -349,6 +349,8 @@ public class ElasticTransition: EdgePanTransition{
 public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning, UIViewControllerTransitioningDelegate, UIGestureRecognizerDelegate{
   public var transitionDuration = 0.7
   public var panThreshold:CGFloat = 0.2
+  public var autoSetupPresentGestureRecognizer = true
+  public var autoSetupDismissGestureRecognizer = true
   public var edge:Edge = .Left{
     didSet{
       enterPanGesture.edges = edge.toUIRectEdge()
@@ -357,9 +359,11 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
   public var segueIdentifier = "menu"
   public var backViewController: UIViewController! {
     didSet {
-      backViewController.view.addGestureRecognizer(self.enterPanGesture)
       backViewController.transitioningDelegate = self
       backViewController.modalPresentationStyle = .OverCurrentContext;
+      if autoSetupPresentGestureRecognizer {
+        backViewController.view.addGestureRecognizer(self.enterPanGesture)
+      }
     }
   }
   
@@ -367,7 +371,9 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
     didSet {
       frontViewController.transitioningDelegate = self
       frontViewController.modalPresentationStyle = .OverCurrentContext;
-      frontViewController.view.addGestureRecognizer(self.exitPanGesture)
+      if autoSetupDismissGestureRecognizer {
+        frontViewController.view.addGestureRecognizer(self.exitPanGesture)
+      }
     }
   }
   
@@ -420,7 +426,6 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
   }
   
   private func update(){
-    
   }
   
   private func setup(){
@@ -430,48 +435,73 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
   private func clean(finished: Bool){
     // bug: http://openradar.appspot.com/radar?id=5320103646199808
     UIApplication.sharedApplication().keyWindow!.addSubview(finished ? toView : fromView)
-
+    
+    if presenting && !interactive{
+      backViewController.viewWillAppear(true)
+    }
     if(!presenting && finished || presenting && !finished){
       frontView.removeFromSuperview()
-      self.backView.layer.transform = CATransform3DIdentity
-      self.backView.frame = container.bounds
+      backView.layer.transform = CATransform3DIdentity
+      backView.frame = container.bounds
       backViewController.viewDidAppear(true)
     }
     
-    transitioning = false
+    currentPanGR = nil
     interactive = false
+    transitioning = false
     transitionContext.completeTransition(finished)
   }
   
+  private var currentPanGR: UIPanGestureRecognizer?
   func handleOnstagePan(pan: UIPanGestureRecognizer){
     switch (pan.state) {
     case UIGestureRecognizerState.Began:
-      self.interactive = true
-      self.backViewController.performSegueWithIdentifier(segueIdentifier, sender: self)
-      self.translation = pan.translationInView(container)
-      self.dragPoint = pan.locationInView(container)
-    case UIGestureRecognizerState.Changed:
-      self.translation = pan.translationInView(container)
-      self.dragPoint = pan.locationInView(container)
+      startInteractiveSegue(segueIdentifier, pan: pan)
     default:
-      endInteractiveTransition()
+      updateInteractiveSegue(pan)
     }
   }
-  
   func handleOffstagePan(pan: UIPanGestureRecognizer){
     switch (pan.state) {
     case UIGestureRecognizerState.Began:
-      self.interactive = true
-      self.frontViewController.dismissViewControllerAnimated(true, completion: nil)
-      self.translation = pan.translationInView(container)
-      self.dragPoint = pan.locationInView(container)
-    case UIGestureRecognizerState.Changed:
-      self.translation = pan.translationInView(container)
-      self.dragPoint = pan.locationInView(container)
+      dissmissInteractiveSegue(segueIdentifier, pan: pan, completion: nil)
     default:
+      updateInteractiveSegue(pan)
+    }
+  }
+  
+  private func startInteractiveSegue(identifier:String, pan:UIPanGestureRecognizer, presenting:Bool, completion:(() -> Void)? = nil){
+    interactive = true
+    currentPanGR = pan
+    backViewController.transitioningDelegate = self
+    if presenting{
+      backViewController.performSegueWithIdentifier(identifier, sender: self)
+    }else{
+      frontViewController.dismissViewControllerAnimated(true, completion: completion)
+    }
+    frontViewController.transitioningDelegate = self
+    translation = pan.translationInView(container)
+    dragPoint = pan.locationInView(container)
+  }
+  
+  public func updateInteractiveSegue(pan:UIPanGestureRecognizer){
+    if !transitioning{
+      fatalError("Interactive Transition not started")
+    }
+    if pan.state == .Changed{
+      translation = pan.translationInView(container)
+      dragPoint = pan.locationInView(container)
+    }else{
       endInteractiveTransition()
     }
   }
+  public func startInteractiveSegue(identifier:String, pan:UIPanGestureRecognizer){
+    self.startInteractiveSegue(identifier, pan: pan, presenting: true)
+  }
+  public func dissmissInteractiveSegue(identifier:String, pan:UIPanGestureRecognizer, completion:(() -> Void)?){
+    self.startInteractiveSegue(identifier, pan: pan, presenting: false, completion: completion)
+  }
+  
   
   public func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
     self.transitionContext = transitionContext
@@ -509,24 +539,27 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
     self.transitionContext.finishInteractiveTransition()
   }
   private func endInteractiveTransition(){
-    let pan = presenting ? enterPanGesture : exitPanGesture
-    let translation = pan.translationInView(pan.view!)
-    var progress:CGFloat
-    switch edge{
-    case .Left:
-      progress =  translation.x / pan.view!.frame.width
-    case .Right:
-      progress =  translation.x / pan.view!.frame.width * -1
-    case .Bottom:
-      progress =  translation.y / pan.view!.frame.height * -1
-    case .Top:
-      progress =  translation.y / pan.view!.frame.height
-    }
-    progress = presenting ? progress : -progress
-    if(progress > panThreshold){
+    if let pan = currentPanGR{
+      let translation = pan.translationInView(pan.view!)
+      var progress:CGFloat
+      switch edge{
+      case .Left:
+        progress =  translation.x / pan.view!.frame.width
+      case .Right:
+        progress =  translation.x / pan.view!.frame.width * -1
+      case .Bottom:
+        progress =  translation.y / pan.view!.frame.height * -1
+      case .Top:
+        progress =  translation.y / pan.view!.frame.height
+      }
+      progress = presenting ? progress : -progress
+      if(progress > panThreshold){
+        self.finishInteractiveTransition()
+      } else {
+        self.cancelInteractiveTransition()
+      }
+    }else{
       self.finishInteractiveTransition()
-    } else {
-      self.cancelInteractiveTransition()
     }
   }
   

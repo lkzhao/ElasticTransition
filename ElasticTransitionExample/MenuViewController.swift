@@ -1,5 +1,5 @@
 //
-//  RightMenuViewController.swift
+//  MenuViewController.swift
 //  ElasticTransition
 //
 //  Created by Luke Zhao on 2015-12-09.
@@ -8,12 +8,11 @@
 
 import UIKit
 
-class RightMenuViewController: ElasticMenuViewController {
-  override var edge:UIRectEdge{
-    return .Right
-  }
+class MenuViewController: ElasticMenuViewController {
+
+  
   override func viewDidLoad() {
     super.viewDidLoad()
-    menuWidth = 200
+    menuWidth = 300
   }
 }

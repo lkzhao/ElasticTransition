@@ -32,9 +32,16 @@ public class ElasticMenuViewController: UIViewController, ElasticMenuTransitionD
   }
   var tableView: UITableView!
   
-  public var edge:UIRectEdge{
-    return .Left
+  public var edge:UIRectEdge = .Left{
+    didSet{
+      if leftConstraint != nil && rightConstraint != nil{
+        (edge != .Left ? leftConstraint : rightConstraint).active = false
+        (edge == .Left ? leftConstraint : rightConstraint).active = true
+      }
+    }
   }
+  var leftConstraint: NSLayoutConstraint!
+  var rightConstraint: NSLayoutConstraint!
   var menuWidthConstraint: NSLayoutConstraint!
   public var menuWidth:CGFloat{
     get{
@@ -68,11 +75,9 @@ public class ElasticMenuViewController: UIViewController, ElasticMenuTransitionD
     
     tableView.topAnchor.constraintEqualToAnchor(view.topAnchor).active = true
     tableView.bottomAnchor.constraintEqualToAnchor(view.bottomAnchor).active = true
-    if edge == .Left{
-      tableView.leftAnchor.constraintEqualToAnchor(view.leftAnchor).active = true
-    }else{
-      tableView.rightAnchor.constraintEqualToAnchor(view.rightAnchor).active = true
-    }
+    leftConstraint = tableView.leftAnchor.constraintEqualToAnchor(view.leftAnchor)
+    rightConstraint = tableView.rightAnchor.constraintEqualToAnchor(view.rightAnchor)
+    (edge == .Left ? leftConstraint : rightConstraint).active = true
     menuWidthConstraint = tableView.widthAnchor.constraintEqualToConstant(300)
     menuWidthConstraint.active = true
     
