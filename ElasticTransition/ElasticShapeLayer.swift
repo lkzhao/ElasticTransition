@@ -98,7 +98,7 @@ public class ElasticShapeLayer: CAShapeLayer {
   }
   
   private func currentPath() -> CGPath {
-    let centerPoint = dragPoint
+    var centerPoint = dragPoint
     
     let leftPoint:CGPoint,rightPoint:CGPoint,bottomRightPoint:CGPoint,bottomLeftPoint:CGPoint
     switch edge{
@@ -149,6 +149,16 @@ public class ElasticShapeLayer: CAShapeLayer {
         controlPoint2: rightControl)
     }else{
       let rightControl:CGPoint,leftControl:CGPoint,rightRightControl:CGPoint,leftLeftControl:CGPoint;
+      switch edge{
+      case .Top:
+        centerPoint.y += (centerPoint.y - bounds.minY)/4
+      case .Bottom:
+        centerPoint.y += (centerPoint.y - bounds.maxY)/4
+      case .Left:
+        centerPoint.x += (centerPoint.x - bounds.minX)/4
+      case .Right:
+        centerPoint.x += (centerPoint.x - bounds.maxX)/4
+      }
       switch edge{
       case .Top,.Bottom:
         rightControl = CGPointMake((rightPoint.x - centerPoint.x)*radiusFactor+centerPoint.x, (centerPoint.y + rightPoint.y)/2)

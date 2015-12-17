@@ -140,9 +140,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YmS-g9-OK0">
-                                <rect key="frame" x="134" y="269" width="54" height="30"/>
-                                <state key="normal" title="Options"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YmS-g9-OK0">
+                                <rect key="frame" x="133" y="269" width="54" height="30"/>
+                                <state key="normal" title="Options">
+                                    <color key="titleColor" red="0.94718671089999995" green="0.27267497660000001" blue="0.39637526699999998" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <segue destination="dMk-jf-SM1" kind="show" identifier="options" id="VGu-h9-ziC"/>
                                 </connections>
@@ -154,14 +156,16 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L2W-zX-Bxb">
-                                <rect key="frame" x="139" y="307" width="42" height="30"/>
-                                <state key="normal" title="About"/>
+                                <rect key="frame" x="139" y="315" width="42" height="30"/>
+                                <state key="normal" title="About">
+                                    <color key="titleColor" red="0.94718671089999995" green="0.27267497660000001" blue="0.39637526699999998" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <segue destination="Foz-KP-l0e" kind="show" identifier="about" id="lcs-CV-vdW"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Try dragging from the left edge" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="syD-b3-2jf">
-                                <rect key="frame" x="41" y="187.5" width="239" height="20.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Try dragging from the edges" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="syD-b3-2jf">
+                                <rect key="frame" x="51.5" y="195.5" width="218.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.55003960240000005" green="0.58265847270000004" blue="0.69884390780000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -171,11 +175,11 @@
                         <constraints>
                             <constraint firstItem="syD-b3-2jf" firstAttribute="centerX" secondItem="SWv-9d-dU9" secondAttribute="centerX" id="LGE-mZ-o15"/>
                             <constraint firstItem="YmS-g9-OK0" firstAttribute="centerX" secondItem="SWv-9d-dU9" secondAttribute="centerX" id="LQv-5l-hgE"/>
-                            <constraint firstItem="syD-b3-2jf" firstAttribute="top" secondItem="oU3-Oa-yIE" secondAttribute="bottom" constant="16" id="LRg-N8-ypW"/>
+                            <constraint firstItem="syD-b3-2jf" firstAttribute="top" secondItem="oU3-Oa-yIE" secondAttribute="bottom" constant="24" id="LRg-N8-ypW"/>
                             <constraint firstItem="YmS-g9-OK0" firstAttribute="centerY" secondItem="SWv-9d-dU9" secondAttribute="centerY" id="XHy-Lv-392"/>
                             <constraint firstItem="L2W-zX-Bxb" firstAttribute="centerX" secondItem="SWv-9d-dU9" secondAttribute="centerX" id="b0l-fF-9gt"/>
                             <constraint firstItem="oU3-Oa-yIE" firstAttribute="top" secondItem="I7o-Rc-3hj" secondAttribute="bottom" constant="120" id="bZQ-QR-YJV"/>
-                            <constraint firstItem="L2W-zX-Bxb" firstAttribute="top" secondItem="YmS-g9-OK0" secondAttribute="bottom" constant="8" id="dHF-Eq-bxo"/>
+                            <constraint firstItem="L2W-zX-Bxb" firstAttribute="top" secondItem="YmS-g9-OK0" secondAttribute="bottom" constant="16" id="dHF-Eq-bxo"/>
                             <constraint firstItem="oU3-Oa-yIE" firstAttribute="centerX" secondItem="SWv-9d-dU9" secondAttribute="centerX" id="dqI-6e-Gav"/>
                         </constraints>
                     </view>
@@ -244,7 +248,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.94718671089999995" green="0.27267497660000001" blue="0.39637526699999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.94117647059999998" green="0.35294117650000001" blue="0.32549019610000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="ejg-4q-4y5" firstAttribute="top" secondItem="kMs-k7-VKd" secondAttribute="topMargin" id="VHv-uQ-Ore"/>
                             <constraint firstAttribute="trailing" secondItem="ejg-4q-4y5" secondAttribute="trailing" id="nJ1-c0-71Q"/>

@@ -486,7 +486,7 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
   
   public func updateInteractiveSegue(pan:UIPanGestureRecognizer){
     if !transitioning{
-      fatalError("Interactive Transition not started")
+      return
     }
     if pan.state == .Changed{
       translation = pan.translationInView(container)
