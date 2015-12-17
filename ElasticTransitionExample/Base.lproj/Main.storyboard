@@ -225,26 +225,65 @@
                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ejg-4q-4y5">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Confirmation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XhU-TH-DO3">
-                                        <rect key="frame" x="110" y="184" width="99" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5qW-Zo-wC9">
-                                        <rect key="frame" x="132" y="415" width="54" height="30"/>
-                                        <state key="normal" title="Dismiss"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5qW-Zo-wC9">
+                                        <rect key="frame" x="18" y="26" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="3Ti-YU-5Yi"/>
+                                            <constraint firstAttribute="height" constant="40" id="K9Q-ai-eTb"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" image="ic_close">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
                                         <connections>
                                             <action selector="dismiss:" destination="Foz-KP-l0e" eventType="touchUpInside" id="EPb-62-d6X"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="from Waterloo, ON" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wVZ-Qz-CNe">
+                                        <rect key="frame" x="99" y="499" width="142.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.47869318181818177" green="0.18874290388502546" blue="0.10532542031822743" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vIK-gd-Qo9">
+                                        <rect key="frame" x="63" y="490" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="mEP-yC-NAV"/>
+                                            <constraint firstAttribute="width" constant="40" id="u41-kg-E1Z"/>
+                                        </constraints>
+                                        <color key="tintColor" red="0.47869318179999998" green="0.18874290390000001" blue="0.1053254203" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" image="ic_favorite">
+                                            <color key="titleColor" red="0.47869318179999998" green="0.18874290390000001" blue="0.1053254203" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="dismiss:" destination="Foz-KP-l0e" eventType="touchUpInside" id="uGz-C6-R4r"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="lkzhao.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ra6-w0-TkT">
+                                        <rect key="frame" x="119" y="453.5" width="83" height="19.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Luke Zhao" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pn0-kR-Uvn">
+                                        <rect key="frame" x="104" y="422.5" width="112.5" height="29"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="XhU-TH-DO3" firstAttribute="centerX" secondItem="ejg-4q-4y5" secondAttribute="centerX" id="E07-Tq-q8Q"/>
-                                    <constraint firstAttribute="bottom" secondItem="5qW-Zo-wC9" secondAttribute="bottom" constant="123" id="RkG-UD-Vmm"/>
-                                    <constraint firstItem="5qW-Zo-wC9" firstAttribute="centerX" secondItem="ejg-4q-4y5" secondAttribute="centerX" id="To7-lQ-8p6"/>
-                                    <constraint firstItem="XhU-TH-DO3" firstAttribute="top" secondItem="ejg-4q-4y5" secondAttribute="top" constant="36" id="u5w-bg-POh"/>
+                                    <constraint firstItem="pn0-kR-Uvn" firstAttribute="centerX" secondItem="ejg-4q-4y5" secondAttribute="centerX" id="8nR-5V-mgz"/>
+                                    <constraint firstItem="wVZ-Qz-CNe" firstAttribute="centerY" secondItem="vIK-gd-Qo9" secondAttribute="centerY" id="CQo-zk-Yxh"/>
+                                    <constraint firstItem="ra6-w0-TkT" firstAttribute="top" secondItem="pn0-kR-Uvn" secondAttribute="bottom" constant="2" id="MkV-ia-OcY"/>
+                                    <constraint firstAttribute="bottom" secondItem="wVZ-Qz-CNe" secondAttribute="bottom" constant="48" id="Wlb-Kh-DeU"/>
+                                    <constraint firstItem="wVZ-Qz-CNe" firstAttribute="top" secondItem="ra6-w0-TkT" secondAttribute="bottom" constant="26" id="nwm-m4-92c"/>
+                                    <constraint firstItem="5qW-Zo-wC9" firstAttribute="leading" secondItem="ejg-4q-4y5" secondAttribute="leading" constant="18" id="sck-Nm-WF0"/>
+                                    <constraint firstItem="wVZ-Qz-CNe" firstAttribute="leading" secondItem="vIK-gd-Qo9" secondAttribute="trailing" constant="-4" id="u66-8F-80r"/>
+                                    <constraint firstItem="5qW-Zo-wC9" firstAttribute="top" secondItem="ejg-4q-4y5" secondAttribute="top" constant="26" id="xka-y6-YG3"/>
+                                    <constraint firstItem="wVZ-Qz-CNe" firstAttribute="centerX" secondItem="ejg-4q-4y5" secondAttribute="centerX" constant="10" id="zM1-RA-dEg"/>
+                                    <constraint firstItem="ra6-w0-TkT" firstAttribute="centerX" secondItem="ejg-4q-4y5" secondAttribute="centerX" id="zZQ-ey-1Np"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -265,4 +304,8 @@
             <point key="canvasLocation" x="440" y="393"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="ic_close" width="24" height="24"/>
+        <image name="ic_favorite" width="24" height="24"/>
+    </resources>
 </document>

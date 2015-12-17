@@ -15,4 +15,8 @@ class MenuViewController: ElasticMenuViewController {
     super.viewDidLoad()
     menuWidth = 300
   }
+  
+  override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    return 0
+  }
 }
