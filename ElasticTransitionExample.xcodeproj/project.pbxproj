@@ -33,7 +33,7 @@
 		B12BC0B01C21FA910016D774 /* ElasticMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ElasticMenuViewController.swift; path = ElasticTransition/ElasticMenuViewController.swift; sourceTree = SOURCE_ROOT; };
 		B12BC0B11C21FA910016D774 /* ElasticShapeLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ElasticShapeLayer.swift; path = ElasticTransition/ElasticShapeLayer.swift; sourceTree = SOURCE_ROOT; };
 		B12BC0B21C21FA910016D774 /* ElasticTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ElasticTransition.swift; path = ElasticTransition/ElasticTransition.swift; sourceTree = SOURCE_ROOT; };
-		B12BC0B71C222C8F0016D774 /* InitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InitialViewController.swift; path = ../../InitialViewController.swift; sourceTree = "<group>"; };
+		B12BC0B71C222C8F0016D774 /* InitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
