@@ -126,6 +126,7 @@ public class ElasticTransition: EdgePanTransition{
     return sticky ? menuWidth * panThreshold : 0
   }
   
+  // this is necessary for others to use this class
   public override init() {
     super.init()
   } 
