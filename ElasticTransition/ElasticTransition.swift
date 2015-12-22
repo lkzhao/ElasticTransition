@@ -126,6 +126,10 @@ public class ElasticTransition: EdgePanTransition{
     return sticky ? menuWidth * panThreshold : 0
   }
   
+  public override init() {
+    super.init()
+  } 
+  
   func finalPoint(presenting:Bool? = nil) -> CGPoint{
     let p = presenting ?? self.presenting
     switch edge{
