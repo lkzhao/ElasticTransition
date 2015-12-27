@@ -26,40 +26,7 @@ SOFTWARE.
 
 import UIKit
 
-let π:CGFloat = CGFloat(M_PI)
-public enum Edge{
-  case Top, Bottom, Left, Right
-  public func opposite() -> Edge{
-    switch self {
-    case .Left:
-      return .Right
-    case .Right:
-      return .Left
-    case .Bottom:
-      return .Top
-    case .Top:
-      return .Bottom
-    }
-  }
-  public func toUIRectEdge() -> UIRectEdge{
-    switch self {
-    case .Left:
-      return .Left
-    case .Right:
-      return .Right
-    case .Bottom:
-      return .Bottom
-    case .Top:
-      return .Top
-    }
-  }
-}
 
-public extension CGPoint{
-  public func transform(t:CGAffineTransform) -> CGPoint{
-    return CGPointApplyAffineTransform(self, t)
-  }
-}
 
 public class ElasticShapeLayer: CAShapeLayer {
   public var edge:Edge = .Bottom{

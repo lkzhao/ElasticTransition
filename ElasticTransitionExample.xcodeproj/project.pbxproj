@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A35F61D31C2A3740003012E4 /* EdgePanTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35F61D21C2A3740003012E4 /* EdgePanTransition.swift */; };
+		A35F61D51C2A386D003012E4 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35F61D41C2A386D003012E4 /* Util.swift */; };
 		B12BC0971C21FA470016D774 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BC0961C21FA470016D774 /* AppDelegate.swift */; };
 		B12BC09C1C21FA470016D774 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B12BC09A1C21FA470016D774 /* Main.storyboard */; };
 		B12BC09E1C21FA470016D774 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B12BC09D1C21FA470016D774 /* Assets.xcassets */; };
@@ -21,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A35F61D21C2A3740003012E4 /* EdgePanTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EdgePanTransition.swift; path = ElasticTransition/EdgePanTransition.swift; sourceTree = SOURCE_ROOT; };
+		A35F61D41C2A386D003012E4 /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Util.swift; path = ElasticTransition/Util.swift; sourceTree = SOURCE_ROOT; };
 		B12BC0931C21FA470016D774 /* ElasticTransitionExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ElasticTransitionExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B12BC0961C21FA470016D774 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B12BC09B1C21FA470016D774 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -86,6 +90,8 @@
 				B12BC0B01C21FA910016D774 /* ElasticMenuViewController.swift */,
 				B12BC0B11C21FA910016D774 /* ElasticShapeLayer.swift */,
 				B12BC0B21C21FA910016D774 /* ElasticTransition.swift */,
+				A35F61D41C2A386D003012E4 /* Util.swift */,
+				A35F61D21C2A3740003012E4 /* EdgePanTransition.swift */,
 			);
 			name = ElasticTransition;
 			sourceTree = "<group>";
@@ -166,7 +172,9 @@
 				B12BC0B81C222C8F0016D774 /* InitialViewController.swift in Sources */,
 				B12BC0B51C21FA910016D774 /* ElasticTransition.swift in Sources */,
 				B12BC0971C21FA470016D774 /* AppDelegate.swift in Sources */,
+				A35F61D31C2A3740003012E4 /* EdgePanTransition.swift in Sources */,
 				B12BC0B41C21FA910016D774 /* ElasticShapeLayer.swift in Sources */,
+				A35F61D51C2A386D003012E4 /* Util.swift in Sources */,
 				B12BC0AF1C21FA7E0016D774 /* MenuViewController.swift in Sources */,
 				B12BC0AE1C21FA7E0016D774 /* OptionsViewController.swift in Sources */,
 			);
