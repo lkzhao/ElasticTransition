@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "ElasticTransition"
-  s.version          = "1.0.0"
+  s.version          = "1.1.1"
   s.summary          = "A UIKit custom modal transition that simulates an elastic drag. Written in Swift."
 
   s.description      = <<-DESC
