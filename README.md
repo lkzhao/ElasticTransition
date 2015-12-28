@@ -11,7 +11,7 @@ A UIKit custom modal transition that simulates an elastic drag. Written in Swift
 ## Requirements
 
 * Xcode 7 or higher
-* iOS 9.0 or higher (an update is coming to support lower versions)
+* iOS 7.0 or higher
 * ARC
 * Swift 2.0
 
@@ -77,7 +77,6 @@ If you want to know the detail of the implementation, see it [here](https://gith
 ## Todo
 1. Better Guide and Documentation
 2. Cleanup Interface
-3. Support lower iOS versions(maybe by dropping UIKit Dynamics and use facebook Pop)
 4. More settings to customize
 5. Support navigation controller transition
 
