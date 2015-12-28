@@ -26,8 +26,8 @@ SOFTWARE.
 
 import UIKit
 
+@available(iOS 7.0, *)
 public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning, UIViewControllerTransitioningDelegate, UIGestureRecognizerDelegate{
-    public var transitionDuration = 0.7
     public var panThreshold:CGFloat = 0.2
     public var autoSetupPresentGestureRecognizer = true
     public var autoSetupDismissGestureRecognizer = true
@@ -40,7 +40,7 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
     public var backViewController: UIViewController! {
         didSet {
             backViewController.transitioningDelegate = self
-            backViewController.modalPresentationStyle = .OverCurrentContext;
+            backViewController.modalPresentationStyle = .Custom;
             if autoSetupPresentGestureRecognizer {
                 backViewController.view.addGestureRecognizer(self.enterPanGesture)
             }
@@ -50,7 +50,7 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
     public var frontViewController: UIViewController! {
         didSet {
             frontViewController.transitioningDelegate = self
-            frontViewController.modalPresentationStyle = .OverCurrentContext;
+            frontViewController.modalPresentationStyle = .Custom;
             if autoSetupDismissGestureRecognizer {
                 frontViewController.view.addGestureRecognizer(self.exitPanGesture)
             }
@@ -250,7 +250,7 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
     
     
     public func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
-        return transitionDuration
+        return 0.7
     }
     
     public func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {

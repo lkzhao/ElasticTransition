@@ -30,6 +30,7 @@ enum ElasticTransitionBackgroundTransform{
   case None, Rotate, Translate
 }
 
+@available(iOS 7.0, *)
 public protocol ElasticMenuTransitionDelegate{
   /**
    The view containting all the screen content
@@ -45,6 +46,7 @@ public protocol ElasticMenuTransitionDelegate{
   var contentView:UIView! {get}
 }
 
+@available(iOS 7.0, *)
 public class ElasticTransition: EdgePanTransition{
   
   /**
@@ -90,6 +92,12 @@ public class ElasticTransition: EdgePanTransition{
   
   // track using translation or direct touch position
   public var useTranlation = true
+  
+  public var damping:CGFloat = 0.2{
+    didSet{
+      damping = min(1.0, max(0.0, damping))
+    }
+  }
   
   var menuWidth:CGFloat{
     switch edge{
@@ -248,21 +256,14 @@ public class ElasticTransition: EdgePanTransition{
     
     cc = DynamicItem(center: initialPoint)
     lc = DynamicItem(center: initialPoint)
-    if interactive{
-      cb = CustomSnapBehavior(item: cc, point: dragPoint, useSnap: true)
-      cb.damping = 0.2
-      lb = CustomSnapBehavior(item: lc, point: dragPoint, useSnap: true)
-      lb.damping = 0.5
-    }else{
-      cb = CustomSnapBehavior(item: cc, point: dragPoint)
-      cb.length = 1
-      cb.damping = 0.5
-      cb.frequency = 2.5
-      lb = CustomSnapBehavior(item: lc, point: dragPoint)
-      lb.length = 1
-      lb.damping = 0.7
-      lb.frequency = 2.5
-    }
+    
+    cb = CustomSnapBehavior(item: cc, point: dragPoint)
+    cb.damping = damping
+    cb.frequency = 2.5
+    lb = CustomSnapBehavior(item: lc, point: dragPoint)
+    lb.damping = min(1.0, damping * 1.5)
+    lb.frequency = 2.5
+    
     update()
     cb.action = {
       self.updateShape()
@@ -330,6 +331,10 @@ public class ElasticTransition: EdgePanTransition{
     } else {
       self.cancelInteractiveTransition()
     }
+  }
+  
+  override public func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+    return NSTimeInterval(abs(damping - 0.2) * 0.5 + 0.7)
   }
 }
 

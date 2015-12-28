@@ -26,6 +26,7 @@ SOFTWARE.
 
 import UIKit
 
+@available(iOS 7.0, *)
 public class ElasticMenuViewController: UIViewController, ElasticMenuTransitionDelegate {
   public var contentView: UIView!{
     return tableView
@@ -35,8 +36,8 @@ public class ElasticMenuViewController: UIViewController, ElasticMenuTransitionD
   public var edge:UIRectEdge = .Left{
     didSet{
       if leftConstraint != nil && rightConstraint != nil{
-        (edge != .Left ? leftConstraint : rightConstraint).active = false
-        (edge == .Left ? leftConstraint : rightConstraint).active = true
+        view.removeConstraint(edge != .Left ? leftConstraint : rightConstraint)
+        view.addConstraint(edge == .Left ? leftConstraint : rightConstraint)
       }
     }
   }
@@ -73,13 +74,15 @@ public class ElasticMenuViewController: UIViewController, ElasticMenuTransitionD
     
     view.addSubview(tableView)
     
-    tableView.topAnchor.constraintEqualToAnchor(view.topAnchor).active = true
-    tableView.bottomAnchor.constraintEqualToAnchor(view.bottomAnchor).active = true
-    leftConstraint = tableView.leftAnchor.constraintEqualToAnchor(view.leftAnchor)
-    rightConstraint = tableView.rightAnchor.constraintEqualToAnchor(view.rightAnchor)
-    (edge == .Left ? leftConstraint : rightConstraint).active = true
-    menuWidthConstraint = tableView.widthAnchor.constraintEqualToConstant(300)
-    menuWidthConstraint.active = true
+    view.addConstraints([
+      NSLayoutConstraint(item: tableView, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: 0),
+      NSLayoutConstraint(item: tableView, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 0)
+      ])
+    leftConstraint = NSLayoutConstraint(item: tableView, attribute: NSLayoutAttribute.Left, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.Left, multiplier: 1, constant: 0)
+    rightConstraint = NSLayoutConstraint(item: tableView, attribute: NSLayoutAttribute.Right, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.Right, multiplier: 1, constant: 0)
+    menuWidthConstraint = NSLayoutConstraint(item: tableView, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 300)
+    view.addConstraint(edge == .Left ? leftConstraint : rightConstraint)
+    tableView.addConstraint(menuWidthConstraint)
     
     view.layoutIfNeeded()
     

@@ -29,98 +29,110 @@ import UIKit
 let π:CGFloat = CGFloat(M_PI)
 
 public enum Edge{
-    case Top, Bottom, Left, Right
-    public func opposite() -> Edge{
-        switch self {
-        case .Left:
-            return .Right
-        case .Right:
-            return .Left
-        case .Bottom:
-            return .Top
-        case .Top:
-            return .Bottom
-        }
+  case Top, Bottom, Left, Right
+  public func opposite() -> Edge{
+    switch self {
+    case .Left:
+      return .Right
+    case .Right:
+      return .Left
+    case .Bottom:
+      return .Top
+    case .Top:
+      return .Bottom
     }
-    public func toUIRectEdge() -> UIRectEdge{
-        switch self {
-        case .Left:
-            return .Left
-        case .Right:
-            return .Right
-        case .Bottom:
-            return .Bottom
-        case .Top:
-            return .Top
-        }
+  }
+  public func toUIRectEdge() -> UIRectEdge{
+    switch self {
+    case .Left:
+      return .Left
+    case .Right:
+      return .Right
+    case .Bottom:
+      return .Bottom
+    case .Top:
+      return .Top
     }
+  }
 }
 
 extension CGPoint{
-    func transform(t:CGAffineTransform) -> CGPoint{
-        return CGPointApplyAffineTransform(self, t)
-    }
-    
-    func distance(b:CGPoint)->CGFloat{
-        return sqrt(pow(self.x-b.x,2)+pow(self.y-b.y,2));
-    }
+  func translate(dx:CGFloat, dy:CGFloat) -> CGPoint{
+    return CGPointMake(self.x+dx, self.y+dy)
+  }
+  
+  func transform(t:CGAffineTransform) -> CGPoint{
+    return CGPointApplyAffineTransform(self, t)
+  }
+  
+  func distance(b:CGPoint)->CGFloat{
+    return sqrt(pow(self.x-b.x,2)+pow(self.y-b.y,2));
+  }
 }
 
 class DynamicItem:NSObject, UIDynamicItem{
-    var center: CGPoint = CGPointZero
-    var bounds: CGRect = CGRectMake(0, 0, 1, 1)
-    var transform: CGAffineTransform = CGAffineTransformIdentity
-    init(center:CGPoint) {
-        self.center = center
-        super.init()
-    }
+  var center: CGPoint = CGPointZero
+  var bounds: CGRect = CGRectMake(0, 0, 1, 1)
+  var transform: CGAffineTransform = CGAffineTransformIdentity
+  init(center:CGPoint) {
+    self.center = center
+    super.init()
+  }
 }
 
 class CustomSnapBehavior:UIDynamicBehavior {
-    var attachmentBehavior:UIAttachmentBehavior?
-    var snapBehavoir:UISnapBehavior?
+  var ab1:UIAttachmentBehavior!
+  var ab2:UIAttachmentBehavior!
+  var ab3:UIAttachmentBehavior!
+  var ab4:UIAttachmentBehavior!
+  
+  var item:UIDynamicItem
+  
+  var frequency:CGFloat = 1{
+    didSet{
+      ab1.frequency = frequency
+      ab2.frequency = frequency
+      ab3.frequency = frequency
+      ab4.frequency = frequency
+    }
+  }
+  var damping:CGFloat = 0{
+    didSet{
+      ab1.damping = damping
+      ab2.damping = damping
+      ab3.damping = damping
+      ab4.damping = damping
+    }
+  }
+  var point:CGPoint{
+    didSet{
+      updatePoints()
+    }
+  }
+  func updatePoints(){
+    ab1.anchorPoint = point.translate(50, dy: 0)
+    ab2.anchorPoint = point.translate(-50, dy: 0)
+    ab3.anchorPoint = point.translate(0, dy: 50)
+    ab4.anchorPoint = point.translate(0, dy: -50)
+  }
+  
+  init(item:UIDynamicItem, point:CGPoint, useSnap:Bool = false) {
+    self.item = item
+    self.point = point
+    super.init()
     
-    var length:CGFloat = 0{
-        didSet{
-            if let ab = attachmentBehavior{
-                ab.length = length
-            }
-        }
-    }
-    var frequency:CGFloat = 1{
-        didSet{
-            if let ab = attachmentBehavior{
-                ab.frequency = frequency
-            }
-        }
-    }
-    var damping:CGFloat = 0{
-        didSet{
-            if let ab = attachmentBehavior{
-                ab.damping = damping
-            }else{
-                snapBehavoir!.damping = damping
-            }
-        }
-    }
-    var point:CGPoint{
-        didSet{
-            if let ab = attachmentBehavior{
-                ab.anchorPoint = point
-            }else{
-                snapBehavoir!.snapPoint = point
-            }
-        }
-    }
-    init(item:UIDynamicItem, point:CGPoint, useSnap:Bool = false) {
-        self.point = point
-        super.init()
-        if useSnap{
-            snapBehavoir = UISnapBehavior(item: item, snapToPoint: point)
-            addChildBehavior(snapBehavoir!)
-        }else{
-            attachmentBehavior = UIAttachmentBehavior(item: item, attachedToAnchor: point)
-            addChildBehavior(attachmentBehavior!)
-        }
-    }
+    ab1 = UIAttachmentBehavior(item: item, attachedToAnchor: point)
+    addChildBehavior(ab1)
+    ab2 = UIAttachmentBehavior(item: item, attachedToAnchor: point)
+    addChildBehavior(ab2)
+    ab3 = UIAttachmentBehavior(item: item, attachedToAnchor: point)
+    addChildBehavior(ab3)
+    ab4 = UIAttachmentBehavior(item: item, attachedToAnchor: point)
+    addChildBehavior(ab4)
+    ab1.length = 50
+    ab2.length = 50
+    ab3.length = 50
+    ab4.length = 50
+    updatePoints()
+  }
 }

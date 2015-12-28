@@ -1,6 +1,6 @@
 //
 //  MenuViewController.swift
-//  ElasticTransition
+//  ElasticTransitionExample
 //
 //  Created by Luke Zhao on 2015-12-09.
 //  Copyright © 2015 lkzhao. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  OptionsViewController.swift
-//  ElasticTransition
+//  ElasticTransitionExample
 //
 //  Created by Luke Zhao on 2015-12-08.
 //  Copyright © 2015 lkzhao. All rights reserved.
@@ -32,6 +32,7 @@ class SliderCell:UITableViewCell{
 class OptionsViewController: UIViewController, ElasticMenuTransitionDelegate {
   @IBOutlet weak var contentView: UIView!
   @IBOutlet weak var tableView: UITableView!
+  @IBOutlet weak var contentViewHeight: NSLayoutConstraint!
   
   var menu:[LeftMenuType] = []
   
@@ -45,6 +46,9 @@ class OptionsViewController: UIViewController, ElasticMenuTransitionDelegate {
       .Switch(name: "Fancy Transform",on:tm.fancyTransform, onChange: {on in
         tm.fancyTransform = on
       }),
+      .Slider(name: "Damping", value:Float(tm.damping), onChange: {value in
+        tm.damping = CGFloat(value)
+      }),
       .Slider(name: "Radius Factor", value:Float(tm.radiusFactor)/0.5, onChange: {value in
         tm.radiusFactor = CGFloat(value) * CGFloat(0.5)
       }),
@@ -52,6 +56,12 @@ class OptionsViewController: UIViewController, ElasticMenuTransitionDelegate {
         tm.panThreshold = CGFloat(value)
       }),
     ]
+    
+    var height:CGFloat = 0
+    for i in 0..<menu.count{
+      height += self.tableView(self.tableView, heightForRowAtIndexPath: NSIndexPath(forRow:i, inSection:0))
+    }
+    contentViewHeight.constant = height
     tableView.reloadData()
   }
   
