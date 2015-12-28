@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   s.author           = { "Luke" => "lzhaoyilun@gmail.com" }
   s.source           = { :git => "https://github.com/lkzhao/ElasticTransition.git", :tag => s.version.to_s }
   
-  s.ios.deployment_target  = '7.0'
+  s.ios.deployment_target  = '8.0'
   s.ios.frameworks         = 'UIKit', 'Foundation'
 
   s.requires_arc = true
