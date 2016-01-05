@@ -26,8 +26,8 @@ SOFTWARE.
 
 import UIKit
 
-enum ElasticTransitionBackgroundTransform{
-  case None, Rotate, Translate
+public enum ElasticTransitionBackgroundTransform:Int{
+  case None, Rotate, TranslateMid, TranslatePull, TranslatePush
 }
 
 @available(iOS 7.0, *)
@@ -46,6 +46,10 @@ public protocol ElasticMenuTransitionDelegate{
   var contentView:UIView! {get}
 }
 
+
+func avg(a:CGFloat, _ b:CGFloat) -> CGFloat{
+  return (a+b)/2
+}
 @available(iOS 7.0, *)
 public class ElasticTransition: EdgePanTransition{
   
@@ -72,7 +76,7 @@ public class ElasticTransition: EdgePanTransition{
    
    **Only effective when doing a static transition**
    */
-  public var origin:CGPoint?
+  public var startingPoint:CGPoint?
   
   /**
    The background color of the container when doing the transition
@@ -82,13 +86,54 @@ public class ElasticTransition: EdgePanTransition{
    UIColor(red: 152/255, green: 174/255, blue: 196/255, alpha: 1.0)
    ```
    */
-  public var containerColor:UIColor? = UIColor(red: 152/255, green: 174/255, blue: 196/255, alpha: 1.0)
+  public var containerColor:UIColor = UIColor(red: 152/255, green: 174/255, blue: 196/255, alpha: 1.0)
+  
+  /**
+   The color of the overlay when doing the transition
+   
+   default:
+   ```
+   UIColor(red: 152/255, green: 174/255, blue: 196/255, alpha: 0.5)
+   ```
+   */
+  public var overlayColor:UIColor = UIColor(red: 152/255, green: 174/255, blue: 196/255, alpha: 0.5)
+  
+  /**
+   Whether or not to display the shadow. Will decrease performance.
+   
+   default: false
+   */
+  public var showShadow:Bool = false
+  /**
+   The shadow color of the container when doing the transition
+   
+   default:
+   ```
+   UIColor(red: 100/255, green: 122/255, blue: 144/255, alpha: 1.0)
+   ```
+   */
+  public var shadowColor:UIColor = UIColor(red: 100/255, green: 122/255, blue: 144/255, alpha: 1.0)
+  /**
+   The shadow radius of the container when doing the transition
+   
+   default:
+   ```
+   50
+   ```
+   */
+  public var shadowRadius:CGFloat = 50
   
   // custom transform function
   public var transform:((progress:CGFloat, view:UIView) -> Void)?
   
-  // Use Fancy Transform
-  public var fancyTransform = true
+  // Transform Type
+  public var transformType:ElasticTransitionBackgroundTransform = .TranslateMid{
+    didSet{
+      if container != nil{
+        container.layoutIfNeeded()
+      }
+    }
+  }
   
   // track using translation or direct touch position
   public var useTranlation = true
@@ -120,6 +165,9 @@ public class ElasticTransition: EdgePanTransition{
   var stickDistance:CGFloat{
     return sticky ? menuWidth * panThreshold : 0
   }
+  var overlayView = UIView()
+  var shadowView = UIView()
+  var shadowMaskLayer = ElasticShapeLayer()
   
   func finalPoint(presenting:Bool? = nil) -> CGPoint{
     let p = presenting ?? self.presenting
@@ -145,6 +193,14 @@ public class ElasticTransition: EdgePanTransition{
     }
   }
   
+  
+  public override init(){
+    super.init()
+    shadowView.layer.addSublayer(shadowMaskLayer)
+    overlayView.opaque = false
+    shadowView.opaque = false
+    shadowView.layer.masksToBounds = false
+  }
   override func update() {
     super.update()
     if cb != nil && lb != nil{
@@ -152,18 +208,18 @@ public class ElasticTransition: EdgePanTransition{
       let p = (useTranlation && interactive) ? translatedPoint() : dragPoint
       switch edge{
       case .Left:
-        cb.point = CGPointMake(p.x < menuWidth ? p.x : (p.x-menuWidth)/2+menuWidth, dragPoint.y)
+        cb.point = CGPointMake(p.x < menuWidth ? p.x : (p.x-menuWidth)/3+menuWidth, dragPoint.y)
         lb.point = CGPointMake(min(menuWidth, p.distance(initialPoint) < stickDistance ? initialPoint.x : p.x), dragPoint.y)
       case .Right:
         let maxX = size.width - menuWidth
-        cb.point = CGPointMake(p.x > maxX ? p.x : maxX - (maxX - p.x)/2, dragPoint.y)
+        cb.point = CGPointMake(p.x > maxX ? p.x : maxX - (maxX - p.x)/3, dragPoint.y)
         lb.point = CGPointMake(max(maxX, p.distance(initialPoint) < stickDistance ? initialPoint.x : p.x), dragPoint.y)
       case .Bottom:
         let maxY = size.height - menuWidth
-        cb.point = CGPointMake(dragPoint.x, p.y > maxY ? p.y : maxY - (maxY - p.y)/2)
+        cb.point = CGPointMake(dragPoint.x, p.y > maxY ? p.y : maxY - (maxY - p.y)/3)
         lb.point = CGPointMake(dragPoint.x, max(maxY, p.distance(initialPoint) < stickDistance ? initialPoint.y : p.y))
       case .Top:
-        cb.point = CGPointMake(dragPoint.x, p.y < menuWidth ? p.y : (p.y-menuWidth)/2+menuWidth)
+        cb.point = CGPointMake(dragPoint.x, p.y < menuWidth ? p.y : (p.y-menuWidth)/3+menuWidth)
         lb.point = CGPointMake(dragPoint.x, min(menuWidth, p.distance(initialPoint) < stickDistance ? initialPoint.y : p.y))
       }
     }
@@ -174,7 +230,10 @@ public class ElasticTransition: EdgePanTransition{
       return
     }
     
-    frontView.layer.zPosition = 100
+    backView.layer.zPosition = 1
+    overlayView.layer.zPosition = 298
+    shadowView.layer.zPosition = 299
+    frontView.layer.zPosition = 300
     frontView.layer.mask = maskLayer
     
     let finalPoint = self.finalPoint(true)
@@ -200,20 +259,43 @@ public class ElasticTransition: EdgePanTransition{
       transform!(progress: progress, view: backView)
     }else{
       // transform backView
-      let scale:CGFloat = min(1, 1 - 0.2 * progress)
-      let rotate = max(0, 0.15 * progress)
-      let rotateY:CGFloat = edge == .Left ? -1.0 : edge == .Right ? 1.0 : 0
-      let rotateX:CGFloat = edge == .Bottom ? -1.0 : edge == .Top ? 1.0 : 0
-      var t = CATransform3DMakeScale(scale, scale, 1)
-      t.m34 = 1.0 / -500;
-      t = CATransform3DRotate(t, rotate, rotateX, rotateY, 0.0)
-      if fancyTransform{
+      switch transformType{
+      case .Rotate:
+        let scale:CGFloat = min(1, 1 - 0.2 * progress)
+        let rotate = max(0, 0.15 * progress)
+        let rotateY:CGFloat = edge == .Left ? -1.0 : edge == .Right ? 1.0 : 0
+        let rotateX:CGFloat = edge == .Bottom ? -1.0 : edge == .Top ? 1.0 : 0
+        var t = CATransform3DMakeScale(scale, scale, 1)
+        t.m34 = 1.0 / -500;
+        t = CATransform3DRotate(t, rotate, rotateX, rotateY, 0.0)
         backView.layer.transform = t
-      }else{
+      case .TranslateMid, .TranslatePull, .TranslatePush:
+        var x:CGFloat = 0, y:CGFloat = 0
+        container.backgroundColor = backView.backgroundColor
+        let minFunc = transformType == .TranslateMid ? avg : transformType == .TranslatePull ? max : min
+        let maxFunc = transformType == .TranslateMid ? avg : transformType == .TranslatePull ? min : max
+        switch edge{
+        case .Left:
+          x = minFunc(cc.center.x, lc.center.x)
+        case .Right:
+          x = maxFunc(cc.center.x, lc.center.x) - size.width
+        case .Bottom:
+          y = maxFunc(cc.center.y, lc.center.y) - size.height
+        case .Top:
+          y = minFunc(cc.center.y, lc.center.y)
+        }
+        backView.layer.transform = CATransform3DMakeTranslation(x, y, 0)
+      default:
         backView.layer.transform = CATransform3DIdentity
       }
-      backView.frame = container.bounds
-      backView.layer.opacity = Float(1 - rotate*5)
+    }
+    
+    
+    overlayView.alpha = CGFloat(progress)
+    if showShadow{
+      shadowMaskLayer.path = maskLayer.path
+      shadowMaskLayer.frame = maskLayer.frame
+      updateShadow(Float(progress))
     }
   }
   
@@ -225,15 +307,31 @@ public class ElasticTransition: EdgePanTransition{
       fatalError("frontViewController must be supplied and must be a ElasticMenuTransitionDelegate")
     }
     toView.layoutIfNeeded()
-    container.backgroundColor = containerColor
-    maskLayer = ElasticShapeLayer()
+    
+    if showShadow{
+      shadowView.frame = container.bounds
+      shadowMaskLayer.fillColor = containerColor.CGColor
+      container.addSubview(shadowView)
+    }else{
+      shadowView.removeFromSuperview()
+    }
+    
+    switch transformType{
+    case .TranslateMid, .TranslatePull, .TranslatePush:
+      container.backgroundColor = backView.backgroundColor
+    default:
+      container.backgroundColor = containerColor
+    }
+    
+    overlayView.frame = container.bounds
+    overlayView.backgroundColor = overlayColor
+    container.addSubview(overlayView)
     
     maskLayer.edge = edge.opposite()
     maskLayer.radiusFactor = radiusFactor
-    if presenting {
-      frontView.layer.mask = maskLayer
-    }
+    
     setupDynamics()
+    updateShape()
     if !interactive{
       let duration = self.transitionDuration(transitionContext)
       lb.action = {
@@ -245,9 +343,18 @@ public class ElasticTransition: EdgePanTransition{
         }
       }
       
-      dragPoint = self.origin ?? container.center
+      dragPoint = self.startingPoint ?? container.center
       dragPoint = finalPoint()
+      update()
     }
+  }
+  
+  func updateShadow(progress:Float){
+    shadowView.layer.shadowColor = shadowColor.CGColor
+    shadowView.layer.shadowRadius = shadowRadius
+    shadowView.layer.shadowOffset = CGSizeMake(0, 0)
+    shadowView.layer.shadowOpacity = progress
+    shadowView.layer.masksToBounds = false
   }
   
   func setupDynamics(){
@@ -320,7 +427,7 @@ public class ElasticTransition: EdgePanTransition{
     }
   }
   
-  override func endInteractiveTransition(){
+  override func endInteractiveTransition() -> Bool{
     let finalPoint = self.finalPoint()
     let initialPoint = self.finalPoint(!self.presenting)
     let p = (useTranlation && interactive) ? translatedPoint() : dragPoint
@@ -328,8 +435,10 @@ public class ElasticTransition: EdgePanTransition{
     if (p.distance(initialPoint) >= menuWidth * panThreshold) &&
       initialPoint.distance(finalPoint) > p.distance(finalPoint){
       self.finishInteractiveTransition()
+      return true
     } else {
       self.cancelInteractiveTransition()
+      return false
     }
   }
   

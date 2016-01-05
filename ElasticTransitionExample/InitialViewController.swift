@@ -17,46 +17,68 @@ class InitialViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    // this tells the transition to not automatically setup the present gestureRecognizer
-    transition.autoSetupPresentGestureRecognizer = false
-    transition.backViewController = self
-    
     // customization
     transition.sticky = true
+    transition.showShadow = true
     transition.panThreshold = 0.3
-    transition.fancyTransform = true
+    transition.transformType = .TranslateMid
+//    transition.overlayColor = UIColor(white: 0, alpha: 0.5)
+//    transition.shadowColor = UIColor(white: 0, alpha: 0.5)
     
     // gesture recognizer
     lgr.addTarget(self, action: "handlePan:")
-    rgr.addTarget(self, action: "handlePan:")
+    rgr.addTarget(self, action: "handleRightPan:")
     lgr.edges = .Left
     rgr.edges = .Right
     self.view.addGestureRecognizer(lgr)
     self.view.addGestureRecognizer(rgr)
   }
   
-  
-  
   func handlePan(pan:UIPanGestureRecognizer){
     if pan.state == .Began{
-      transition.edge = pan == lgr ? .Left:.Right
-      transition.startInteractiveSegue("menu", pan: pan)
+      transition.edge = .Left
+      transition.startInteractiveTransition(self, segueIdentifier: "menu", gestureRecognizer: pan)
     }else{
-      transition.updateInteractiveSegue(pan)
+      transition.updateInteractiveTransition(gestureRecognizer: pan)
     }
   }
   
-  override func viewDidAppear(animated: Bool) {
-    super.viewDidAppear(animated)
+  func handleRightPan(pan:UIPanGestureRecognizer){
+    if pan.state == .Began{
+      transition.edge = .Right
+      transition.startInteractiveTransition(self, segueIdentifier: "about", gestureRecognizer: pan)
+    }else{
+      transition.updateInteractiveTransition(gestureRecognizer: pan)
+    }
+  }
+  
+  @IBAction func codeBtnTouched(sender: AnyObject) {
+    transition.edge = .Left
+    transition.startingPoint = sender.center
+    performSegueWithIdentifier("menu", sender: self)
+  }
+  
+  @IBAction func optionBtnTouched(sender: AnyObject) {
     transition.edge = .Bottom
+    transition.startingPoint = sender.center
+    performSegueWithIdentifier("option", sender: self)
+  }
+
+  @IBAction func aboutBtnTouched(sender: AnyObject) {
+    transition.edge = .Right
+    transition.startingPoint = sender.center
+    performSegueWithIdentifier("about", sender: self)
   }
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    if segue.identifier == "menu"{
-      let vc = segue.destinationViewController as! MenuViewController
-      vc.edge = transition.edge.toUIRectEdge()
+    let vc = segue.destinationViewController
+    vc.transitioningDelegate = transition
+    vc.modalPresentationStyle = .Custom
+    if let vc = vc as? AboutViewController{
+      vc.transition = transition
+    }else{
+      transition.setupDismissPanGestureRecognizer(vc)
     }
-    transition.frontViewController = segue.destinationViewController
   }
   
 }

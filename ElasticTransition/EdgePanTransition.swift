@@ -27,249 +27,255 @@ SOFTWARE.
 import UIKit
 
 @available(iOS 7.0, *)
-public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning, UIViewControllerTransitioningDelegate, UIGestureRecognizerDelegate{
-    public var panThreshold:CGFloat = 0.2
-    public var autoSetupPresentGestureRecognizer = true
-    public var autoSetupDismissGestureRecognizer = true
-    public var segueIdentifier = "menu"
-    public var edge:Edge = .Left{
-        didSet{
-            enterPanGesture.edges = edge.toUIRectEdge()
-        }
-    }
-    public var backViewController: UIViewController! {
-        didSet {
-            backViewController.transitioningDelegate = self
-            backViewController.modalPresentationStyle = .Custom;
-            if autoSetupPresentGestureRecognizer {
-                backViewController.view.addGestureRecognizer(self.enterPanGesture)
-            }
-        }
+public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate{
+  public var panThreshold:CGFloat = 0.2
+  public var edge:Edge = .Left
+  
+  class DismissGestureHandler:NSObject{
+    weak var transition:EdgePanTransition?
+    var viewController:UIViewController
+    init(transition:EdgePanTransition, viewController:UIViewController){
+      self.transition = transition
+      self.viewController = viewController
+      super.init()
     }
     
-    public var frontViewController: UIViewController! {
-        didSet {
-            frontViewController.transitioningDelegate = self
-            frontViewController.modalPresentationStyle = .Custom;
-            if autoSetupDismissGestureRecognizer {
-                frontViewController.view.addGestureRecognizer(self.exitPanGesture)
-            }
-        }
+  }
+  
+  var autoSetupedExitPanGesture:UIPanGestureRecognizer!
+  var autoSetupedExitViewController:UIViewController!
+  public func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+    return !transitioning
+  }
+  public func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+    if touch.view!.isKindOfClass(UISlider.self) {
+      return false
+    }
+    return true;
+  }
+  func handleOffstagePan(pan: UIPanGestureRecognizer){
+    switch (pan.state) {
+    case UIGestureRecognizerState.Began:
+      dissmissInteractiveTransition(self.autoSetupedExitViewController, gestureRecognizer: pan, completion: nil)
+    default:
+      updateInteractiveTransition(gestureRecognizer: pan)
+    }
+  }
+  public func setupDismissPanGestureRecognizer(viewController:UIViewController){
+    autoSetupedExitPanGesture = UIPanGestureRecognizer()
+    autoSetupedExitPanGesture.delegate = self
+    autoSetupedExitPanGesture.addTarget(self, action:"handleOffstagePan:")
+    autoSetupedExitViewController = viewController
+    viewController.view.addGestureRecognizer(autoSetupedExitPanGesture)
+  }
+  
+  public override init(){
+    super.init()
+  }
+  
+  // private
+  var transitioning = false
+  var presenting = true
+  var interactive = false
+  var navigation = false
+  var transitionContext:UIViewControllerContextTransitioning!
+  var container:UIView!
+  var size:CGSize{
+    return container.bounds.size
+  }
+  var frontView:UIView{
+    return frontViewController.view
+  }
+  var backView:UIView{
+    return backViewController.view
+  }
+  var frontViewController: UIViewController{
+    return presenting ? toViewController : fromViewController
+  }
+  var backViewController: UIViewController{
+    return !presenting ? toViewController : fromViewController
+  }
+  var toView:UIView{
+    return toViewController.view
+  }
+  var fromView:UIView{
+    return fromViewController.view
+  }
+  var toViewController:UIViewController{
+    return transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
+  }
+  var fromViewController:UIViewController{
+    return transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
+  }
+  
+  var currentPanGR: UIPanGestureRecognizer?
+  
+  var translation:CGPoint = CGPointZero
+  var dragPoint:CGPoint = CGPointZero
+  
+  func update(){}
+  
+  func setup(){
+    transitioning = true
+    
+    container.addSubview(backView)
+    container.addSubview(frontView)
+  }
+  
+  func clean(finished: Bool){
+    // bug: http://openradar.appspot.com/radar?id=5320103646199808
+    UIApplication.sharedApplication().keyWindow!.addSubview(finished ? toView : fromView)
+    
+    if presenting && !interactive{
+      backViewController.viewWillAppear(true)
+    }
+    if(!presenting && finished || presenting && !finished){
+      frontView.removeFromSuperview()
+      backView.layer.transform = CATransform3DIdentity
+      backView.frame = container.bounds
+      backViewController.viewDidAppear(true)
+      if autoSetupedExitPanGesture != nil{
+        autoSetupedExitViewController.view.removeGestureRecognizer(autoSetupedExitPanGesture)
+        autoSetupedExitPanGesture = nil
+      }
     }
     
-    public func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return !transitioning
+    currentPanGR = nil
+    interactive = false
+    transitioning = false
+    navigation = false
+    transitionContext.completeTransition(finished)
+  }
+  
+  func startInteractivePresent(fromViewController fromVC:UIViewController, toViewController toVC:UIViewController?, identifier:String?, pan:UIPanGestureRecognizer, presenting:Bool, completion:(() -> Void)? = nil){
+    interactive = true
+    currentPanGR = pan
+    if presenting{
+      if let identifier = identifier{
+        fromVC.performSegueWithIdentifier(identifier, sender: self)
+      }else if let toVC = toVC{
+        fromVC.presentViewController(toVC, animated: true, completion: nil)
+      }
+    }else{
+      fromVC.dismissViewControllerAnimated(true, completion: completion)
     }
-    
-    public func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
-        if touch.view!.isKindOfClass(UISlider.self) {
-            return false
-        }
-        return true;
+    translation = pan.translationInView(pan.view!)
+    dragPoint = pan.locationInView(pan.view!)
+  }
+  
+  public func updateInteractiveTransition(gestureRecognizer pan:UIPanGestureRecognizer) -> Bool?{
+    if !transitioning{
+      return nil
     }
-    
-    public override init(){
-        super.init()
-        enterPanGesture.delegate = self
-        enterPanGesture.addTarget(self, action:"handleOnstagePan:")
-        enterPanGesture.edges = edge.toUIRectEdge()
-        exitPanGesture.delegate = self
-        exitPanGesture.addTarget(self, action:"handleOffstagePan:")
+    if pan.state == .Changed{
+      translation = pan.translationInView(pan.view!)
+      dragPoint = pan.locationInView(pan.view!)
+      update()
+      return nil
+    }else{
+      return endInteractiveTransition()
     }
-    
-    // private
-    var transitioning = false
-    var presenting = true
-    var interactive = false
-    
-    var container:UIView!
-    var size:CGSize{
-        return container.bounds.size
+  }
+  
+  public func startInteractiveTransition(fromViewController:UIViewController, segueIdentifier identifier:String, gestureRecognizer pan:UIPanGestureRecognizer){
+    self.startInteractivePresent(fromViewController:fromViewController, toViewController:nil, identifier:identifier, pan: pan, presenting: true)
+  }
+  
+  public func startInteractiveTransition(fromViewController:UIViewController, toViewController:UIViewController, gestureRecognizer pan:UIPanGestureRecognizer){
+    self.startInteractivePresent(fromViewController:fromViewController, toViewController:toViewController, identifier:nil, pan: pan, presenting: true)
+  }
+  
+  public func dissmissInteractiveTransition(viewController:UIViewController, gestureRecognizer pan:UIPanGestureRecognizer, completion:(() -> Void)?){
+    self.startInteractivePresent(fromViewController:viewController, toViewController:nil, identifier:nil, pan: pan, presenting: false, completion: completion)
+  }
+  
+  
+  public func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+    self.transitionContext = transitionContext
+    self.container = transitionContext.containerView()
+    setup()
+  }
+  
+  public func startInteractiveTransition(transitionContext: UIViewControllerContextTransitioning){
+    animateTransition(transitionContext)
+  }
+  
+  func cancelInteractiveTransition(){
+    self.transitionContext.cancelInteractiveTransition()
+  }
+  
+  func finishInteractiveTransition(){
+    if !presenting{
+      backViewController.viewWillAppear(true)
     }
-    
-    var frontView:UIView!
-    var backView:UIView!
-    var toView:UIView!
-    var fromView:UIView!
-    var toViewController:UIViewController!
-    var fromViewController:UIViewController!
-    var transitionContext:UIViewControllerContextTransitioning!
-    
-    var enterPanGesture: UIScreenEdgePanGestureRecognizer = UIScreenEdgePanGestureRecognizer()
-    var exitPanGesture: UIPanGestureRecognizer = UIPanGestureRecognizer()
-    var currentPanGR: UIPanGestureRecognizer?
-    
-    var translation:CGPoint = CGPointZero
-    var dragPoint:CGPoint = CGPointZero{
-        didSet{
-            update()
-        }
+    self.transitionContext.finishInteractiveTransition()
+  }
+  
+  func endInteractiveTransition() -> Bool{
+    let finished:Bool
+    if let pan = currentPanGR{
+      let translation = pan.translationInView(pan.view!)
+      var progress:CGFloat
+      switch edge{
+      case .Left:
+        progress =  translation.x / pan.view!.frame.width
+      case .Right:
+        progress =  translation.x / pan.view!.frame.width * -1
+      case .Bottom:
+        progress =  translation.y / pan.view!.frame.height * -1
+      case .Top:
+        progress =  translation.y / pan.view!.frame.height
+      }
+      progress = presenting ? progress : -progress
+      if(progress > panThreshold){
+        finished = true
+      } else {
+        finished = false
+      }
+    }else{
+      finished = true
     }
-    
-    func update(){}
-    
-    func setup(){
-        transitioning = true
+    if finished{
+      finishInteractiveTransition()
+    }else{
+      cancelInteractiveTransition()
     }
-    
-    func clean(finished: Bool){
-        // bug: http://openradar.appspot.com/radar?id=5320103646199808
-        UIApplication.sharedApplication().keyWindow!.addSubview(finished ? toView : fromView)
-        
-        if presenting && !interactive{
-            backViewController.viewWillAppear(true)
-        }
-        if(!presenting && finished || presenting && !finished){
-            frontView.removeFromSuperview()
-            backView.layer.transform = CATransform3DIdentity
-            backView.frame = container.bounds
-            backViewController.viewDidAppear(true)
-        }
-        
-        currentPanGR = nil
-        interactive = false
-        transitioning = false
-        transitionContext.completeTransition(finished)
-    }
-    
-    func handleOnstagePan(pan: UIPanGestureRecognizer){
-        switch (pan.state) {
-        case UIGestureRecognizerState.Began:
-            startInteractiveSegue(segueIdentifier, pan: pan)
-        default:
-            updateInteractiveSegue(pan)
-        }
-    }
-    
-    func handleOffstagePan(pan: UIPanGestureRecognizer){
-        switch (pan.state) {
-        case UIGestureRecognizerState.Began:
-            dissmissInteractiveSegue(segueIdentifier, pan: pan, completion: nil)
-        default:
-            updateInteractiveSegue(pan)
-        }
-    }
-    
-    func startInteractiveSegue(identifier:String, pan:UIPanGestureRecognizer, presenting:Bool, completion:(() -> Void)? = nil){
-        interactive = true
-        currentPanGR = pan
-        backViewController.transitioningDelegate = self
-        if presenting{
-            backViewController.performSegueWithIdentifier(identifier, sender: self)
-        }else{
-            frontViewController.dismissViewControllerAnimated(true, completion: completion)
-        }
-        frontViewController.transitioningDelegate = self
-        translation = pan.translationInView(container)
-        dragPoint = pan.locationInView(container)
-    }
-    
-    public func updateInteractiveSegue(pan:UIPanGestureRecognizer){
-        if !transitioning{
-            return
-        }
-        if pan.state == .Changed{
-            translation = pan.translationInView(container)
-            dragPoint = pan.locationInView(container)
-        }else{
-            endInteractiveTransition()
-        }
-    }
-    
-    public func startInteractiveSegue(identifier:String, pan:UIPanGestureRecognizer){
-        self.startInteractiveSegue(identifier, pan: pan, presenting: true)
-    }
-    
-    public func dissmissInteractiveSegue(identifier:String, pan:UIPanGestureRecognizer, completion:(() -> Void)?){
-        self.startInteractiveSegue(identifier, pan: pan, presenting: false, completion: completion)
-    }
-    
-    
-    public func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        self.transitionContext = transitionContext
-        container = transitionContext.containerView()
-        fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
-        toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
-        fromView = fromViewController.view
-        toView = toViewController.view
-        
-        if (presenting){
-            frontView = toView
-            backView = fromView
-            container.addSubview(fromView)
-            container.addSubview(toView)
-        } else {
-            frontView = fromView
-            backView = toView
-            container.addSubview(fromView)
-            container.insertSubview(toView, belowSubview: fromView)
-        }
-        
-        setup()
-    }
-    
-    public func startInteractiveTransition(transitionContext: UIViewControllerContextTransitioning){
-        animateTransition(transitionContext)
-    }
-    
-    func cancelInteractiveTransition(){
-        self.transitionContext.cancelInteractiveTransition()
-    }
-    
-    func finishInteractiveTransition(){
-        if !presenting{
-            backViewController.viewWillAppear(true)
-        }
-        self.transitionContext.finishInteractiveTransition()
-    }
-    
-    func endInteractiveTransition(){
-        if let pan = currentPanGR{
-            let translation = pan.translationInView(pan.view!)
-            var progress:CGFloat
-            switch edge{
-            case .Left:
-                progress =  translation.x / pan.view!.frame.width
-            case .Right:
-                progress =  translation.x / pan.view!.frame.width * -1
-            case .Bottom:
-                progress =  translation.y / pan.view!.frame.height * -1
-            case .Top:
-                progress =  translation.y / pan.view!.frame.height
-            }
-            progress = presenting ? progress : -progress
-            if(progress > panThreshold){
-                self.finishInteractiveTransition()
-            } else {
-                self.cancelInteractiveTransition()
-            }
-        }else{
-            self.finishInteractiveTransition()
-        }
-    }
-    
-    
-    public func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
-        return 0.7
-    }
-    
-    public func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        self.presenting = true
-        return self
-    }
-    
-    public func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        self.presenting = false
-        return self
-    }
-    
-    public func interactionControllerForPresentation(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        self.presenting = true
-        return self.interactive ? self : nil
-    }
-    
-    public func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        self.presenting = false
-        return self.interactive ? self : nil
-    }
+    return finished
+  }
+  
+  
+  public func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+    return 0.7
+  }
+  
+  public func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    self.presenting = true
+    return self
+  }
+  
+  public func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    self.presenting = false
+    return self
+  }
+  
+  public func interactionControllerForPresentation(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    self.presenting = true
+    return self.interactive ? self : nil
+  }
+  
+  public func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    self.presenting = false
+    return self.interactive ? self : nil
+  }
+  
+  public func navigationController(navigationController: UINavigationController, interactionControllerForAnimationController animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+//    self.interactive = true
+    return self
+  }
+  
+  public func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    navigation = true
+    presenting = operation == .Push
+    return self
+  }
 }

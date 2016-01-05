@@ -47,7 +47,6 @@ public class ElasticShapeLayer: CAShapeLayer {
       }
     }
   }
-  public var clip:Bool = false
   
   override public init() {
     super.init()

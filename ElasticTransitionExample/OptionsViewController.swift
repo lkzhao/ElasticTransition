@@ -11,6 +11,7 @@ import UIKit
 enum LeftMenuType{
   case Switch(name:String, on:Bool, onChange:(on:Bool)->Void)
   case Slider(name:String, value:Float, onChange:(value:Float)->Void)
+  case Segment(name:String, values:[Any], selected:Int, onChange:(value:Any)->Void)
 }
 class SwitchCell:UITableViewCell{
   @IBOutlet weak var nameLabel: UILabel!
@@ -29,6 +30,17 @@ class SliderCell:UITableViewCell{
     onChange?(value: sender.value)
   }
 }
+class SegmentCell:UITableViewCell{
+  @IBOutlet weak var nameLabel: UILabel!
+  @IBOutlet weak var segment: UISegmentedControl!
+  
+  var values:[Any] = []
+  var onChange:((value:Any)->Void)?
+
+  @IBAction func segmentChanged(sender: UISegmentedControl) {
+    onChange?(value: values[sender.selectedSegmentIndex])
+  }
+}
 class OptionsViewController: UIViewController, ElasticMenuTransitionDelegate {
   @IBOutlet weak var contentView: UIView!
   @IBOutlet weak var tableView: UITableView!
@@ -39,23 +51,26 @@ class OptionsViewController: UIViewController, ElasticMenuTransitionDelegate {
   override func viewDidLoad() {
     super.viewDidLoad()
     let tm = self.transitioningDelegate as! ElasticTransition
-    menu = [
-      .Switch(name: "Sticky", on:tm.sticky, onChange: {on in
-        tm.sticky = on
-      }),
-      .Switch(name: "Fancy Transform",on:tm.fancyTransform, onChange: {on in
-        tm.fancyTransform = on
-      }),
-      .Slider(name: "Damping", value:Float(tm.damping), onChange: {value in
-        tm.damping = CGFloat(value)
-      }),
-      .Slider(name: "Radius Factor", value:Float(tm.radiusFactor)/0.5, onChange: {value in
-        tm.radiusFactor = CGFloat(value) * CGFloat(0.5)
-      }),
-      .Slider(name: "Pan Theashold", value:Float(tm.panThreshold), onChange: {value in
-        tm.panThreshold = CGFloat(value)
-      }),
-    ]
+    let va:[Any] = [ElasticTransitionBackgroundTransform.None,ElasticTransitionBackgroundTransform.Rotate,ElasticTransitionBackgroundTransform.TranslateMid]
+    menu = []
+    menu.append(.Switch(name: "Sticky", on:tm.sticky, onChange: {on in
+      tm.sticky = on
+    }))
+    menu.append(.Switch(name: "Shadow", on:tm.showShadow, onChange: {on in
+      tm.showShadow = on
+    }))
+    menu.append(LeftMenuType.Segment(name: "Transform Type",values:va,selected:tm.transformType.rawValue, onChange: {value in
+      tm.transformType = value as! ElasticTransitionBackgroundTransform
+    }))
+    menu.append(.Slider(name: "Damping", value:Float(tm.damping), onChange: {value in
+      tm.damping = CGFloat(value)
+    }))
+    menu.append(.Slider(name: "Radius Factor", value:Float(tm.radiusFactor)/0.5, onChange: {value in
+      tm.radiusFactor = CGFloat(value) * CGFloat(0.5)
+    }))
+    menu.append(.Slider(name: "Pan Theashold", value:Float(tm.panThreshold), onChange: {value in
+      tm.panThreshold = CGFloat(value)
+    }))
     
     var height:CGFloat = 0
     for i in 0..<menu.count{
@@ -83,6 +98,17 @@ extension OptionsViewController: UITableViewDelegate, UITableViewDataSource{
       switchCell.nameLabel.text = name
       switchCell.control.on = on
       cell = switchCell
+    case .Segment(let name, let values, let selected, let onChange):
+      let segmentCell  = tableView.dequeueReusableCellWithIdentifier("segment", forIndexPath: indexPath) as! SegmentCell
+      segmentCell.onChange = onChange
+      segmentCell.nameLabel.text = name
+      segmentCell.segment.removeAllSegments()
+      segmentCell.values = values
+      for v in values.reverse(){
+        segmentCell.segment.insertSegmentWithTitle("\(v)", atIndex: 0, animated: false)
+      }
+      segmentCell.segment.selectedSegmentIndex = selected
+      cell = segmentCell
     case .Slider(let name, let value, let onChange):
       let sliderCell  = tableView.dequeueReusableCellWithIdentifier("slider", forIndexPath: indexPath) as! SliderCell
       sliderCell.onChange = onChange
@@ -102,7 +128,9 @@ extension OptionsViewController: UITableViewDelegate, UITableViewDataSource{
     case .Switch:
       return 54
     case .Slider:
-      return 84
+      return 62
+    default:
+      return 72
     }
   }
 }
