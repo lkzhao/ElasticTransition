@@ -14,21 +14,20 @@ It is basically a CAShapeLayer with a custom path. The path is defined by four a
 3. radiusFactor
 4. dragPoint
 
+![elasticShape](https://github.com/lkzhao/ElasticTransition/blob/master/imgs/elasticShape.png?raw=true)
+
 frame and edge are easy to understand. the radiusFactor defines the curvature of the edge when dragged. the dragPoint is the center of the curved edge.
 
 Here is how the path is drawn:
 
-
+![path](https://github.com/lkzhao/ElasticTransition/blob/master/imgs/path.png?raw=true)
 
 Note that is the simpler drawing method which is used when radiusFactor >= 0.5.
-For radiusFactor below 0.5 please see ElasticShapeLayer.swift
-
+For the drawing method when radiusFactor is below 0.5, please see ElasticShapeLayer.swift.
 
 # View Hierarchy & Layout
 
-Two things are happening.
-1. contentView is sliding on to the screen
-2. shapeLayer's frame and dragPoint are updated
+####Coming Soon
 
 # Animation
 

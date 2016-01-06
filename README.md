@@ -6,7 +6,7 @@
 
 A UIKit custom modal transition that simulates an elastic drag. Written in Swift.
 
-![demo](https://github.com/lkzhao/ElasticTransition/blob/master/demo.gif?raw=true)
+![demo](https://github.com/lkzhao/ElasticTransition/blob/master/imgs/demo.gif?raw=true)
 
 ## Requirements
 
