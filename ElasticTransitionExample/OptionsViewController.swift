@@ -42,9 +42,13 @@ class SegmentCell:UITableViewCell{
   }
 }
 class OptionsViewController: UIViewController, ElasticMenuTransitionDelegate {
-  @IBOutlet weak var contentView: UIView!
+  
   @IBOutlet weak var tableView: UITableView!
-  @IBOutlet weak var contentViewHeight: NSLayoutConstraint!
+  
+  var contentLength:CGFloat = 0
+  var dismissByBackgroundTouch = true
+  var dismissByBackgroundDrag = true
+  var dismissByForegroundDrag = true
   
   var menu:[LeftMenuType] = []
   
@@ -72,11 +76,9 @@ class OptionsViewController: UIViewController, ElasticMenuTransitionDelegate {
       tm.panThreshold = CGFloat(value)
     }))
     
-    var height:CGFloat = 0
     for i in 0..<menu.count{
-      height += self.tableView(self.tableView, heightForRowAtIndexPath: NSIndexPath(forRow:i, inSection:0))
+      contentLength += self.tableView(self.tableView, heightForRowAtIndexPath: NSIndexPath(forRow:i, inSection:0))
     }
-    contentViewHeight.constant = height
     tableView.reloadData()
   }
   

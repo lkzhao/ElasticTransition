@@ -10,10 +10,12 @@ import UIKit
 
 class MenuViewController: UIViewController, ElasticMenuTransitionDelegate {
 
+  var contentLength:CGFloat = 320
+  var dismissByBackgroundTouch = true
+  var dismissByBackgroundDrag = true
+  var dismissByForegroundDrag = true
   
   @IBOutlet weak var textView: UITextView!
-  @IBOutlet weak var contentView:UIView!
-  
   @IBOutlet weak var codeView2: UITextView!
   
   override func viewDidLoad() {

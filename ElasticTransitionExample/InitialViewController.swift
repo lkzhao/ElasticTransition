@@ -22,6 +22,7 @@ class InitialViewController: UIViewController {
     transition.showShadow = true
     transition.panThreshold = 0.3
     transition.transformType = .TranslateMid
+    
 //    transition.overlayColor = UIColor(white: 0, alpha: 0.5)
 //    transition.shadowColor = UIColor(white: 0, alpha: 0.5)
     
@@ -30,8 +31,8 @@ class InitialViewController: UIViewController {
     rgr.addTarget(self, action: "handleRightPan:")
     lgr.edges = .Left
     rgr.edges = .Right
-    self.view.addGestureRecognizer(lgr)
-    self.view.addGestureRecognizer(rgr)
+    view.addGestureRecognizer(lgr)
+    view.addGestureRecognizer(rgr)
   }
   
   func handlePan(pan:UIPanGestureRecognizer){
@@ -70,14 +71,24 @@ class InitialViewController: UIViewController {
     performSegueWithIdentifier("about", sender: self)
   }
   
+  @IBAction func navigationBtnTouched(sender: AnyObject) {
+    transition.edge = .Right
+    transition.startingPoint = sender.center
+    performSegueWithIdentifier("navigation", sender: self)
+  }
+  
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     let vc = segue.destinationViewController
-    vc.transitioningDelegate = transition
-    vc.modalPresentationStyle = .Custom
-    if let vc = vc as? AboutViewController{
-      vc.transition = transition
+    if segue.identifier == "navigation"{
+      if let vc = vc as? UINavigationController{
+        vc.delegate = transition
+      }
     }else{
-      transition.setupDismissPanGestureRecognizer(vc)
+      vc.transitioningDelegate = transition
+      vc.modalPresentationStyle = .Custom
+      if let vc = vc as? AboutViewController{
+        vc.transition = transition
+      }
     }
   }
   

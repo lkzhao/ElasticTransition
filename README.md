@@ -32,55 +32,99 @@ pod "ElasticTransition"
 
 ## Usage
 
-##### 1. In your view controller, do the following
+#### In your view controller, create an instance of ElasticTransition
+
 ```swift
 var transition = ElasticTransition()
 override func viewDidLoad() {
   super.viewDidLoad()
 
-  // this setup the pan gesturerecognizer & transition delegate
-  transition.backViewController = self
-
-  // this tells the transition which segue to trigger when drag start
-  transition.segueIdentifier = "menu"
-
   // customization
   transition.edge = .Left
   transition.sticky = false
   transition.panThreshold = 0.3
-  transition.fancyTransform = false
+  transition.transformType = .TranslateMid
   // ...
 }
-
-override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-  transition.frontViewController = segue.destinationViewController
-}
 ```
 
-##### 2. Implement ElasticMenuTransitionDelegate in your modal view controller
+#### Use a navigation controller's delegate
+
+Simply assign the transition to your navigation controller's delegate
 
 ```swift
-protocol ElasticMenuTransitionDelegate{
-  var contentView:UIView! {get}
+navigationController?.delegate =transition
+```
+
+#### Present as modal
+
+In prepareForSegue, assign the transition to be the transitioningDelegate of the destinationViewController.
+Also, dont forget to set the modalPresentationStyle to .Custom
+
+```swift
+override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+  segue.destinationViewController.transitioningDelegate = transition
+  segue.destinationViewController.modalPresentationStyle = .Custom
 }
 ```
 
-You can do this either by using storyboard ( *IBOutlet* ) or programatically. See the example project.
+In your modal view controller implement the ElasticMenuTransitionDelegate and provide the contentLength
+```swift
+class MenuViewController: UIViewController, ElasticMenuTransitionDelegate {
+  var contentLength:CGFloat = 320
+  // ...
+}
+```
 
-##### Important **NOTE** for implementing ElasticMenuTransitionDelegate:
-* contentView should be a subview of self.view
-* contentView should be placed along the edge specified to the transition
-* contentView should have a **clear** background color
-* lastly, set self.view.backgroundColor to be the color you desire
+##### Interactive transition for modal transition
 
-## How does it work?
-If you want to know the detail of the implementation, see it [here](https://github.com/lkzhao/ElasticTransition/blob/master/howdoesitwork.md)
+First, construct a pan gesture recognizer
+
+```swift
+let panGR = UIPanGestureRecognizer(target: self, action: "handlePan:")
+```
+
+Then implement your gesture handler and fo the following:
+
+```swift
+func handlePan(pan:UIPanGestureRecognizer){
+  if pan.state == .Began{
+    // Here, you can do one of two things
+    // 1. show a viewcontroller directly
+    let nextViewController = // construct your VC ...
+    transition.startInteractiveTransition(self, toViewController: nextViewController, gestureRecognizer: pan)
+    // 2. perform a segue
+    transition.startInteractiveTransition(self, segueIdentifier: "menu", gestureRecognizer: pan)
+  }else{
+    transition.updateInteractiveTransition(gestureRecognizer: pan)
+  }
+}
+```
+
+##### Interactive transition for dismissing the modal
+
+1. Implement ElasticMenuTransitionDelegate in your modal view controller and set
+
+```swift
+  var dismissByBackgroundTouch = true
+  var dismissByBackgroundDrag = true
+  var dismissByForegroundDrag = true
+```
+
+2. Or use your own panGestureRecognizer and call dissmissInteractiveTransition in your handler
+```swift
+func handlePan(pan:UIPanGestureRecognizer){
+  if pan.state == .Began{
+    transition.dissmissInteractiveTransition(self, gestureRecognizer: pan, completion: nil)
+  }else{
+    transition.updateInteractiveTransition(gestureRecognizer: pan)
+  }
+}
+```
 
 ## Todo
 1. Better Guide and Documentation
-2. Cleanup Interface
-4. More settings to customize
-5. Support navigation controller transition
+2. Testing
 
 ## Author
 

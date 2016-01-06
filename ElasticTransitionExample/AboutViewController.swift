@@ -15,10 +15,7 @@ func getRandomColor() -> UIColor{
   let randomBlue:CGFloat = CGFloat(drand48())
   return UIColor(red: randomRed, green: randomGreen, blue: randomBlue, alpha: 1.0)
 }
-class AboutViewController: UIViewController, ElasticMenuTransitionDelegate {
-  
-  @IBOutlet weak var contentView: UIView!
-  
+class AboutViewController: UIViewController {
   var transition:ElasticTransition!
   var nextViewController:AboutViewController!
   let lgr = UIScreenEdgePanGestureRecognizer()

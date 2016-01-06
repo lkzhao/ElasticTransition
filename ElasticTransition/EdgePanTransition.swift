@@ -27,51 +27,9 @@ SOFTWARE.
 import UIKit
 
 @available(iOS 7.0, *)
-public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate{
+public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate{
   public var panThreshold:CGFloat = 0.2
-  public var edge:Edge = .Left
-  
-  class DismissGestureHandler:NSObject{
-    weak var transition:EdgePanTransition?
-    var viewController:UIViewController
-    init(transition:EdgePanTransition, viewController:UIViewController){
-      self.transition = transition
-      self.viewController = viewController
-      super.init()
-    }
-    
-  }
-  
-  var autoSetupedExitPanGesture:UIPanGestureRecognizer!
-  var autoSetupedExitViewController:UIViewController!
-  public func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
-    return !transitioning
-  }
-  public func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
-    if touch.view!.isKindOfClass(UISlider.self) {
-      return false
-    }
-    return true;
-  }
-  func handleOffstagePan(pan: UIPanGestureRecognizer){
-    switch (pan.state) {
-    case UIGestureRecognizerState.Began:
-      dissmissInteractiveTransition(self.autoSetupedExitViewController, gestureRecognizer: pan, completion: nil)
-    default:
-      updateInteractiveTransition(gestureRecognizer: pan)
-    }
-  }
-  public func setupDismissPanGestureRecognizer(viewController:UIViewController){
-    autoSetupedExitPanGesture = UIPanGestureRecognizer()
-    autoSetupedExitPanGesture.delegate = self
-    autoSetupedExitPanGesture.addTarget(self, action:"handleOffstagePan:")
-    autoSetupedExitViewController = viewController
-    viewController.view.addGestureRecognizer(autoSetupedExitPanGesture)
-  }
-  
-  public override init(){
-    super.init()
-  }
+  public var edge:Edge = .Right
   
   // private
   var transitioning = false
@@ -123,8 +81,10 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
   }
   
   func clean(finished: Bool){
-    // bug: http://openradar.appspot.com/radar?id=5320103646199808
-    UIApplication.sharedApplication().keyWindow!.addSubview(finished ? toView : fromView)
+    if !navigation {
+      // bug: http://openradar.appspot.com/radar?id=5320103646199808
+      UIApplication.sharedApplication().keyWindow!.addSubview(finished ? toView : fromView)
+    }
     
     if presenting && !interactive{
       backViewController.viewWillAppear(true)
@@ -132,12 +92,8 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
     if(!presenting && finished || presenting && !finished){
       frontView.removeFromSuperview()
       backView.layer.transform = CATransform3DIdentity
-      backView.frame = container.bounds
+//      backView.frame = container.bounds
       backViewController.viewDidAppear(true)
-      if autoSetupedExitPanGesture != nil{
-        autoSetupedExitViewController.view.removeGestureRecognizer(autoSetupedExitPanGesture)
-        autoSetupedExitPanGesture = nil
-      }
     }
     
     currentPanGR = nil
@@ -157,7 +113,11 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
         fromVC.presentViewController(toVC, animated: true, completion: nil)
       }
     }else{
-      fromVC.dismissViewControllerAnimated(true, completion: completion)
+      if navigation{
+        fromVC.navigationController?.popViewControllerAnimated(true)
+      }else{
+        fromVC.dismissViewControllerAnimated(true, completion: completion)
+      }
     }
     translation = pan.translationInView(pan.view!)
     dragPoint = pan.locationInView(pan.view!)
@@ -269,8 +229,7 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
   }
   
   public func navigationController(navigationController: UINavigationController, interactionControllerForAnimationController animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-//    self.interactive = true
-    return self
+    return self.interactive ? self : nil
   }
   
   public func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
