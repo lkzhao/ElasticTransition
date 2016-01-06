@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
                        DESC
 
   s.homepage         = "https://github.com/lkzhao/ElasticTransition"
-  s.screenshots     = "https://github.com/lkzhao/ElasticTransition/blob/master/demo.gif?raw=true"
+  s.screenshots     = "https://github.com/lkzhao/ElasticTransition/blob/master/imgs/demo.gif?raw=true"
   s.license          = 'MIT'
   s.author           = { "Luke" => "lzhaoyilun@gmail.com" }
   s.source           = { :git => "https://github.com/lkzhao/ElasticTransition.git", :tag => s.version.to_s }

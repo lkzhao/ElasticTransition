@@ -91,6 +91,7 @@ First, construct a pan gesture recognizer
 
 ```swift
 let panGR = UIPanGestureRecognizer(target: self, action: "handlePan:")
+view.addGestureRecognizer(panGR)
 ```
 
 Then implement your gesture handler and fo the following:
