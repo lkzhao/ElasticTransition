@@ -32,7 +32,7 @@ pod "ElasticTransition"
 
 ## Usage
 
-#### In your view controller, create an instance of ElasticTransition
+First of all, in your view controller, create an instance of ElasticTransition
 
 ```swift
 var transition = ElasticTransition()
@@ -48,13 +48,22 @@ override func viewDidLoad() {
 }
 ```
 
-#### Use a navigation controller's delegate
+- [Navigation Controller Delegate](#use-as-navigation-controllers-delegate)
+- [Modal](#present-as-modal)
+  - [Interactive Present](#interactive-transition-for-modal-transition)
+  - [Interactive Dismiss](#interactive-transition-for-dismissing-the-modal)
+
+------------------------
+
+#### Use as navigation controller's delegate
 
 Simply assign the transition to your navigation controller's delegate
 
 ```swift
 navigationController?.delegate =transition
 ```
+
+------------------------
 
 #### Present as modal
 
