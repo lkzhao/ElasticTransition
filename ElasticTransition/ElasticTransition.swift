@@ -112,6 +112,16 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
    ```
    */
   public var shadowColor:UIColor = UIColor(red: 100/255, green: 122/255, blue: 144/255, alpha: 1.0)
+
+  /**
+   The shadow color of the container when doing the transition
+   
+   default:
+   ```
+   UIColor(red: 100/255, green: 122/255, blue: 144/255, alpha: 1.0)
+   ```
+   */
+  public var frontViewBackgroundColor:UIColor?
   /**
    The shadow radius of the container when doing the transition
    
@@ -366,9 +376,11 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
     
     // 2. setup shadow and background view
     shadowView.frame = container.bounds
-    if let vc = frontViewController as? UINavigationController,
-      let rootVC = vc.childViewControllers.first{
-      shadowMaskLayer.fillColor = rootVC.view.backgroundColor?.CGColor
+    if let frontViewBackgroundColor = frontViewBackgroundColor{
+      shadowMaskLayer.fillColor = frontViewBackgroundColor.CGColor
+    }else if let vc = frontViewController as? UINavigationController,
+      let rootVC = vc.childViewControllers.last{
+        shadowMaskLayer.fillColor = rootVC.view.backgroundColor?.CGColor
     }else{
       shadowMaskLayer.fillColor = frontView.backgroundColor?.CGColor
     }
@@ -393,7 +405,7 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
     }
     frontView.frame = rect
     if navigation{
-      frontViewController.navigationController!.view.addGestureRecognizer(navigationExitPanGestureRecognizer)
+      frontViewController.navigationController?.view.addGestureRecognizer(navigationExitPanGestureRecognizer)
     }else{
       frontView.addGestureRecognizer(foregroundExitPanGestureRecognizer)
     }

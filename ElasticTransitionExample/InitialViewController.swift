@@ -79,13 +79,13 @@ class InitialViewController: UIViewController {
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     let vc = segue.destinationViewController
+    vc.transitioningDelegate = transition
+    vc.modalPresentationStyle = .Custom
     if segue.identifier == "navigation"{
       if let vc = vc as? UINavigationController{
         vc.delegate = transition
       }
     }else{
-      vc.transitioningDelegate = transition
-      vc.modalPresentationStyle = .Custom
       if let vc = vc as? AboutViewController{
         vc.transition = transition
       }
