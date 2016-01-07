@@ -282,7 +282,7 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
       return
     }
     
-    backView.layer.zPosition = 1
+    backView.layer.zPosition = 0
     overlayView.layer.zPosition = 298
     shadowView.layer.zPosition = 299
     frontView.layer.zPosition = 300
@@ -472,6 +472,7 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
   override func clean(finished:Bool){
     animator.removeAllBehaviors()
     animator = nil
+    frontView.layer.zPosition = 0
     if navigation{
       shadowView.removeFromSuperview()
       overlayView.removeFromSuperview()
