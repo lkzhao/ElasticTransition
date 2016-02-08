@@ -27,7 +27,7 @@ SOFTWARE.
 import UIKit
 
 public enum ElasticTransitionBackgroundTransform:Int{
-  case None, Rotate, TranslateMid, TranslatePull, TranslatePush
+  case None, Rotate, TranslateMid, TranslatePull, TranslatePush, Subtle
 }
 
 @available(iOS 7.0, *)
@@ -147,12 +147,17 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
   // track using translation or direct touch position
   public var useTranlation = true
   
+  
+  // damping
   public var damping:CGFloat = 0.2{
     didSet{
       damping = min(1.0, max(0.0, damping))
     }
   }
   
+  // damping
+  public var stiffness:CGFloat = 60
+
   var maskLayer = CALayer()
   
   var animator:UIDynamicAnimator!
@@ -346,6 +351,19 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
           y = minFunc(cc.center.y, lc.center.y)
         }
         backView.layer.transform = CATransform3DMakeTranslation(x, y, 0)
+      case .Subtle:
+        var x:CGFloat = 0, y:CGFloat = 0
+        switch edge{
+        case .Left:
+          x = avg(cc.center.x, lc.center.x)
+        case .Right:
+          x = avg(cc.center.x, lc.center.x) - size.width
+        case .Bottom:
+          y = avg(cc.center.y, lc.center.y) - size.height
+        case .Top:
+          y = avg(cc.center.y, lc.center.y)
+        }
+        backView.layer.transform = CATransform3DMakeTranslation(x*0.2, y*0.2, 0)
       default:
         backView.layer.transform = CATransform3DIdentity
       }
@@ -468,10 +486,10 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
     
     cb = CustomSnapBehavior(item: cc, point: dragPoint)
     cb.damping = damping
-    cb.frequency = 2.5
+    cb.frequency = max(stiffness,1)/25
     lb = CustomSnapBehavior(item: lc, point: dragPoint)
     lb.damping = min(1.0, damping * 1.5)
-    lb.frequency = 2.5
+    lb.frequency = max(stiffness,1)/25
     
     update()
     cb.action = {
@@ -555,7 +573,7 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
   }
   
   override public func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
-    return NSTimeInterval(abs(damping - 0.2) * 0.5 + 0.6)
+    return NSTimeInterval((abs(damping - 0.2) * 0.5 + 0.6)/(max(stiffness,1)/40))
   }
 }
 

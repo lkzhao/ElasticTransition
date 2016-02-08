@@ -69,6 +69,9 @@ class OptionsViewController: UIViewController, ElasticMenuTransitionDelegate {
     menu.append(.Slider(name: "Damping", value:Float(tm.damping), onChange: {value in
       tm.damping = CGFloat(value)
     }))
+    menu.append(.Slider(name: "Stiffness", value:Float(tm.stiffness/100), onChange: {value in
+      tm.stiffness = CGFloat(value*100)
+    }))
     menu.append(.Slider(name: "Radius Factor", value:Float(tm.radiusFactor)/0.5, onChange: {value in
       tm.radiusFactor = CGFloat(value) * CGFloat(0.5)
     }))
