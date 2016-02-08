@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "ElasticTransition"
-  s.version          = "2.0.1"
+  s.version          = "2.1.0"
   s.summary          = "A UIKit custom modal transition that simulates an elastic drag. Written in Swift."
 
   s.description      = <<-DESC
@@ -23,5 +23,5 @@ Pod::Spec.new do |s|
 
   s.source_files = 'ElasticTransition/*.swift'
 
-  # s.dependency 'pop', '~> 1.0'
+  s.dependency 'MotionAnimation', '~> 0.0.5'
 end

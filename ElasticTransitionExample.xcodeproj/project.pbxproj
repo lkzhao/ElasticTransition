@@ -20,9 +20,13 @@
 		B12BC0B41C21FA910016D774 /* ElasticShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BC0B11C21FA910016D774 /* ElasticShapeLayer.swift */; };
 		B12BC0B51C21FA910016D774 /* ElasticTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BC0B21C21FA910016D774 /* ElasticTransition.swift */; };
 		B12BC0B81C222C8F0016D774 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BC0B71C222C8F0016D774 /* InitialViewController.swift */; };
+		FD246C9F99108524DBFB6970 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17C1D639543DCE2923CA4C1E /* Pods.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E5005F39367C24AEE4ECDE3 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		17C1D639543DCE2923CA4C1E /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		35C60A60CD7112509ACE6FF4 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		A35F61D21C2A3740003012E4 /* EdgePanTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EdgePanTransition.swift; path = ElasticTransition/EdgePanTransition.swift; sourceTree = SOURCE_ROOT; };
 		A35F61D41C2A386D003012E4 /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Util.swift; path = ElasticTransition/Util.swift; sourceTree = SOURCE_ROOT; };
 		A3DF22061C38C61700BD164F /* NavigationExampleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationExampleViewController.swift; sourceTree = "<group>"; };
@@ -45,17 +49,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD246C9F99108524DBFB6970 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		711CA8C76E055B686F128E05 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				35C60A60CD7112509ACE6FF4 /* Pods.debug.xcconfig */,
+				0E5005F39367C24AEE4ECDE3 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		7C86430CC7E3B0A68D693961 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				17C1D639543DCE2923CA4C1E /* Pods.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B12BC08A1C21FA470016D774 = {
 			isa = PBXGroup;
 			children = (
 				B12BC0951C21FA470016D774 /* ElasticTransitionExample */,
 				B12BC0941C21FA470016D774 /* Products */,
+				711CA8C76E055B686F128E05 /* Pods */,
+				7C86430CC7E3B0A68D693961 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,9 +127,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B12BC0A51C21FA470016D774 /* Build configuration list for PBXNativeTarget "ElasticTransitionExample" */;
 			buildPhases = (
+				301344455EBDB4923BE637CF /* Check Pods Manifest.lock */,
 				B12BC08F1C21FA470016D774 /* Sources */,
 				B12BC0901C21FA470016D774 /* Frameworks */,
 				B12BC0911C21FA470016D774 /* Resources */,
+				B28D6B55AA8B1CC52B3C1F61 /* Embed Pods Frameworks */,
+				F03847BF7D178253D5E6441D /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -161,6 +188,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		301344455EBDB4923BE637CF /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		B28D6B55AA8B1CC52B3C1F61 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F03847BF7D178253D5E6441D /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B12BC08F1C21FA470016D774 /* Sources */ = {
@@ -287,10 +362,11 @@
 		};
 		B12BC0A61C21FA470016D774 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 35C60A60CD7112509ACE6FF4 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ElasticTransitionExample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lkzhao.ElasticTransitionExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -299,10 +375,11 @@
 		};
 		B12BC0A71C21FA470016D774 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0E5005F39367C24AEE4ECDE3 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ElasticTransitionExample/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lkzhao.ElasticTransitionExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";

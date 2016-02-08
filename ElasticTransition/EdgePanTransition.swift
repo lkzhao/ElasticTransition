@@ -26,7 +26,7 @@ SOFTWARE.
 
 import UIKit
 
-@available(iOS 7.0, *)
+@available(iOS 8.0, *)
 public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate{
   public var panThreshold:CGFloat = 0.2
   public var edge:Edge = .Right

@@ -70,69 +70,10 @@ extension CGPoint{
   }
 }
 
-class DynamicItem:NSObject, UIDynamicItem{
+class DynamicItem:NSObject{
   var center: CGPoint = CGPointZero
-  var bounds: CGRect = CGRectMake(0, 0, 1, 1)
-  var transform: CGAffineTransform = CGAffineTransformIdentity
   init(center:CGPoint) {
     self.center = center
     super.init()
-  }
-}
-
-class CustomSnapBehavior:UIDynamicBehavior {
-  var ab1:UIAttachmentBehavior!
-  var ab2:UIAttachmentBehavior!
-  var ab3:UIAttachmentBehavior!
-  var ab4:UIAttachmentBehavior!
-  
-  var item:UIDynamicItem
-  
-  var frequency:CGFloat = 1{
-    didSet{
-      ab1.frequency = frequency
-      ab2.frequency = frequency
-      ab3.frequency = frequency
-      ab4.frequency = frequency
-    }
-  }
-  var damping:CGFloat = 0{
-    didSet{
-      ab1.damping = damping
-      ab2.damping = damping
-      ab3.damping = damping
-      ab4.damping = damping
-    }
-  }
-  var point:CGPoint{
-    didSet{
-      updatePoints()
-    }
-  }
-  func updatePoints(){
-    ab1.anchorPoint = point.translate(50, dy: 0)
-    ab2.anchorPoint = point.translate(-50, dy: 0)
-    ab3.anchorPoint = point.translate(0, dy: 50)
-    ab4.anchorPoint = point.translate(0, dy: -50)
-  }
-  
-  init(item:UIDynamicItem, point:CGPoint, useSnap:Bool = false) {
-    self.item = item
-    self.point = point
-    super.init()
-    
-    ab1 = UIAttachmentBehavior(item: item, attachedToAnchor: point)
-    addChildBehavior(ab1)
-    ab2 = UIAttachmentBehavior(item: item, attachedToAnchor: point)
-    addChildBehavior(ab2)
-    ab3 = UIAttachmentBehavior(item: item, attachedToAnchor: point)
-    addChildBehavior(ab3)
-    ab4 = UIAttachmentBehavior(item: item, attachedToAnchor: point)
-    addChildBehavior(ab4)
-    ab1.length = 50
-    ab2.length = 50
-    ab3.length = 50
-    ab4.length = 50
-    updatePoints()
   }
 }

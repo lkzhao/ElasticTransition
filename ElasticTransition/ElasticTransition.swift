@@ -25,12 +25,13 @@ SOFTWARE.
 */
 
 import UIKit
+import MotionAnimation
 
 public enum ElasticTransitionBackgroundTransform:Int{
   case None, Rotate, TranslateMid, TranslatePull, TranslatePush, Subtle
 }
 
-@available(iOS 7.0, *)
+@available(iOS 8.0, *)
 @objc
 public protocol ElasticMenuTransitionDelegate{
   optional var contentLength:CGFloat {get}
@@ -156,15 +157,28 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
   }
   
   // damping
-  public var stiffness:CGFloat = 60
+  public var stiffness:CGFloat = 0.2{
+    didSet{
+      stiffness = min(1.0, max(0.0, stiffness))
+    }
+  }
 
   var maskLayer = CALayer()
   
-  var animator:UIDynamicAnimator!
   var cc:DynamicItem!
   var lc:DynamicItem!
-  var cb:CustomSnapBehavior!
-  var lb:CustomSnapBehavior!
+  var animationCenterStiffness:CGFloat {
+    return (stiffness + 0.5) * (interactive ? 550 : 420)
+  }
+  var animationSideStiffness:CGFloat {
+    return (stiffness + 0.5) * (interactive ? 400 : 300)
+  }
+  var animationThreshold:CGFloat {
+    return interactive ? 0.1 : 1
+  }
+  var animationDamping:CGFloat {
+    return (damping + 0.5) * 20
+  }
   var contentLength:CGFloat = 0
   var lastPoint:CGPoint = CGPointZero
   var stickDistance:CGFloat{
@@ -239,9 +253,16 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
     }
   }
   
+  var multiValueObserverKey:MotionAnimationObserverKey!
   public override init(){
     super.init()
     
+    cc = DynamicItem(center: CGPointZero)
+    lc = DynamicItem(center: CGPointZero)
+    multiValueObserverKey = NSObject.m_addCallbackForAnyValueUpdated([cc:["center"],lc:["center"]]) { _ in
+      self.updateShape()
+    }
+
     backgroundExitPanGestureRecognizer.delegate = self
     backgroundExitPanGestureRecognizer.addTarget(self, action:"handleOffstagePan:")
     foregroundExitPanGestureRecognizer.delegate = self
@@ -257,6 +278,10 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
     shadowView.opaque = false
     shadowView.layer.masksToBounds = false
   }
+
+  deinit{
+    NSObject.m_removeMultiValueObserver(multiValueObserverKey)
+  }
   
   func overlayTapped(tapGR:UITapGestureRecognizer){
     if let vc = pushedControllers.last,
@@ -270,33 +295,30 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
   
   override func update() {
     super.update()
-    if cb != nil && lb != nil{
-      let initialPoint = self.finalPoint(!self.presenting)
-      let p = (useTranlation && interactive) ? translatedPoint() : dragPoint
-      switch edge{
-      case .Left:
-        cb.point = CGPointMake(p.x < contentLength ? p.x : (p.x-contentLength)/3+contentLength, dragPoint.y)
-        lb.point = CGPointMake(min(contentLength, p.distance(initialPoint) < stickDistance ? initialPoint.x : p.x), dragPoint.y)
-      case .Right:
-        let maxX = size.width - contentLength
-        cb.point = CGPointMake(p.x > maxX ? p.x : maxX - (maxX - p.x)/3, dragPoint.y)
-        lb.point = CGPointMake(max(maxX, p.distance(initialPoint) < stickDistance ? initialPoint.x : p.x), dragPoint.y)
-      case .Bottom:
-        let maxY = size.height - contentLength
-        cb.point = CGPointMake(dragPoint.x, p.y > maxY ? p.y : maxY - (maxY - p.y)/3)
-        lb.point = CGPointMake(dragPoint.x, max(maxY, p.distance(initialPoint) < stickDistance ? initialPoint.y : p.y))
-      case .Top:
-        cb.point = CGPointMake(dragPoint.x, p.y < contentLength ? p.y : (p.y-contentLength)/3+contentLength)
-        lb.point = CGPointMake(dragPoint.x, min(contentLength, p.distance(initialPoint) < stickDistance ? initialPoint.y : p.y))
-      }
+    let ccToPoint:CGPoint, lcToPoint:CGPoint
+    let initialPoint = self.finalPoint(!self.presenting)
+    let p = (useTranlation && interactive) ? translatedPoint() : dragPoint
+    switch edge{
+    case .Left:
+      ccToPoint = CGPointMake(p.x < contentLength ? p.x : (p.x-contentLength)/3+contentLength, dragPoint.y)
+      lcToPoint = CGPointMake(min(contentLength, p.distance(initialPoint) < stickDistance ? initialPoint.x : p.x), dragPoint.y)
+    case .Right:
+      let maxX = size.width - contentLength
+      ccToPoint = CGPointMake(p.x > maxX ? p.x : maxX - (maxX - p.x)/3, dragPoint.y)
+      lcToPoint = CGPointMake(max(maxX, p.distance(initialPoint) < stickDistance ? initialPoint.x : p.x), dragPoint.y)
+    case .Bottom:
+      let maxY = size.height - contentLength
+      ccToPoint = CGPointMake(dragPoint.x, p.y > maxY ? p.y : maxY - (maxY - p.y)/3)
+      lcToPoint = CGPointMake(dragPoint.x, max(maxY, p.distance(initialPoint) < stickDistance ? initialPoint.y : p.y))
+    case .Top:
+      ccToPoint = CGPointMake(dragPoint.x, p.y < contentLength ? p.y : (p.y-contentLength)/3+contentLength)
+      lcToPoint = CGPointMake(dragPoint.x, min(contentLength, p.distance(initialPoint) < stickDistance ? initialPoint.y : p.y))
     }
+    cc.m_animate("center", to: ccToPoint, stiffness: animationCenterStiffness, damping: animationDamping, threshold: animationThreshold)
+    lc.m_animate("center", to: lcToPoint, stiffness: animationSideStiffness, damping: animationDamping, threshold: animationThreshold)
   }
   
   func updateShape(){
-    if animator == nil{
-      return
-    }
-    
     backView.layer.zPosition = 0
     overlayView.layer.zPosition = 298
     shadowView.layer.zPosition = 299
@@ -437,27 +459,25 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
       container.backgroundColor = containerColor
     }
     
-    // 6. setup uikitdynamic
-    setupDynamics()
+    // 6. setup MotionAnimation
+    let initialPoint = finalPoint(!presenting)
+    cc.center = initialPoint
+    lc.center = initialPoint
     
     // 7. do a initial update (put everything into its place)
     updateShape()
     
     // if not doing an interactive transition, move the drag point to the final position
     if !interactive{
-      let duration = self.transitionDuration(transitionContext)
-      lb.action = {
-        if self.animator != nil && self.animator.elapsedTime() >= duration {
-          self.cc.center = self.dragPoint
-          self.lc.center = self.dragPoint
-          self.updateShape()
-          self.clean(true)
-        }
-      }
-      
       dragPoint = self.startingPoint ?? container.center
       dragPoint = finalPoint()
-      update()
+      cc.m_animate("center", to: dragPoint, stiffness: animationCenterStiffness, damping: animationDamping, threshold: animationThreshold)
+      lc.m_animate("center", to: dragPoint, stiffness: animationSideStiffness, damping: animationDamping, threshold: animationThreshold){
+        self.cc.center = self.dragPoint
+        self.lc.center = self.dragPoint
+        self.updateShape()
+        self.clean(true)
+      }
     }
   }
   
@@ -476,32 +496,8 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
       shadowView.layer.masksToBounds = true
     }
   }
-  
-  func setupDynamics(){
-    animator = UIDynamicAnimator(referenceView: container)
-    let initialPoint = finalPoint(!presenting)
-    
-    cc = DynamicItem(center: initialPoint)
-    lc = DynamicItem(center: initialPoint)
-    
-    cb = CustomSnapBehavior(item: cc, point: dragPoint)
-    cb.damping = damping
-    cb.frequency = max(stiffness,1)/25
-    lb = CustomSnapBehavior(item: lc, point: dragPoint)
-    lb.damping = min(1.0, damping * 1.5)
-    lb.frequency = max(stiffness,1)/25
-    
-    update()
-    cb.action = {
-      self.updateShape()
-    }
-    animator.addBehavior(cb)
-    animator.addBehavior(lb)
-  }
     
   override func clean(finished:Bool){
-    animator.removeAllBehaviors()
-    animator = nil
     frontView.layer.zPosition = 0
     if navigation{
       shadowView.removeFromSuperview()
@@ -517,22 +513,14 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
   
   override func cancelInteractiveTransition(){
     super.cancelInteractiveTransition()
-    let finalPoint = self.finalPoint(!self.presenting)
+    let finalPoint = self.finalPoint(!presenting)
     
-    cb.point = finalPoint
-    lb.point = finalPoint
-    lb.action = {
-      if finalPoint.distance(self.cc.center) < 1 &&
-         finalPoint.distance(self.lc.center) < 1 &&
-        self.lastPoint.distance(self.cc.center) < 0.05{
-          self.cc.center = finalPoint
-          self.lc.center = finalPoint
-          self.updateShape()
-          self.clean(false)
-      }else{
-        self.updateShape()
-      }
-      self.lastPoint = self.cc.center
+    lc.m_animate("center", to: finalPoint, stiffness: animationSideStiffness, damping: animationDamping, threshold: animationThreshold)
+    cc.m_animate("center", to: finalPoint, stiffness: animationCenterStiffness, damping: animationDamping, threshold: animationThreshold){
+      self.cc.center = finalPoint
+      self.lc.center = finalPoint
+      self.updateShape()
+      self.clean(false)
     }
   }
   
@@ -540,20 +528,12 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
     super.finishInteractiveTransition()
     let finalPoint = self.finalPoint()
     
-    cb.point = finalPoint
-    lb.point = finalPoint
-    lb.action = {
-      if finalPoint.distance(self.cc.center) < 1 &&
-        finalPoint.distance(self.lc.center) < 1 &&
-        self.lastPoint.distance(self.cc.center) < 0.05{
-          self.cc.center = finalPoint
-          self.lc.center = finalPoint
-          self.updateShape()
-          self.clean(true)
-      }else{
-        self.updateShape()
-      }
-      self.lastPoint = self.cc.center
+    lc.m_animate("center", to: finalPoint, stiffness: animationSideStiffness, damping: animationDamping, threshold: animationThreshold)
+    cc.m_animate("center", to: finalPoint, stiffness: animationCenterStiffness, damping: animationDamping, threshold: animationThreshold){
+      self.cc.center = finalPoint
+      self.lc.center = finalPoint
+      self.updateShape()
+      self.clean(true)
     }
   }
   
@@ -573,7 +553,7 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
   }
   
   override public func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
-    return NSTimeInterval((abs(damping - 0.2) * 0.5 + 0.6)/(max(stiffness,1)/40))
+    return 0.7
   }
 }
 

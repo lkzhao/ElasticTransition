@@ -55,7 +55,7 @@ class OptionsViewController: UIViewController, ElasticMenuTransitionDelegate {
   override func viewDidLoad() {
     super.viewDidLoad()
     let tm = self.transitioningDelegate as! ElasticTransition
-    let va:[Any] = [ElasticTransitionBackgroundTransform.None,ElasticTransitionBackgroundTransform.Rotate,ElasticTransitionBackgroundTransform.TranslateMid]
+    let va:[Any] = [ElasticTransitionBackgroundTransform.Subtle,ElasticTransitionBackgroundTransform.Rotate,ElasticTransitionBackgroundTransform.TranslateMid]
     menu = []
     menu.append(.Switch(name: "Sticky", on:tm.sticky, onChange: {on in
       tm.sticky = on
@@ -69,8 +69,8 @@ class OptionsViewController: UIViewController, ElasticMenuTransitionDelegate {
     menu.append(.Slider(name: "Damping", value:Float(tm.damping), onChange: {value in
       tm.damping = CGFloat(value)
     }))
-    menu.append(.Slider(name: "Stiffness", value:Float(tm.stiffness/100), onChange: {value in
-      tm.stiffness = CGFloat(value*100)
+    menu.append(.Slider(name: "Stiffness", value:Float(tm.stiffness), onChange: {value in
+      tm.stiffness = CGFloat(value)
     }))
     menu.append(.Slider(name: "Radius Factor", value:Float(tm.radiusFactor)/0.5, onChange: {value in
       tm.radiusFactor = CGFloat(value) * CGFloat(0.5)

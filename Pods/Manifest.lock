@@ -1,0 +1,10 @@
+PODS:
+  - MotionAnimation (0.0.5)
+
+DEPENDENCIES:
+  - MotionAnimation (~> 0.0.5)
+
+SPEC CHECKSUMS:
+  MotionAnimation: d9d4060bf4f494dd61bf868b8969a31b1b0b6f2a
+
+COCOAPODS: 0.39.0
