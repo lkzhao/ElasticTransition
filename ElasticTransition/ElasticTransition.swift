@@ -168,13 +168,13 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
   var cc:DynamicItem!
   var lc:DynamicItem!
   var animationCenterStiffness:CGFloat {
-    return (stiffness + 0.5) * (interactive ? 550 : 420)
+    return (stiffness + 0.5) * 150
   }
   var animationSideStiffness:CGFloat {
-    return (stiffness + 0.5) * (interactive ? 400 : 300)
+    return (stiffness + 0.5) * 100
   }
   var animationThreshold:CGFloat {
-    return interactive ? 0.1 : 1
+    return interactive ? 0.1 : 0.5
   }
   var animationDamping:CGFloat {
     return (damping + 0.5) * 20
@@ -239,6 +239,20 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
     
     return false;
   }
+  public func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    if let scrollView = otherGestureRecognizer.view as? UIScrollView where otherGestureRecognizer.isKindOfClass(NSClassFromString("UIScrollViewPanGestureRecognizer")!){
+      let velocity = (gestureRecognizer as! UIPanGestureRecognizer).velocityInView(gestureRecognizer.view)
+      let isGestureDownward = velocity.y >= abs(velocity.x)
+      if (scrollView.contentOffset.y <= 0 && isGestureDownward){
+        scrollView.panGestureRecognizer.enabled = false;
+        scrollView.panGestureRecognizer.enabled = true;
+        return true;
+      }
+    }
+    return false;
+  }
+
+
   func handleOffstagePan(pan: UIPanGestureRecognizer){
     if let vc = pushedControllers.last{
       switch (pan.state) {
@@ -319,6 +333,9 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
   }
   
   func updateShape(){
+    if !transitioning{
+      return
+    }
     backView.layer.zPosition = 0
     overlayView.layer.zPosition = 298
     shadowView.layer.zPosition = 299
@@ -397,7 +414,12 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
     
     transitionContext.updateInteractiveTransition(presenting ? progress : 1 - progress)
   }
-  
+
+
+    public func pushed(viewController:UIViewController){
+        viewController.view.addGestureRecognizer(foregroundExitPanGestureRecognizer)
+        pushedControllers.append(viewController)
+    }
   override func setup(){
     super.setup()
     
@@ -460,6 +482,7 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
     }
     
     // 6. setup MotionAnimation
+    dragPoint = self.startingPoint ?? container.center
     let initialPoint = finalPoint(!presenting)
     cc.center = initialPoint
     lc.center = initialPoint
@@ -469,7 +492,6 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
     
     // if not doing an interactive transition, move the drag point to the final position
     if !interactive{
-      dragPoint = self.startingPoint ?? container.center
       dragPoint = finalPoint()
       cc.m_animate("center", to: dragPoint, stiffness: animationCenterStiffness, damping: animationDamping, threshold: animationThreshold)
       lc.m_animate("center", to: dragPoint, stiffness: animationSideStiffness, damping: animationDamping, threshold: animationThreshold){

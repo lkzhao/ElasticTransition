@@ -85,15 +85,10 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
       // bug: http://openradar.appspot.com/radar?id=5320103646199808
       UIApplication.sharedApplication().keyWindow!.addSubview(finished ? toView : fromView)
     }
-    
-    if presenting && !interactive{
-      backViewController.viewWillAppear(true)
-    }
+
     if(!presenting && finished || presenting && !finished){
       frontView.removeFromSuperview()
       backView.layer.transform = CATransform3DIdentity
-//      backView.frame = container.bounds
-      backViewController.viewDidAppear(true)
     }
     
     currentPanGR = nil
@@ -165,9 +160,6 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
   }
   
   func finishInteractiveTransition(){
-    if !presenting{
-      backViewController.viewWillAppear(true)
-    }
     self.transitionContext.finishInteractiveTransition()
   }
   
@@ -205,34 +197,52 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
   
   
   public func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
-    return 0.7
+    return 0.5
   }
   
   public func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    if transitioning{
+        return nil
+    }
     self.presenting = true
     return self
   }
   
   public func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    if transitioning{
+      return nil
+    }
     self.presenting = false
     return self
   }
   
   public func interactionControllerForPresentation(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    if transitioning{
+      return nil
+    }
     self.presenting = true
     return self.interactive ? self : nil
   }
   
   public func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    if transitioning{
+      return nil
+    }
     self.presenting = false
     return self.interactive ? self : nil
   }
   
   public func navigationController(navigationController: UINavigationController, interactionControllerForAnimationController animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    if transitioning{
+      return nil
+    }
     return self.interactive ? self : nil
   }
   
   public func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    if transitioning{
+      return nil
+    }
     navigation = true
     presenting = operation == .Push
     return self
