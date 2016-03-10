@@ -416,10 +416,11 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
   }
 
 
-    public func pushed(viewController:UIViewController){
-        viewController.view.addGestureRecognizer(foregroundExitPanGestureRecognizer)
-        pushedControllers.append(viewController)
-    }
+  public func manuallyPushed(viewController:UIViewController){
+    viewController.view.addGestureRecognizer(foregroundExitPanGestureRecognizer)
+    pushedControllers.append(viewController)
+  }
+
   override func setup(){
     super.setup()
     
