@@ -140,7 +140,7 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
   public var transformType:ElasticTransitionBackgroundTransform = .TranslateMid{
     didSet{
       if container != nil{
-        container.layoutIfNeeded()
+        container!.layoutIfNeeded()
       }
     }
   }
@@ -319,32 +319,34 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
   }
   
   func updateShape(){
-    backView.layer.zPosition = 0
+    backView?.layer.zPosition = 0
     overlayView.layer.zPosition = 298
     shadowView.layer.zPosition = 299
-    frontView.layer.zPosition = 300
+    frontView?.layer.zPosition = 300
     
     let finalPoint = self.finalPoint(true)
     let initialPoint = self.finalPoint(false)
     let progress = 1 - lc.center.distance(finalPoint) / initialPoint.distance(finalPoint)
     switch edge{
     case .Left:
-      frontView.frame.origin.x = min(cc.center.x, lc.center.x) - contentLength
+      frontView?.frame.origin.x = min(cc.center.x, lc.center.x) - contentLength
       shadowMaskLayer.frame = CGRectMake(0, 0, lc.center.x, size.height)
     case .Right:
-      frontView.frame.origin.x = max(cc.center.x, lc.center.x)
+      frontView?.frame.origin.x = max(cc.center.x, lc.center.x)
       shadowMaskLayer.frame = CGRectMake(lc.center.x, 0, size.width - lc.center.x, size.height)
     case .Bottom:
-      frontView.frame.origin.y = max(cc.center.y, lc.center.y)
+      frontView?.frame.origin.y = max(cc.center.y, lc.center.y)
       shadowMaskLayer.frame = CGRectMake(0, lc.center.y, size.width, size.height - lc.center.y)
     case .Top:
-      frontView.frame.origin.y = min(cc.center.y, lc.center.y) - contentLength
+      frontView?.frame.origin.y = min(cc.center.y, lc.center.y) - contentLength
       shadowMaskLayer.frame = CGRectMake(0, 0, size.width, lc.center.y)
     }
-    shadowMaskLayer.dragPoint = shadowMaskLayer.convertPoint(cc.center, fromLayer: container.layer)
+    if container != nil {
+        shadowMaskLayer.dragPoint = shadowMaskLayer.convertPoint(cc.center, fromLayer: container!.layer)
+    }
     
-    if transform != nil{
-      transform!(progress: progress, view: backView)
+    if let bv = backView where transform != nil{
+      transform!(progress: progress, view: bv)
     }else{
       // transform backView
       switch transformType{
@@ -356,10 +358,10 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
         var t = CATransform3DMakeScale(scale, scale, 1)
         t.m34 = 1.0 / -500;
         t = CATransform3DRotate(t, rotate, rotateX, rotateY, 0.0)
-        backView.layer.transform = t
+        backView?.layer.transform = t
       case .TranslateMid, .TranslatePull, .TranslatePush:
         var x:CGFloat = 0, y:CGFloat = 0
-        container.backgroundColor = backView.backgroundColor
+        container?.backgroundColor = backView?.backgroundColor
         let minFunc = transformType == .TranslateMid ? avg : transformType == .TranslatePull ? max : min
         let maxFunc = transformType == .TranslateMid ? avg : transformType == .TranslatePull ? min : max
         switch edge{
@@ -372,7 +374,7 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
         case .Top:
           y = minFunc(cc.center.y, lc.center.y)
         }
-        backView.layer.transform = CATransform3DMakeTranslation(x, y, 0)
+        backView?.layer.transform = CATransform3DMakeTranslation(x, y, 0)
       case .Subtle:
         var x:CGFloat = 0, y:CGFloat = 0
         switch edge{
@@ -385,9 +387,9 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
         case .Top:
           y = avg(cc.center.y, lc.center.y)
         }
-        backView.layer.transform = CATransform3DMakeTranslation(x*0.2, y*0.2, 0)
+        backView?.layer.transform = CATransform3DMakeTranslation(x*0.2, y*0.2, 0)
       default:
-        backView.layer.transform = CATransform3DIdentity
+        backView?.layer.transform = CATransform3DIdentity
       }
     }
     
@@ -395,19 +397,23 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
     
     updateShadow(progress)
     
-    transitionContext.updateInteractiveTransition(presenting ? progress : 1 - progress)
+    transitionContext?.updateInteractiveTransition(presenting ? progress : 1 - progress)
   }
   
   override func setup(){
     super.setup()
     
     // 1. get content length
-    frontView.layoutIfNeeded()
+    frontView?.layoutIfNeeded()
     switch edge{
     case .Left, .Right:
-      contentLength = frontView.bounds.width
+        if let w = frontView?.bounds.width {
+            contentLength = w
+        }
     case .Top, .Bottom:
-      contentLength = frontView.bounds.height
+        if let h =  frontView?.bounds.height {
+            contentLength = h
+        }
     }
     if let vc = frontViewController as? ElasticMenuTransitionDelegate,
       let vcl = vc.contentLength{
@@ -415,48 +421,53 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
     }
     
     // 2. setup shadow and background view
-    shadowView.frame = container.bounds
+    if container != nil {
+        shadowView.frame = container!.bounds
+    }
     if let frontViewBackgroundColor = frontViewBackgroundColor{
       shadowMaskLayer.fillColor = frontViewBackgroundColor.CGColor
     }else if let vc = frontViewController as? UINavigationController,
       let rootVC = vc.childViewControllers.last{
         shadowMaskLayer.fillColor = rootVC.view.backgroundColor?.CGColor
     }else{
-      shadowMaskLayer.fillColor = frontView.backgroundColor?.CGColor
+      shadowMaskLayer.fillColor = frontView?.backgroundColor?.CGColor
     }
     shadowMaskLayer.edge = edge.opposite()
     shadowMaskLayer.radiusFactor = radiusFactor
-    container.addSubview(shadowView)
+    container?.addSubview(shadowView)
     
 
     // 3. setup overlay view
-    overlayView.frame = container.bounds
+    if container != nil {
+        overlayView.frame = container!.bounds
+    }
     overlayView.backgroundColor = overlayColor
     overlayView.addGestureRecognizer(backgroundExitPanGestureRecognizer)
-    container.addSubview(overlayView)
+    container?.addSubview(overlayView)
     
     // 4. setup front view
-    var rect = container.bounds
-    switch edge{
-    case .Right, .Left:
-      rect.size.width = contentLength
-    case .Bottom, .Top:
-      rect.size.height = contentLength
+    if var rect = container?.bounds {
+        switch edge{
+        case .Right, .Left:
+            rect.size.width = contentLength
+        case .Bottom, .Top:
+            rect.size.height = contentLength
+        }
+        frontView?.frame = rect
     }
-    frontView.frame = rect
     if navigation{
-      frontViewController.navigationController?.view.addGestureRecognizer(navigationExitPanGestureRecognizer)
+      frontViewController?.navigationController?.view.addGestureRecognizer(navigationExitPanGestureRecognizer)
     }else{
-      frontView.addGestureRecognizer(foregroundExitPanGestureRecognizer)
+      frontView?.addGestureRecognizer(foregroundExitPanGestureRecognizer)
     }
-    frontView.layoutIfNeeded()
+    frontView?.layoutIfNeeded()
     
     // 5. container color
     switch transformType{
     case .TranslateMid, .TranslatePull, .TranslatePush:
-      container.backgroundColor = backView.backgroundColor
+      container?.backgroundColor = backView?.backgroundColor
     default:
-      container.backgroundColor = containerColor
+      container?.backgroundColor = containerColor
     }
     
     // 6. setup MotionAnimation
@@ -469,15 +480,15 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
     
     // if not doing an interactive transition, move the drag point to the final position
     if !interactive{
-      dragPoint = self.startingPoint ?? container.center
-      dragPoint = finalPoint()
-      cc.m_animate("center", to: dragPoint, stiffness: animationCenterStiffness, damping: animationDamping, threshold: animationThreshold)
-      lc.m_animate("center", to: dragPoint, stiffness: animationSideStiffness, damping: animationDamping, threshold: animationThreshold){
-        self.cc.center = self.dragPoint
-        self.lc.center = self.dragPoint
-        self.updateShape()
-        self.clean(true)
-      }
+        dragPoint = self.startingPoint ?? container?.center ?? CGPoint(x: UIScreen.mainScreen().bounds.size.height/2, y: UIScreen.mainScreen().bounds.width/2)
+        dragPoint = finalPoint()
+        cc.m_animate("center", to: dragPoint, stiffness: animationCenterStiffness, damping: animationDamping, threshold: animationThreshold)
+        lc.m_animate("center", to: dragPoint, stiffness: animationSideStiffness, damping: animationDamping, threshold: animationThreshold){
+            self.cc.center = self.dragPoint
+            self.lc.center = self.dragPoint
+            self.updateShape()
+            self.clean(true)
+        }
     }
   }
   
@@ -498,13 +509,13 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
   }
     
   override func clean(finished:Bool){
-    frontView.layer.zPosition = 0
+    frontView?.layer.zPosition = 0
     if navigation{
       shadowView.removeFromSuperview()
       overlayView.removeFromSuperview()
     }
-    if presenting && finished{
-      pushedControllers.append(frontViewController)
+    if let fvc = frontViewController where presenting && finished{
+      pushedControllers.append(fvc)
     }else if !presenting && finished{
       pushedControllers.popLast()
     }
