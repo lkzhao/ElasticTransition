@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "ElasticTransition"
-  s.version          = "2.1.0"
+  s.version          = "2.2.0"
   s.summary          = "A UIKit custom modal transition that simulates an elastic drag. Written in Swift."
 
   s.description      = <<-DESC
@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
                        DESC
 
   s.homepage         = "https://github.com/lkzhao/ElasticTransition"
-  s.screenshots     = "https://github.com/lkzhao/ElasticTransition/blob/master/imgs/demo.gif?raw=true"
+  s.screenshots      = "https://github.com/lkzhao/ElasticTransition/blob/master/imgs/demo.gif?raw=true"
   s.license          = 'MIT'
   s.author           = { "Luke" => "lzhaoyilun@gmail.com" }
   s.source           = { :git => "https://github.com/lkzhao/ElasticTransition.git", :tag => s.version.to_s }
