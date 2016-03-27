@@ -27,8 +27,8 @@ class InitialViewController: UIViewController {
 //    transition.shadowColor = UIColor(white: 0, alpha: 0.5)
     
     // gesture recognizer
-    lgr.addTarget(self, action: "handlePan:")
-    rgr.addTarget(self, action: "handleRightPan:")
+    lgr.addTarget(self, action: #selector(InitialViewController.handlePan(_:)))
+    rgr.addTarget(self, action: #selector(InitialViewController.handleRightPan(_:)))
     lgr.edges = .Left
     rgr.edges = .Right
     view.addGestureRecognizer(lgr)
