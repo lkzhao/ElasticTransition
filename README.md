@@ -48,18 +48,15 @@ override func viewDidLoad() {
 
 ### Attributes you can set:
 ```swift
-  /** screen edge of the transition */
+  // screen edge of the transition
   public var edge:Edge
-  // stiffness - determines the speed of the animation
+  // animation stiffness - determines the speed of the animation
   public var stiffness:CGFloat = 0.2
-  // damping
+  // animation damping - determines the bounciness of the animation 
   public var damping:CGFloat = 0.2
-  // Transform Type
+  // Background view transform
   public var transformType:ElasticTransitionBackgroundTransform = .TranslateMid
-  /**
-   The curvature of the elastic edge.
-   lower radiusFactor means higher curvature
-   */
+  // The curvature of the elastic edge.
   public var radiusFactor:CGFloat = 0.5
   /**
    Determines whether or not the view edge will stick to
