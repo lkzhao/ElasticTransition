@@ -40,18 +40,58 @@ override func viewDidLoad() {
   super.viewDidLoad()
 
   // customization
-  transition.edge = .Left
+  transition.edge = .Left 
   transition.sticky = false
-  transition.panThreshold = 0.3
-  transition.transformType = .TranslateMid
-  // ...
+  // etc
 }
 ```
 
-- [Navigation Controller Delegate](#use-as-navigation-controllers-delegate)
-- [Modal](#present-as-modal)
-  - [Interactive Present](#interactive-transition-for-modal-transition)
-  - [Interactive Dismiss](#interactive-transition-for-dismissing-the-modal)
+### Attributes you can set:
+```swift
+  // screen edge of the transition
+  public var edge:Edge
+  // animation stiffness - determines the speed of the animation
+  public var stiffness:CGFloat = 0.2
+  // animation damping - determines the bounciness of the animation 
+  public var damping:CGFloat = 0.2
+  // Background view transform
+  public var transformType:ElasticTransitionBackgroundTransform = .TranslateMid
+  // The curvature of the elastic edge.
+  public var radiusFactor:CGFloat = 0.5
+  /**
+   Determines whether or not the view edge will stick to
+   the initial position when dragged.
+   **Only effective when doing a interactive transition**
+   */
+  public var sticky:Bool = true
+  /**
+   The initial position of the simulated drag when static animation is performed
+   i.e. The static animation will behave like user is dragging from this point
+   **Only effective when doing a static transition**
+   */
+  public var startingPoint:CGPoint?
+  /**
+   The background color of the container when doing the transition
+   */
+  public var containerColor:UIColor = UIColor(red: 152/255, green: 174/255, blue: 196/255, alpha: 1.0)
+  /**
+   The color of the overlay when doing the transition
+   */
+  public var overlayColor:UIColor = UIColor(red: 152/255, green: 174/255, blue: 196/255, alpha: 0.5)
+  /**
+   Whether or not to display the shadow. Will decrease performance.
+   */
+  public var showShadow:Bool = false
+  /**
+   The shadow color of the container when doing the transition
+   */
+  public var shadowColor:UIColor = UIColor(red: 100/255, green: 122/255, blue: 144/255, alpha: 1.0)
+  /**
+   The shadow radius of the container when doing the transition
+   */
+  public var shadowRadius:CGFloat = 50
+```
+
 
 ------------------------
 
@@ -60,7 +100,7 @@ override func viewDidLoad() {
 Simply assign the transition to your navigation controller's delegate
 
 ```swift
-navigationController?.delegate =transition
+navigationController?.delegate = transition
 ```
 
 ------------------------
@@ -77,7 +117,7 @@ override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 }
 ```
 
-In your modal view controller implement the ElasticMenuTransitionDelegate and provide the contentLength
+(Optional) In your modal view controller implement the ElasticMenuTransitionDelegate and provide the contentLength
 ```swift
 class MenuViewController: UIViewController, ElasticMenuTransitionDelegate {
   var contentLength:CGFloat = 320

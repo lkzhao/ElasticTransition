@@ -26,8 +26,8 @@ class AboutViewController: UIViewController {
     view.backgroundColor = getRandomColor()
     
     // gesture recognizer
-    lgr.addTarget(self, action: "handleLeftPan:")
-    rgr.addTarget(self, action: "handleRightPan:")
+    lgr.addTarget(self, action: #selector(AboutViewController.handleLeftPan(_:)))
+    rgr.addTarget(self, action: #selector(AboutViewController.handleRightPan(_:)))
     lgr.edges = .Left
     rgr.edges = .Right
     view.addGestureRecognizer(lgr)

@@ -360,11 +360,11 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
     }
 
     backgroundExitPanGestureRecognizer.delegate = self
-    backgroundExitPanGestureRecognizer.addTarget(self, action:"handleOffstagePan:")
+    backgroundExitPanGestureRecognizer.addTarget(self, action:#selector(ElasticTransition.handleOffstagePan(_:)))
     foregroundExitPanGestureRecognizer.delegate = self
-    foregroundExitPanGestureRecognizer.addTarget(self, action:"handleForegroundOffstagePan:")
+    foregroundExitPanGestureRecognizer.addTarget(self, action:#selector(ElasticTransition.handleForegroundOffstagePan(_:)))
     navigationExitPanGestureRecognizer.delegate = self
-    navigationExitPanGestureRecognizer.addTarget(self, action:"handleOffstagePan:")
+    navigationExitPanGestureRecognizer.addTarget(self, action:#selector(ElasticTransition.handleOffstagePan(_:)))
     navigationExitPanGestureRecognizer.edges = [edge.opposite().toUIRectEdge()]
   }
 
