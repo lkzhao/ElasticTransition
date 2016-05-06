@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A342B2F11CD03477004895E3 /* ElasticTransitionPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A342B2F01CD03477004895E3 /* ElasticTransitionPresentationController.swift */; };
 		A35F61D31C2A3740003012E4 /* EdgePanTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35F61D21C2A3740003012E4 /* EdgePanTransition.swift */; };
 		A35F61D51C2A386D003012E4 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35F61D41C2A386D003012E4 /* Util.swift */; };
 		A3DF22071C38C61700BD164F /* NavigationExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF22061C38C61700BD164F /* NavigationExampleViewController.swift */; };
@@ -27,6 +28,7 @@
 		0E5005F39367C24AEE4ECDE3 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		17C1D639543DCE2923CA4C1E /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		35C60A60CD7112509ACE6FF4 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		A342B2F01CD03477004895E3 /* ElasticTransitionPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ElasticTransitionPresentationController.swift; path = ElasticTransition/ElasticTransitionPresentationController.swift; sourceTree = SOURCE_ROOT; };
 		A35F61D21C2A3740003012E4 /* EdgePanTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; name = EdgePanTransition.swift; path = ElasticTransition/EdgePanTransition.swift; sourceTree = SOURCE_ROOT; tabWidth = 2; };
 		A35F61D41C2A386D003012E4 /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Util.swift; path = ElasticTransition/Util.swift; sourceTree = SOURCE_ROOT; };
 		A3DF22061C38C61700BD164F /* NavigationExampleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationExampleViewController.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 			children = (
 				B12BC0B11C21FA910016D774 /* ElasticShapeLayer.swift */,
 				B12BC0B21C21FA910016D774 /* ElasticTransition.swift */,
+				A342B2F01CD03477004895E3 /* ElasticTransitionPresentationController.swift */,
 				A35F61D41C2A386D003012E4 /* Util.swift */,
 				A35F61D21C2A3740003012E4 /* EdgePanTransition.swift */,
 			);
@@ -248,6 +251,7 @@
 				B12BC0B51C21FA910016D774 /* ElasticTransition.swift in Sources */,
 				B12BC0971C21FA470016D774 /* AppDelegate.swift in Sources */,
 				A35F61D31C2A3740003012E4 /* EdgePanTransition.swift in Sources */,
+				A342B2F11CD03477004895E3 /* ElasticTransitionPresentationController.swift in Sources */,
 				B12BC0B41C21FA910016D774 /* ElasticShapeLayer.swift in Sources */,
 				A35F61D51C2A386D003012E4 /* Util.swift in Sources */,
 				B12BC0AF1C21FA7E0016D774 /* MenuViewController.swift in Sources */,

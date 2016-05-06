@@ -26,7 +26,6 @@ SOFTWARE.
 
 import UIKit
 
-@available(iOS 8.0, *)
 public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate{
   public var panThreshold:CGFloat = 0.2
   public var edge:Edge = .Right
@@ -75,8 +74,10 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
   
   func setup(){
     transitioning = true
+
+    backViewController.viewWillDisappear(true)
     
-    container.addSubview(backView)
+    container.insertSubview(backView, atIndex: 0)
     container.addSubview(frontView)
   }
   
@@ -89,18 +90,39 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
     if(!presenting && finished || presenting && !finished){
       frontView.removeFromSuperview()
       backView.layer.transform = CATransform3DIdentity
+
+      backViewController.viewDidAppear(true)
     }
-    
+
+    dragPoint = CGPointZero
     currentPanGR = nil
     interactive = false
     transitioning = false
     navigation = false
     transitionContext.completeTransition(finished)
+    transitionContext = nil
+    container = nil
   }
-  
+
+  var timeoutTimer:NSTimer?
+  func resetTimeout(){
+    timeoutTimer?.invalidate()
+    timeoutTimer = NSTimer.schedule(delay: 3.0, handler: { [weak self] (timer) in
+      if self?.currentPanGR == nil || self!.currentPanGR!.state != .Changed {
+        self?.endInteractiveTransition()
+      }
+    })
+  }
   func startInteractivePresent(fromViewController fromVC:UIViewController, toViewController toVC:UIViewController?, identifier:String?, pan:UIPanGestureRecognizer, presenting:Bool, completion:(() -> Void)? = nil){
+    if transitioning {
+      return
+    }
+    print("!!! Elastic Transition started presenting:\(presenting)")
+    resetTimeout()
     interactive = true
     currentPanGR = pan
+    translation = pan.translationInView(pan.view!)
+    dragPoint = pan.locationInView(pan.view!)
     if presenting{
       if let identifier = identifier{
         fromVC.performSegueWithIdentifier(identifier, sender: self)
@@ -114,8 +136,6 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
         fromVC.dismissViewControllerAnimated(true, completion: completion)
       }
     }
-    translation = pan.translationInView(pan.view!)
-    dragPoint = pan.locationInView(pan.view!)
   }
   
   public func updateInteractiveTransition(gestureRecognizer pan:UIPanGestureRecognizer) -> Bool?{
@@ -126,6 +146,7 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
       translation = pan.translationInView(pan.view!)
       dragPoint = pan.locationInView(pan.view!)
       update()
+      resetTimeout()
       return nil
     }else{
       return endInteractiveTransition()
@@ -146,6 +167,9 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
   
   
   public func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+    if transitioning {
+        return
+    }
     self.transitionContext = transitionContext
     self.container = transitionContext.containerView()
     setup()
@@ -164,6 +188,8 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
   }
   
   func endInteractiveTransition() -> Bool{
+    print("!!!! End Elastic Transition")
+    timeoutTimer?.invalidate()
     let finished:Bool
     if let pan = currentPanGR{
       let translation = pan.translationInView(pan.view!)
@@ -246,5 +272,12 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
     navigation = true
     presenting = operation == .Push
     return self
+  }
+
+  var presentationController:ElasticTransitionPresentationController!
+  public func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController, sourceViewController source: UIViewController) -> UIPresentationController? {
+    presentationController = ElasticTransitionPresentationController(presentedViewController: presented, presentingViewController: presenting)
+    presentationController.transition = self as? ElasticTransition
+    return presentationController
   }
 }
