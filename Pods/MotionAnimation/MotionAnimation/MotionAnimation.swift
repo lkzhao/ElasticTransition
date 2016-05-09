@@ -8,58 +8,60 @@
 
 import UIKit
 
-public protocol MotionAnimationDelegate{
+public protocol MotionAnimationDelegate:class {
   func animationDidStop(animation:MotionAnimation)
   func animationDidPerformStep(animation:MotionAnimation)
 }
 
 public class MotionAnimation: NSObject {
   internal var animator:MotionAnimator?
-  internal weak var parentAnimation:MotionAnimation?
-  internal var childAnimations:[MotionAnimation] = []
-  
-  public var delegate:MotionAnimationDelegate?
+
+  weak public var delegate:MotionAnimationDelegate?
   public var onCompletion:((animation:MotionAnimation) -> Void)?
   public var onUpdate:((animation:MotionAnimation) -> Void)?
+  public var willStartPlaying:(()->Void)? = nil
 
-  public var playing:Bool{
-    return MotionAnimator.sharedInstance.hasAnimation(self)
+  public var playing:Bool {
+    return animator != nil
   }
-  
-  override init() {
+
+  override public init() {
     super.init()
-    MotionAnimator.sharedInstance.addAnimation(self)
+    play()
   }
-  
-  public func addChildBehavior(b:MotionAnimation){
-    if childAnimations.indexOf(b) == nil{
-      childAnimations.append(b)
-      b.parentAnimation = self
-    }
+
+  public init(playImmediately:Bool) {
+    super.init()
+    if playImmediately { play() }
   }
-  
+
   public func play(){
-    if parentAnimation == nil{
+    if !playing{
+      willStartPlaying?()
       MotionAnimator.sharedInstance.addAnimation(self)
     }
   }
-  
+
   public func stop(){
-    if parentAnimation == nil{
-      MotionAnimator.sharedInstance.removeAnimation(self)
-    }
+    MotionAnimator.sharedInstance.removeAnimation(self)
   }
-  
+}
+
+// override point for subclass
+extension MotionAnimation{
+  public func willUpdate() {
+
+  }
+
   // returning true means require next update(not yet reached target state)
   // behaviors can call animator.addAnimation to wake up the animator when
   // the target value changed
   public func update(dt:CGFloat) -> Bool{
-    var running = false
-    for c in childAnimations{
-      if c.update(dt){
-        running = true
-      }
-    }
-    return running
+    return false
+  }
+
+  // this will be called on main thread. sync value back to the animated object
+  public func didUpdate(){
+
   }
 }

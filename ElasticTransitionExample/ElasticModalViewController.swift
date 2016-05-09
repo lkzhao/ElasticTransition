@@ -9,12 +9,15 @@
 import UIKit
 
 public class ElasticModalViewController: UIViewController, ElasticMenuTransitionDelegate {
+  
+  public var dragDownTransformType:ElasticTransitionBackgroundTransform = .Subtle
+  public var dragRightTransformType:ElasticTransitionBackgroundTransform = .TranslatePull
+  
   lazy var modalTransition:ElasticTransition = {
     let transition = ElasticTransition()
     transition.edge = .Bottom
     transition.sticky = true
     transition.panThreshold = 0.2
-    transition.transformType = .Subtle
     transition.interactiveRadiusFactor = 0.4
     transition.showShadow = true
     return transition
@@ -25,6 +28,7 @@ public class ElasticModalViewController: UIViewController, ElasticMenuTransition
   }
 
   let leftDissmissPanGestureRecognizer = UIScreenEdgePanGestureRecognizer()
+  
 
   public init(){
     super.init(nibName: nil, bundle: nil)
@@ -56,18 +60,18 @@ public class ElasticModalViewController: UIViewController, ElasticMenuTransition
   public override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
     modalTransition.edge = .Bottom
-    modalTransition.transformType = .Subtle
+    modalTransition.transformType = dragDownTransformType
   }
   
   func dismissFromTop(sender:UIView?){
     modalTransition.edge = .Bottom
-    modalTransition.transformType = .Subtle
+    modalTransition.transformType = dragDownTransformType
     modalTransition.startingPoint = sender?.center
     dismissViewControllerAnimated(true, completion: nil)
   }
   
   func dismissFromLeft(sender:UIView?){
-    modalTransition.transformType = .TranslatePull
+    modalTransition.transformType = dragRightTransformType
     modalTransition.edge = .Right
     modalTransition.startingPoint = sender?.center
     dismissViewControllerAnimated(true, completion: nil)
@@ -75,7 +79,7 @@ public class ElasticModalViewController: UIViewController, ElasticMenuTransition
   
   public func handleLeftPan(pan:UIPanGestureRecognizer){
     if pan.state == .Began{
-      modalTransition.transformType = .TranslatePull
+      modalTransition.transformType = dragRightTransformType
       modalTransition.edge = .Right
       modalTransition.dissmissInteractiveTransition(self, gestureRecognizer: pan){}
     } else {

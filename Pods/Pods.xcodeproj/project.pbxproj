@@ -10,51 +10,392 @@
 	<string>46</string>
 	<key>objects</key>
 	<dict>
-		<key>01C90E410A3F1FBB39FC8B0A6354886D</key>
+		<key>02460212E03C964852681525EE2A4E67</key>
+		<dict>
+			<key>fileRef</key>
+			<string>D4FAC18EC17EBF0D79E700A1DED9C6A4</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>18340F12838DEE43507667CC74401EB1</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>6E7E5AF37923BFA48D6994B9BFC6535F</string>
+				<string>C3B7BDF5CE5CB8F095FE12DA55D9A9BB</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>iOS</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>20DEB1ABF00CF46180ED777967538D4E</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>MotionAnimation-dummy.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>242C3E10A985A57E5FA1150C50885A70</key>
 		<dict>
 			<key>buildActionMask</key>
 			<string>2147483647</string>
 			<key>files</key>
 			<array>
-				<string>A03E38075040072D8E849DACE47BC21F</string>
+				<string>739144A612CCD00CCF2B718593DF68DC</string>
+				<string>27875376DEAE60DAD310E59D3A8D62B0</string>
 			</array>
 			<key>isa</key>
 			<string>PBXFrameworksBuildPhase</string>
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
 		</dict>
-		<key>0A1D5314C6624C92EFABD7490F88BBF7</key>
+		<key>27875376DEAE60DAD310E59D3A8D62B0</key>
 		<dict>
 			<key>fileRef</key>
-			<string>33FB6B77B1C0201B8D941E415E952CB9</string>
+			<string>C3B7BDF5CE5CB8F095FE12DA55D9A9BB</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>0ACD47AB04D1C57F82619A601F40141B</key>
+		<key>28770D6271D52852A830DB5250969ADA</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>A4C1619B32940911CB6F9F31BD3C635C</string>
+			<key>buildPhases</key>
+			<array>
+				<string>C9C516EBD22126E8AD1524CAAA62C079</string>
+				<string>242C3E10A985A57E5FA1150C50885A70</string>
+				<string>DB1847C0A72BAFA3EBBE86F4B5771A79</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>MotionAnimation</string>
+			<key>productName</key>
+			<string>MotionAnimation</string>
+			<key>productReference</key>
+			<string>2C7D6B5FBEE130B28622F1256930252D</string>
+			<key>productType</key>
+			<string>com.apple.product-type.framework</string>
+		</dict>
+		<key>2994DA56A478F1FAACA47E5CBBB83C96</key>
+		<dict>
+			<key>fileRef</key>
+			<string>5555DB71B04066EDA5B150CCF5AE2DEB</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>2BCC458FDD5F692BBB2BFC64BB5701FC</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>Pods-umbrella.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2C7D6B5FBEE130B28622F1256930252D</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.framework</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>name</key>
+			<string>MotionAnimation.framework</string>
+			<key>path</key>
+			<string>MotionAnimation.framework</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>2D8E8EC45A3A1A1D94AE762CB5028504</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>A70CDAD61F90AC503C7D04CC22DA2923</string>
+				<string>FB45FFD90572718D82AB9092B750F0CA</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>35CE6D3C948E24894BE6FAEDA68D44EF</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>3692344ABC58AB490A20B4C51BBD674F</string>
+				<string>EB760A53178B94E17A78C436425B8142</string>
+				<string>D4DFAD2216FC53DE7252A0F43F220B71</string>
+				<string>9BC55742A29AF5F0144625A69ECAD924</string>
+				<string>DABEEAF911AACCE91B39A0F6BA947246</string>
+				<string>62B5E2D8A95187A214AA68F7EE6A2543</string>
+				<string>5555DB71B04066EDA5B150CCF5AE2DEB</string>
+				<string>43235AD761014A3D2B96AA366013F51B</string>
+				<string>9283839BD5BC75E1DEC35BB23CDA795C</string>
+				<string>D4FAC18EC17EBF0D79E700A1DED9C6A4</string>
+				<string>5D5AB2F350D2B2DC346ED2B5ED35A140</string>
+				<string>551A1501F001996ABC5745A050EDF9B1</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>MotionAnimation</string>
+			<key>path</key>
+			<string>MotionAnimation</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>3692344ABC58AB490A20B4C51BBD674F</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>CGPoint+Util.swift</string>
+			<key>path</key>
+			<string>MotionAnimation/CGPoint+Util.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>4109CD87A6497BA2CEFEBC487E64DE9A</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>35CE6D3C948E24894BE6FAEDA68D44EF</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Pods</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>43235AD761014A3D2B96AA366013F51B</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>SpringValueAnimation.swift</string>
+			<key>path</key>
+			<string>MotionAnimation/SpringValueAnimation.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>433CD3331B6C3787F473C941B61FC68F</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>18340F12838DEE43507667CC74401EB1</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Frameworks</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>45D3F3848FE3FA608316D1E944394D5C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>DABEEAF911AACCE91B39A0F6BA947246</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>51A88321BD9232C1F08DCE7444E235B4</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>2C7D6B5FBEE130B28622F1256930252D</string>
+				<string>7F194B9CCD56D69980BB7679FD52BAA4</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Products</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>551640C42CBED3C8D2B113DD33739950</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>path</key>
+			<string>MotionAnimation.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>551A1501F001996ABC5745A050EDF9B1</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>79DF076E313E1382348D254748C5403B</string>
+				<string>E2A51DD5135E0B53193406C5589185B2</string>
+				<string>551640C42CBED3C8D2B113DD33739950</string>
+				<string>20DEB1ABF00CF46180ED777967538D4E</string>
+				<string>DC4E63C97A65B82574E1CF13AF5ACFD7</string>
+				<string>85662AB9901DC1B654B43CC25399E3F4</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Support Files</string>
+			<key>path</key>
+			<string>../Target Support Files/MotionAnimation</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>5555DB71B04066EDA5B150CCF5AE2DEB</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>NSTimer.swift</string>
+			<key>path</key>
+			<string>MotionAnimation/NSTimer.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>5D5AB2F350D2B2DC346ED2B5ED35A140</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>ValueAnimation.swift</string>
+			<key>path</key>
+			<string>MotionAnimation/ValueAnimation.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>62B5E2D8A95187A214AA68F7EE6A2543</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>NSObject+MotionAnimation.swift</string>
+			<key>path</key>
+			<string>MotionAnimation/NSObject+MotionAnimation.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>6E7E5AF37923BFA48D6994B9BFC6535F</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>Foundation.framework</string>
+			<key>path</key>
+			<string>Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework</string>
+			<key>sourceTree</key>
+			<string>DEVELOPER_DIR</string>
+		</dict>
+		<key>71D7FFC8FB0D2813671CE6AB16813E63</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXTargetDependency</string>
+			<key>name</key>
+			<string>MotionAnimation</string>
+			<key>target</key>
+			<string>28770D6271D52852A830DB5250969ADA</string>
+			<key>targetProxy</key>
+			<string>C0BF36DA03624F085D68BFF68C10D406</string>
+		</dict>
+		<key>739144A612CCD00CCF2B718593DF68DC</key>
+		<dict>
+			<key>fileRef</key>
+			<string>6E7E5AF37923BFA48D6994B9BFC6535F</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7404F735BC27F45B939B2C2B58C9436D</key>
+		<dict>
+			<key>fileRef</key>
+			<string>894E5DA93A9F359521A89826BE6DA777</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>75D98FF52E597A11900E131B6C4E1ADA</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>E8446514FBAD26C0E18F24A5715AEF67</string>
+				<string>79A9DEDC89FE8336BF5FEDAAF75BF7FC</string>
+				<string>D0405803033A2A777B8E4DFA0C1800ED</string>
+				<string>87B213035BAC5F75386F62D3C75D2342</string>
+				<string>894E5DA93A9F359521A89826BE6DA777</string>
+				<string>E7F21354943D9F42A70697D5A5EF72E9</string>
+				<string>CBC0F7C552B739C909B650A0F42F7F38</string>
+				<string>2BCC458FDD5F692BBB2BFC64BB5701FC</string>
+				<string>977577C045EDA9D9D1F46E2598D19FC7</string>
+				<string>DA312349A49333542E6F4B36B329960E</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Pods</string>
+			<key>path</key>
+			<string>Target Support Files/Pods</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>767317B86F51BE81A48244E2855E2744</key>
 		<dict>
 			<key>buildActionMask</key>
 			<string>2147483647</string>
 			<key>files</key>
 			<array>
-				<string>99CF64C8B1967A4DDD521070C88AE9AF</string>
-				<string>19E6BAA6187125568CA5BF8FFE3DD09A</string>
-				<string>6638D64D08C7238C84DA7E8451ADC89E</string>
-				<string>16174DB623F4EBB1D72EE35A558B24C6</string>
-				<string>5506C301E372355024494D7EE99D5FF9</string>
-				<string>18A966E66F637D3582D68280D8FE7657</string>
-				<string>ABC04CCE406E13AEB5089376321A4C86</string>
-				<string>F4DC12BBB9CC2B8A80FE4136926288B7</string>
-				<string>0A1D5314C6624C92EFABD7490F88BBF7</string>
-				<string>8DE7653EFF072D145EDE444F1439B90E</string>
-				<string>D07C53499723FDF9B9C9A27063CE41C1</string>
-				<string>F147A56273BFC82065A083C310009F3E</string>
+				<string>7404F735BC27F45B939B2C2B58C9436D</string>
 			</array>
 			<key>isa</key>
 			<string>PBXSourcesBuildPhase</string>
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
 		</dict>
-		<key>150138F5302BEF71664A82F84F7AF8F0</key>
+		<key>76C025433AB37F3D08867E91A2697BB1</key>
 		<dict>
 			<key>baseConfigurationReference</key>
 			<string>977577C045EDA9D9D1F46E2598D19FC7</string>
@@ -118,370 +459,12 @@
 			<key>name</key>
 			<string>Debug</string>
 		</dict>
-		<key>16174DB623F4EBB1D72EE35A558B24C6</key>
+		<key>79702B84C370B3EF49FB58A18B26EDC0</key>
 		<dict>
 			<key>fileRef</key>
-			<string>4209E8D46F7C124325F985615E02CC7F</string>
+			<string>5D5AB2F350D2B2DC346ED2B5ED35A140</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
-		</dict>
-		<key>18340F12838DEE43507667CC74401EB1</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>6E7E5AF37923BFA48D6994B9BFC6535F</string>
-				<string>C3B7BDF5CE5CB8F095FE12DA55D9A9BB</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>iOS</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>18A966E66F637D3582D68280D8FE7657</key>
-		<dict>
-			<key>fileRef</key>
-			<string>AFF875E192925FFFD3755AB109246ED5</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>18FE2CD5BAA303A0E5AD54089F4DC812</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>Pods-MotionAnimation-prefix.pch</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>19E6BAA6187125568CA5BF8FFE3DD09A</key>
-		<dict>
-			<key>fileRef</key>
-			<string>773F5DF90CC4CFEE75ED9C4FD02EE2DC</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>1D6E579A836DA9D8687F961E7A3CF76E</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>CF979DCB537EBE0C374B8A7DD14F7AF6</string>
-				<string>D9AF81926DF6B41D29B014EBB687B662</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>MotionAnimation</string>
-			<key>path</key>
-			<string>../../MotionAnimation</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>223282536D62A92A9B6C564B6888B463</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>1D6E579A836DA9D8687F961E7A3CF76E</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Development Pods</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>2AFF8F5FA459C5C21CEA8ADC1B00ED9B</key>
-		<dict>
-			<key>fileRef</key>
-			<string>B226B8ADDFD8863545EF18BB7A703154</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
-		</dict>
-		<key>2BCC458FDD5F692BBB2BFC64BB5701FC</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>Pods-umbrella.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>2C7D6B5FBEE130B28622F1256930252D</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.framework</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>name</key>
-			<string>MotionAnimation.framework</string>
-			<key>path</key>
-			<string>MotionAnimation.framework</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>2D8E8EC45A3A1A1D94AE762CB5028504</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>A70CDAD61F90AC503C7D04CC22DA2923</string>
-				<string>FB45FFD90572718D82AB9092B750F0CA</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>33FB6B77B1C0201B8D941E415E952CB9</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>SpringValueAnimation.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>3DC55129204172097C900788087D1D93</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>MotionAnimation.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>41F963E6A476BE54939D0A30497228DA</key>
-		<dict>
-			<key>fileRef</key>
-			<string>894E5DA93A9F359521A89826BE6DA777</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>4209E8D46F7C124325F985615E02CC7F</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>MotionAnimationPropertyState.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>428FBF60F05749A138DA7EB43F473DC2</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>DA312349A49333542E6F4B36B329960E</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>CURRENT_PROJECT_VERSION</key>
-				<string>1</string>
-				<key>DEFINES_MODULE</key>
-				<string>YES</string>
-				<key>DYLIB_COMPATIBILITY_VERSION</key>
-				<string>1</string>
-				<key>DYLIB_CURRENT_VERSION</key>
-				<string>1</string>
-				<key>DYLIB_INSTALL_NAME_BASE</key>
-				<string>@rpath</string>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>INFOPLIST_FILE</key>
-				<string>Target Support Files/Pods/Info.plist</string>
-				<key>INSTALL_PATH</key>
-				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>8.0</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<array>
-					<string>$(inherited)</string>
-					<string>@executable_path/Frameworks</string>
-					<string>@loader_path/Frameworks</string>
-				</array>
-				<key>MACH_O_TYPE</key>
-				<string>staticlib</string>
-				<key>MODULEMAP_FILE</key>
-				<string>Target Support Files/Pods/Pods.modulemap</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>NO</string>
-				<key>OTHER_LDFLAGS</key>
-				<string></string>
-				<key>OTHER_LIBTOOLFLAGS</key>
-				<string></string>
-				<key>PODS_ROOT</key>
-				<string>$(SRCROOT)</string>
-				<key>PRODUCT_NAME</key>
-				<string>Pods</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-				<key>TARGETED_DEVICE_FAMILY</key>
-				<string>1,2</string>
-				<key>VERSIONING_SYSTEM</key>
-				<string>apple-generic</string>
-				<key>VERSION_INFO_PREFIX</key>
-				<string></string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>433CD3331B6C3787F473C941B61FC68F</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>18340F12838DEE43507667CC74401EB1</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>4F821828B7FB209DE75E3C6A34DFCD61</key>
-		<dict>
-			<key>fileRef</key>
-			<string>6E7E5AF37923BFA48D6994B9BFC6535F</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>51A88321BD9232C1F08DCE7444E235B4</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>2C7D6B5FBEE130B28622F1256930252D</string>
-				<string>7F194B9CCD56D69980BB7679FD52BAA4</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Products</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>5506C301E372355024494D7EE99D5FF9</key>
-		<dict>
-			<key>fileRef</key>
-			<string>FFD4F3128B798A2FD0B51AEE72BE9FEE</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>616364727825220FB97559A946500FFF</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>Pods-MotionAnimation-dummy.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>6638D64D08C7238C84DA7E8451ADC89E</key>
-		<dict>
-			<key>fileRef</key>
-			<string>3DC55129204172097C900788087D1D93</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>689141BAD8B3FAA6F6087B3B1623BC9B</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>6E7E5AF37923BFA48D6994B9BFC6535F</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>Foundation.framework</string>
-			<key>path</key>
-			<string>Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework</string>
-			<key>sourceTree</key>
-			<string>DEVELOPER_DIR</string>
-		</dict>
-		<key>75D98FF52E597A11900E131B6C4E1ADA</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>E8446514FBAD26C0E18F24A5715AEF67</string>
-				<string>79A9DEDC89FE8336BF5FEDAAF75BF7FC</string>
-				<string>D0405803033A2A777B8E4DFA0C1800ED</string>
-				<string>87B213035BAC5F75386F62D3C75D2342</string>
-				<string>894E5DA93A9F359521A89826BE6DA777</string>
-				<string>E7F21354943D9F42A70697D5A5EF72E9</string>
-				<string>CBC0F7C552B739C909B650A0F42F7F38</string>
-				<string>2BCC458FDD5F692BBB2BFC64BB5701FC</string>
-				<string>977577C045EDA9D9D1F46E2598D19FC7</string>
-				<string>DA312349A49333542E6F4B36B329960E</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Pods</string>
-			<key>path</key>
-			<string>Target Support Files/Pods</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>773F5DF90CC4CFEE75ED9C4FD02EE2DC</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>LZPanGestureRecognizer.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 		<key>79A9DEDC89FE8336BF5FEDAAF75BF7FC</key>
 		<dict>
@@ -494,26 +477,39 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>7DA48EDE60F9A7C5C2999A97B0FCCBFA</key>
+		<key>79DF076E313E1382348D254748C5403B</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
+			<string>text.plist.xml</string>
 			<key>path</key>
-			<string>time.swift</string>
+			<string>Info.plist</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
+		</dict>
+		<key>7B812E2040049477A1B40A097B0BA9D7</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>856978F83CFE5F5CD99F21C51D66B309</string>
+			</array>
+			<key>isa</key>
+			<string>PBXHeadersBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
 		</dict>
 		<key>7DB346D0F39D3F0E887471402A8071AB</key>
 		<dict>
 			<key>children</key>
 			<array>
 				<string>BA6428E9F66FD5A23C0A2E06ED26CD2F</string>
-				<string>223282536D62A92A9B6C564B6888B463</string>
 				<string>433CD3331B6C3787F473C941B61FC68F</string>
+				<string>4109CD87A6497BA2CEFEBC487E64DE9A</string>
 				<string>51A88321BD9232C1F08DCE7444E235B4</string>
 				<string>B7B80995527643776607AFFA75B91E24</string>
 			</array>
@@ -537,63 +533,45 @@
 			<key>sourceTree</key>
 			<string>BUILT_PRODUCTS_DIR</string>
 		</dict>
-		<key>835408CDCD21BC7392CDE597651C8971</key>
+		<key>85662AB9901DC1B654B43CC25399E3F4</key>
 		<dict>
-			<key>baseConfigurationReference</key>
-			<string>F565A44D46D969355F38503FB97AFD0D</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>CURRENT_PROJECT_VERSION</key>
-				<string>1</string>
-				<key>DEFINES_MODULE</key>
-				<string>YES</string>
-				<key>DYLIB_COMPATIBILITY_VERSION</key>
-				<string>1</string>
-				<key>DYLIB_CURRENT_VERSION</key>
-				<string>1</string>
-				<key>DYLIB_INSTALL_NAME_BASE</key>
-				<string>@rpath</string>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>Target Support Files/Pods-MotionAnimation/Pods-MotionAnimation-prefix.pch</string>
-				<key>INFOPLIST_FILE</key>
-				<string>Target Support Files/Pods-MotionAnimation/Info.plist</string>
-				<key>INSTALL_PATH</key>
-				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>8.0</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<array>
-					<string>$(inherited)</string>
-					<string>@executable_path/Frameworks</string>
-					<string>@loader_path/Frameworks</string>
-				</array>
-				<key>MODULEMAP_FILE</key>
-				<string>Target Support Files/Pods-MotionAnimation/Pods-MotionAnimation.modulemap</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>YES</string>
-				<key>PRODUCT_NAME</key>
-				<string>MotionAnimation</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SKIP_INSTALL</key>
-				<string>YES</string>
-				<key>SWIFT_OPTIMIZATION_LEVEL</key>
-				<string>-Onone</string>
-				<key>TARGETED_DEVICE_FAMILY</key>
-				<string>1,2</string>
-				<key>VERSIONING_SYSTEM</key>
-				<string>apple-generic</string>
-				<key>VERSION_INFO_PREFIX</key>
-				<string></string>
-			</dict>
+			<key>includeInIndex</key>
+			<string>1</string>
 			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>MotionAnimation-umbrella.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>856978F83CFE5F5CD99F21C51D66B309</key>
+		<dict>
+			<key>fileRef</key>
+			<string>2BCC458FDD5F692BBB2BFC64BB5701FC</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>8798442C2A29693BF025BA9C16CADA3F</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>EDDBA88D5C3628B6488CC69748D20E34</string>
+			</array>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
 		</dict>
 		<key>87B213035BAC5F75386F62D3C75D2342</key>
 		<dict>
@@ -621,12 +599,48 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>8DE7653EFF072D145EDE444F1439B90E</key>
+		<key>89A24078C90744840E5E873D9B624FAE</key>
 		<dict>
 			<key>fileRef</key>
-			<string>7DA48EDE60F9A7C5C2999A97B0FCCBFA</string>
+			<string>43235AD761014A3D2B96AA366013F51B</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
+		</dict>
+		<key>8FEA48CFF54E5EEB4D4A174F594AE40F</key>
+		<dict>
+			<key>fileRef</key>
+			<string>62B5E2D8A95187A214AA68F7EE6A2543</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>9283839BD5BC75E1DEC35BB23CDA795C</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>time.swift</string>
+			<key>path</key>
+			<string>MotionAnimation/time.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>93350C7A16848DE90A110D24C9569CBE</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>76C025433AB37F3D08867E91A2697BB1</string>
+				<string>D56800913E3E0AE832F00582890782B6</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
 		</dict>
 		<key>977577C045EDA9D9D1F46E2598D19FC7</key>
 		<dict>
@@ -641,7 +655,14 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>981F5807783FBC606C9F2512C44BE807</key>
+		<key>980DEEB0F833C6FE7DC8B71C648F50DE</key>
+		<dict>
+			<key>fileRef</key>
+			<string>9283839BD5BC75E1DEC35BB23CDA795C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>9BC55742A29AF5F0144625A69ECAD924</key>
 		<dict>
 			<key>includeInIndex</key>
 			<string>1</string>
@@ -649,24 +670,26 @@
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>MotionAnimationPropertyState.swift</string>
 			<key>path</key>
-			<string>NSTimer.swift</string>
+			<string>MotionAnimation/MotionAnimationPropertyState.swift</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>99CF64C8B1967A4DDD521070C88AE9AF</key>
+		<key>A4C1619B32940911CB6F9F31BD3C635C</key>
 		<dict>
-			<key>fileRef</key>
-			<string>B25BC5D91D75478A2F461F568C4BA16D</string>
+			<key>buildConfigurations</key>
+			<array>
+				<string>CBEDBF842F064992A5FD8F1B7F38988D</string>
+				<string>F48D88E9D5417CB97D90C2F3C828DC0D</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
 			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>A03E38075040072D8E849DACE47BC21F</key>
-		<dict>
-			<key>fileRef</key>
-			<string>6E7E5AF37923BFA48D6994B9BFC6535F</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
+			<string>XCConfigurationList</string>
 		</dict>
 		<key>A70CDAD61F90AC503C7D04CC22DA2923</key>
 		<dict>
@@ -741,91 +764,6 @@
 			<key>name</key>
 			<string>Debug</string>
 		</dict>
-		<key>ABC04CCE406E13AEB5089376321A4C86</key>
-		<dict>
-			<key>fileRef</key>
-			<string>981F5807783FBC606C9F2512C44BE807</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>AD35BFB5F7FC0B46311DEDA7084F55C8</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>CBEBC2685C2B2DE9C6E0587A53608A39</string>
-			<key>buildPhases</key>
-			<array>
-				<string>0ACD47AB04D1C57F82619A601F40141B</string>
-				<string>B21CD050A2CCACEFF60EC1590B3D45FE</string>
-				<string>F73555294473119393434772D71FBE22</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>Pods-MotionAnimation</string>
-			<key>productName</key>
-			<string>Pods-MotionAnimation</string>
-			<key>productReference</key>
-			<string>2C7D6B5FBEE130B28622F1256930252D</string>
-			<key>productType</key>
-			<string>com.apple.product-type.framework</string>
-		</dict>
-		<key>AFF875E192925FFFD3755AB109246ED5</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>NSObject+MotionAnimation.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B21CD050A2CCACEFF60EC1590B3D45FE</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>4F821828B7FB209DE75E3C6A34DFCD61</string>
-				<string>FEC31C317EF31344D94599B410BABC08</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>B226B8ADDFD8863545EF18BB7A703154</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>Pods-MotionAnimation-umbrella.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>B25BC5D91D75478A2F461F568C4BA16D</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>CGPoint+Util.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
 		<key>B7B80995527643776607AFFA75B91E24</key>
 		<dict>
 			<key>children</key>
@@ -838,6 +776,47 @@
 			<string>Targets Support Files</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
+		</dict>
+		<key>B951AB4570ACC8352F31896547E6DED9</key>
+		<dict>
+			<key>fileRef</key>
+			<string>85662AB9901DC1B654B43CC25399E3F4</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>settings</key>
+			<dict>
+				<key>ATTRIBUTES</key>
+				<array>
+					<string>Public</string>
+				</array>
+			</dict>
+		</dict>
+		<key>B98BF0E0A1B68C25055FF5E388571ED0</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>93350C7A16848DE90A110D24C9569CBE</string>
+			<key>buildPhases</key>
+			<array>
+				<string>767317B86F51BE81A48244E2855E2744</string>
+				<string>8798442C2A29693BF025BA9C16CADA3F</string>
+				<string>7B812E2040049477A1B40A097B0BA9D7</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array>
+				<string>71D7FFC8FB0D2813671CE6AB16813E63</string>
+			</array>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>Pods</string>
+			<key>productName</key>
+			<string>Pods</string>
+			<key>productReference</key>
+			<string>7F194B9CCD56D69980BB7679FD52BAA4</string>
+			<key>productType</key>
+			<string>com.apple.product-type.framework</string>
 		</dict>
 		<key>BA6428E9F66FD5A23C0A2E06ED26CD2F</key>
 		<dict>
@@ -856,29 +835,18 @@
 			<key>xcLanguageSpecificationIdentifier</key>
 			<string>xcode.lang.ruby</string>
 		</dict>
-		<key>C248DAACD2C1A92C4DDA75A627976E59</key>
+		<key>C0BF36DA03624F085D68BFF68C10D406</key>
 		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
+			<key>containerPortal</key>
+			<string>D41D8CD98F00B204E9800998ECF8427E</string>
 			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>ValueAnimation.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>C2A918F9CFDD68DBEFFF0A2DCA38ABB2</key>
-		<dict>
-			<key>includeInIndex</key>
+			<string>PBXContainerItemProxy</string>
+			<key>proxyType</key>
 			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>Pods-MotionAnimation.modulemap</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
+			<key>remoteGlobalIDString</key>
+			<string>28770D6271D52852A830DB5250969ADA</string>
+			<key>remoteInfo</key>
+			<string>MotionAnimation</string>
 		</dict>
 		<key>C3B7BDF5CE5CB8F095FE12DA55D9A9BB</key>
 		<dict>
@@ -893,13 +861,31 @@
 			<key>sourceTree</key>
 			<string>DEVELOPER_DIR</string>
 		</dict>
-		<key>C9F49F573CD7F29F58AD9A4791B7C9FD</key>
+		<key>C55E54925D0C3FEE3AF9A2E91F26190A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>3692344ABC58AB490A20B4C51BBD674F</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>C9C516EBD22126E8AD1524CAAA62C079</key>
 		<dict>
 			<key>buildActionMask</key>
 			<string>2147483647</string>
 			<key>files</key>
 			<array>
-				<string>41F963E6A476BE54939D0A30497228DA</string>
+				<string>C55E54925D0C3FEE3AF9A2E91F26190A</string>
+				<string>E5961188F325BC17AD0207165477BE1A</string>
+				<string>F6900DD8E7B49783687845B7686AC26A</string>
+				<string>D985DBDFB25B2FF831299DDBCD41B8B1</string>
+				<string>F656480726B0FE9A99E3BE8D500E79B3</string>
+				<string>45D3F3848FE3FA608316D1E944394D5C</string>
+				<string>8FEA48CFF54E5EEB4D4A174F594AE40F</string>
+				<string>2994DA56A478F1FAACA47E5CBBB83C96</string>
+				<string>89A24078C90744840E5E873D9B624FAE</string>
+				<string>980DEEB0F833C6FE7DC8B71C648F50DE</string>
+				<string>02460212E03C964852681525EE2A4E67</string>
+				<string>79702B84C370B3EF49FB58A18B26EDC0</string>
 			</array>
 			<key>isa</key>
 			<string>PBXSourcesBuildPhase</string>
@@ -919,57 +905,63 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>CBEBC2685C2B2DE9C6E0587A53608A39</key>
+		<key>CBEDBF842F064992A5FD8F1B7F38988D</key>
 		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>835408CDCD21BC7392CDE597651C8971</string>
-				<string>EDCA7D838EE7A562D90A81F10296F723</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
+			<key>baseConfigurationReference</key>
+			<string>551640C42CBED3C8D2B113DD33739950</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>CURRENT_PROJECT_VERSION</key>
+				<string>1</string>
+				<key>DEFINES_MODULE</key>
+				<string>YES</string>
+				<key>DYLIB_COMPATIBILITY_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_CURRENT_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_INSTALL_NAME_BASE</key>
+				<string>@rpath</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>Target Support Files/MotionAnimation/MotionAnimation-prefix.pch</string>
+				<key>INFOPLIST_FILE</key>
+				<string>Target Support Files/MotionAnimation/Info.plist</string>
+				<key>INSTALL_PATH</key>
+				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>8.0</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>@executable_path/Frameworks</string>
+					<string>@loader_path/Frameworks</string>
+				</array>
+				<key>MODULEMAP_FILE</key>
+				<string>Target Support Files/MotionAnimation/MotionAnimation.modulemap</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>YES</string>
+				<key>PRODUCT_NAME</key>
+				<string>MotionAnimation</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+				<key>SWIFT_OPTIMIZATION_LEVEL</key>
+				<string>-Onone</string>
+				<key>TARGETED_DEVICE_FAMILY</key>
+				<string>1,2</string>
+				<key>VERSIONING_SYSTEM</key>
+				<string>apple-generic</string>
+				<key>VERSION_INFO_PREFIX</key>
+				<string></string>
+			</dict>
 			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>CCE9292BEB10DBA316697AB3213C4B55</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>Types.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>CF979DCB537EBE0C374B8A7DD14F7AF6</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>B25BC5D91D75478A2F461F568C4BA16D</string>
-				<string>773F5DF90CC4CFEE75ED9C4FD02EE2DC</string>
-				<string>3DC55129204172097C900788087D1D93</string>
-				<string>4209E8D46F7C124325F985615E02CC7F</string>
-				<string>FFD4F3128B798A2FD0B51AEE72BE9FEE</string>
-				<string>AFF875E192925FFFD3755AB109246ED5</string>
-				<string>981F5807783FBC606C9F2512C44BE807</string>
-				<string>33FB6B77B1C0201B8D941E415E952CB9</string>
-				<string>7DA48EDE60F9A7C5C2999A97B0FCCBFA</string>
-				<string>CCE9292BEB10DBA316697AB3213C4B55</string>
-				<string>C248DAACD2C1A92C4DDA75A627976E59</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
+			<string>XCBuildConfiguration</string>
 			<key>name</key>
-			<string>MotionAnimation</string>
-			<key>path</key>
-			<string>MotionAnimation</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
+			<string>Debug</string>
 		</dict>
 		<key>D0405803033A2A777B8E4DFA0C1800ED</key>
 		<dict>
@@ -983,13 +975,6 @@
 			<string>Pods-acknowledgements.markdown</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D07C53499723FDF9B9C9A27063CE41C1</key>
-		<dict>
-			<key>fileRef</key>
-			<string>CCE9292BEB10DBA316697AB3213C4B55</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
 		</dict>
 		<key>D41D8CD98F00B204E9800998ECF8427E</key>
 		<dict>
@@ -1026,29 +1011,108 @@
 			<string></string>
 			<key>targets</key>
 			<array>
-				<string>E55845EC4197B3C18673066AE0A9B12C</string>
-				<string>AD35BFB5F7FC0B46311DEDA7084F55C8</string>
+				<string>28770D6271D52852A830DB5250969ADA</string>
+				<string>B98BF0E0A1B68C25055FF5E388571ED0</string>
 			</array>
 		</dict>
-		<key>D9AF81926DF6B41D29B014EBB687B662</key>
+		<key>D4DFAD2216FC53DE7252A0F43F220B71</key>
 		<dict>
-			<key>children</key>
-			<array>
-				<string>689141BAD8B3FAA6F6087B3B1623BC9B</string>
-				<string>C2A918F9CFDD68DBEFFF0A2DCA38ABB2</string>
-				<string>F565A44D46D969355F38503FB97AFD0D</string>
-				<string>616364727825220FB97559A946500FFF</string>
-				<string>18FE2CD5BAA303A0E5AD54089F4DC812</string>
-				<string>B226B8ADDFD8863545EF18BB7A703154</string>
-			</array>
+			<key>includeInIndex</key>
+			<string>1</string>
 			<key>isa</key>
-			<string>PBXGroup</string>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
 			<key>name</key>
-			<string>Support Files</string>
+			<string>MotionAnimation.swift</string>
 			<key>path</key>
-			<string>../ElasticTransition/Pods/Target Support Files/Pods-MotionAnimation</string>
+			<string>MotionAnimation/MotionAnimation.swift</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
+		</dict>
+		<key>D4FAC18EC17EBF0D79E700A1DED9C6A4</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>Types.swift</string>
+			<key>path</key>
+			<string>MotionAnimation/Types.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>D56800913E3E0AE832F00582890782B6</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>DA312349A49333542E6F4B36B329960E</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>CURRENT_PROJECT_VERSION</key>
+				<string>1</string>
+				<key>DEFINES_MODULE</key>
+				<string>YES</string>
+				<key>DYLIB_COMPATIBILITY_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_CURRENT_VERSION</key>
+				<string>1</string>
+				<key>DYLIB_INSTALL_NAME_BASE</key>
+				<string>@rpath</string>
+				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
+				<string>YES</string>
+				<key>INFOPLIST_FILE</key>
+				<string>Target Support Files/Pods/Info.plist</string>
+				<key>INSTALL_PATH</key>
+				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>8.0</string>
+				<key>LD_RUNPATH_SEARCH_PATHS</key>
+				<array>
+					<string>$(inherited)</string>
+					<string>@executable_path/Frameworks</string>
+					<string>@loader_path/Frameworks</string>
+				</array>
+				<key>MACH_O_TYPE</key>
+				<string>staticlib</string>
+				<key>MODULEMAP_FILE</key>
+				<string>Target Support Files/Pods/Pods.modulemap</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>NO</string>
+				<key>OTHER_LDFLAGS</key>
+				<string></string>
+				<key>OTHER_LIBTOOLFLAGS</key>
+				<string></string>
+				<key>PODS_ROOT</key>
+				<string>$(SRCROOT)</string>
+				<key>PRODUCT_NAME</key>
+				<string>Pods</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>SKIP_INSTALL</key>
+				<string>YES</string>
+				<key>TARGETED_DEVICE_FAMILY</key>
+				<string>1,2</string>
+				<key>VERSIONING_SYSTEM</key>
+				<string>apple-generic</string>
+				<key>VERSION_INFO_PREFIX</key>
+				<string></string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>D985DBDFB25B2FF831299DDBCD41B8B1</key>
+		<dict>
+			<key>fileRef</key>
+			<string>D4DFAD2216FC53DE7252A0F43F220B71</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
 		</dict>
 		<key>DA312349A49333542E6F4B36B329960E</key>
 		<dict>
@@ -1063,70 +1127,64 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>DAFCF4584E7BF9D497BC8CD960495A59</key>
+		<key>DABEEAF911AACCE91B39A0F6BA947246</key>
 		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
 			<key>isa</key>
-			<string>PBXTargetDependency</string>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
 			<key>name</key>
-			<string>Pods-MotionAnimation</string>
-			<key>target</key>
-			<string>AD35BFB5F7FC0B46311DEDA7084F55C8</string>
-			<key>targetProxy</key>
-			<string>F01EA10650B2CFBB5577B20500EBB92B</string>
+			<string>MotionAnimator.swift</string>
+			<key>path</key>
+			<string>MotionAnimation/MotionAnimator.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
-		<key>E0E4064CC58E6F8BA7D89920C2D8D84C</key>
+		<key>DB1847C0A72BAFA3EBBE86F4B5771A79</key>
 		<dict>
 			<key>buildActionMask</key>
 			<string>2147483647</string>
 			<key>files</key>
 			<array>
-				<string>E6B24B10C87CA6506D380C114FEFF3C5</string>
+				<string>B951AB4570ACC8352F31896547E6DED9</string>
 			</array>
 			<key>isa</key>
 			<string>PBXHeadersBuildPhase</string>
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<string>0</string>
 		</dict>
-		<key>E55845EC4197B3C18673066AE0A9B12C</key>
+		<key>DC4E63C97A65B82574E1CF13AF5ACFD7</key>
 		<dict>
-			<key>buildConfigurationList</key>
-			<string>F770F7A3E7541D5EF5D2C81E2188E8B8</string>
-			<key>buildPhases</key>
-			<array>
-				<string>C9F49F573CD7F29F58AD9A4791B7C9FD</string>
-				<string>01C90E410A3F1FBB39FC8B0A6354886D</string>
-				<string>E0E4064CC58E6F8BA7D89920C2D8D84C</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array>
-				<string>DAFCF4584E7BF9D497BC8CD960495A59</string>
-			</array>
+			<key>includeInIndex</key>
+			<string>1</string>
 			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>Pods</string>
-			<key>productName</key>
-			<string>Pods</string>
-			<key>productReference</key>
-			<string>7F194B9CCD56D69980BB7679FD52BAA4</string>
-			<key>productType</key>
-			<string>com.apple.product-type.framework</string>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>MotionAnimation-prefix.pch</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
 		</dict>
-		<key>E6B24B10C87CA6506D380C114FEFF3C5</key>
+		<key>E2A51DD5135E0B53193406C5589185B2</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>MotionAnimation.modulemap</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>E5961188F325BC17AD0207165477BE1A</key>
 		<dict>
 			<key>fileRef</key>
-			<string>2BCC458FDD5F692BBB2BFC64BB5701FC</string>
+			<string>EB760A53178B94E17A78C436425B8142</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Public</string>
-				</array>
-			</dict>
 		</dict>
 		<key>E7F21354943D9F42A70697D5A5EF72E9</key>
 		<dict>
@@ -1154,10 +1212,32 @@
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
-		<key>EDCA7D838EE7A562D90A81F10296F723</key>
+		<key>EB760A53178B94E17A78C436425B8142</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>LZPanGestureRecognizer.swift</string>
+			<key>path</key>
+			<string>MotionAnimation/LZPanGestureRecognizer.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>EDDBA88D5C3628B6488CC69748D20E34</key>
+		<dict>
+			<key>fileRef</key>
+			<string>6E7E5AF37923BFA48D6994B9BFC6535F</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F48D88E9D5417CB97D90C2F3C828DC0D</key>
 		<dict>
 			<key>baseConfigurationReference</key>
-			<string>F565A44D46D969355F38503FB97AFD0D</string>
+			<string>551640C42CBED3C8D2B113DD33739950</string>
 			<key>buildSettings</key>
 			<dict>
 				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
@@ -1175,9 +1255,9 @@
 				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
 				<string>YES</string>
 				<key>GCC_PREFIX_HEADER</key>
-				<string>Target Support Files/Pods-MotionAnimation/Pods-MotionAnimation-prefix.pch</string>
+				<string>Target Support Files/MotionAnimation/MotionAnimation-prefix.pch</string>
 				<key>INFOPLIST_FILE</key>
-				<string>Target Support Files/Pods-MotionAnimation/Info.plist</string>
+				<string>Target Support Files/MotionAnimation/Info.plist</string>
 				<key>INSTALL_PATH</key>
 				<string>$(LOCAL_LIBRARY_DIR)/Frameworks</string>
 				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
@@ -1189,7 +1269,7 @@
 					<string>@loader_path/Frameworks</string>
 				</array>
 				<key>MODULEMAP_FILE</key>
-				<string>Target Support Files/Pods-MotionAnimation/Pods-MotionAnimation.modulemap</string>
+				<string>Target Support Files/MotionAnimation/MotionAnimation.modulemap</string>
 				<key>MTL_ENABLE_DEBUG_INFO</key>
 				<string>NO</string>
 				<key>PRODUCT_NAME</key>
@@ -1210,72 +1290,19 @@
 			<key>name</key>
 			<string>Release</string>
 		</dict>
-		<key>F01EA10650B2CFBB5577B20500EBB92B</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>D41D8CD98F00B204E9800998ECF8427E</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>AD35BFB5F7FC0B46311DEDA7084F55C8</string>
-			<key>remoteInfo</key>
-			<string>Pods-MotionAnimation</string>
-		</dict>
-		<key>F147A56273BFC82065A083C310009F3E</key>
+		<key>F656480726B0FE9A99E3BE8D500E79B3</key>
 		<dict>
 			<key>fileRef</key>
-			<string>C248DAACD2C1A92C4DDA75A627976E59</string>
+			<string>9BC55742A29AF5F0144625A69ECAD924</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>F4DC12BBB9CC2B8A80FE4136926288B7</key>
+		<key>F6900DD8E7B49783687845B7686AC26A</key>
 		<dict>
 			<key>fileRef</key>
-			<string>616364727825220FB97559A946500FFF</string>
+			<string>20DEB1ABF00CF46180ED777967538D4E</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
-		</dict>
-		<key>F565A44D46D969355F38503FB97AFD0D</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>path</key>
-			<string>Pods-MotionAnimation.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F73555294473119393434772D71FBE22</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>2AFF8F5FA459C5C21CEA8ADC1B00ED9B</string>
-			</array>
-			<key>isa</key>
-			<string>PBXHeadersBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>F770F7A3E7541D5EF5D2C81E2188E8B8</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>150138F5302BEF71664A82F84F7AF8F0</string>
-				<string>428FBF60F05749A138DA7EB43F473DC2</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
 		</dict>
 		<key>FB45FFD90572718D82AB9092B750F0CA</key>
 		<dict>
@@ -1344,26 +1371,6 @@
 			<string>XCBuildConfiguration</string>
 			<key>name</key>
 			<string>Release</string>
-		</dict>
-		<key>FEC31C317EF31344D94599B410BABC08</key>
-		<dict>
-			<key>fileRef</key>
-			<string>C3B7BDF5CE5CB8F095FE12DA55D9A9BB</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>FFD4F3128B798A2FD0B51AEE72BE9FEE</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>MotionAnimator.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
 		</dict>
 	</dict>
 	<key>rootObject</key>

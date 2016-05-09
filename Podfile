@@ -1,3 +1,3 @@
 platform :ios, "8.0"
 use_frameworks!
-pod "MotionAnimation", :path => "../MotionAnimation"
+pod "MotionAnimation", "~> 0.1.0"

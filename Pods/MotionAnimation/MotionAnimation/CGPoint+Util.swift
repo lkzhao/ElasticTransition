@@ -41,3 +41,9 @@ func *(left: CGPoint, right: CGFloat) -> CGPoint {
 func *(left: CGFloat, right: CGPoint) -> CGPoint {
   return right * left
 }
+func *(left: CGPoint, right: CGPoint) -> CGPoint {
+  return CGPointMake(left.x*right.x, left.y*right.y)
+}
+prefix func -(point:CGPoint) -> CGPoint {
+  return CGPointZero - point
+}

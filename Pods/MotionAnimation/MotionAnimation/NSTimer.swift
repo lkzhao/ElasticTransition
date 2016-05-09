@@ -1,7 +1,7 @@
 
 import UIKit
 
-extension NSTimer {
+public extension NSTimer {
     /**
      Creates and schedules a one-time `NSTimer` instance.
 
