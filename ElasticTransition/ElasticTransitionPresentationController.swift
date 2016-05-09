@@ -19,7 +19,7 @@ class ElasticTransitionPresentationController:UIPresentationController,UIAdaptiv
         super.init(presentedViewController:presentedViewController, presentingViewController:presentingViewController)
 
         shadowView.layer.addSublayer(shadowMaskLayer)
-        let tapGR = UITapGestureRecognizer(target: self, action: "overlayTapped:")
+      let tapGR = UITapGestureRecognizer(target: self, action: #selector(overlayTapped(_:)))
         overlayView.opaque = false
         overlayView.addGestureRecognizer(tapGR)
         overlayView.userInteractionEnabled = true

@@ -32,17 +32,30 @@ pod "ElasticTransition"
 
 ## Usage
 
-First of all, in your view controller, create an instance of ElasticTransition
+### Simple
 
 ```swift
-var transition = ElasticTransition()
-override func viewDidLoad() {
-  super.viewDidLoad()
+import ElasticTransition
+// make your view controller a subclass of ElasticModalViewController
+// present it as normal
+class YourModalViewController:ElasticModalViewController{ 
+  // ... 
+}
 
-  // customization
-  transition.edge = .Left 
-  transition.sticky = false
-  // etc
+class RootViewController:UIViewController{
+  // ...
+  @IBAction func modalBtnTouched(sender: AnyObject) {
+    performSegueWithIdentifier("modalSegueIdentifier", sender: self)
+
+    // or if you want to do customization ---------------------
+    let modalViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("modalViewControllerIdentifier") as! YourModalViewController
+    // customization:
+    modalViewController.modalTransition.edge = .Left
+    modalViewController.modalTransition.radiusFactor = 0.3
+    // ...
+
+    presentViewController(modalViewController, animated: true, completion: nil)
+  }
 }
 ```
 
@@ -94,23 +107,23 @@ override func viewDidLoad() {
 
 
 ------------------------
+## Advance Usage
 
-#### Use as navigation controller's delegate
-
-Simply assign the transition to your navigation controller's delegate
-
-```swift
-navigationController?.delegate = transition
-```
-
-------------------------
-
-#### Present as modal
+This work with any view controller. 
 
 In prepareForSegue, assign the transition to be the transitioningDelegate of the destinationViewController.
 Also, dont forget to set the modalPresentationStyle to .Custom
 
 ```swift
+var transition = ElasticTransition()
+override func viewDidLoad() {
+  super.viewDidLoad()
+
+  // customization
+  transition.edge = .Left 
+  transition.sticky = false
+  // etc
+}
 override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
   segue.destinationViewController.transitioningDelegate = transition
   segue.destinationViewController.modalPresentationStyle = .Custom
@@ -171,10 +184,6 @@ func handlePan(pan:UIPanGestureRecognizer){
   }
 }
 ```
-
-## Todo
-1. Better Guide and Documentation
-2. Testing
 
 ## Author
 
