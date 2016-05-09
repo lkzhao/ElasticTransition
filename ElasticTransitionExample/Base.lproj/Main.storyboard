@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15A279b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Clm-T5-ANA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Clm-T5-ANA">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -183,8 +183,8 @@
                                 <color key="textColor" red="0.2443286073" green="0.32193162339999998" blue="0.42130287249999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="&lt;-- Try dragging from the edges --&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="syD-b3-2jf">
-                                <rect key="frame" x="21.5" y="195" width="279" height="20.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;-- Try dragging from the edges --&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="syD-b3-2jf">
+                                <rect key="frame" x="20.5" y="195" width="279" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.55003960240000005" green="0.58265847270000004" blue="0.69884390780000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -207,19 +207,19 @@
                                     <action selector="optionBtnTouched:" destination="Clm-T5-ANA" eventType="touchUpInside" id="c6A-ar-7Mj"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eZh-O6-y0R">
-                                <rect key="frame" x="88" y="433.5" width="145" height="30"/>
-                                <state key="normal" title="Navigation Controller">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8S1-To-u9l">
+                                <rect key="frame" x="138.5" y="433" width="43" height="30"/>
+                                <state key="normal" title="Modal">
                                     <color key="titleColor" red="0.94718671089999995" green="0.27267497660000001" blue="0.39637526699999998" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="navigationBtnTouched:" destination="Clm-T5-ANA" eventType="touchUpInside" id="lIJ-Dr-TpX"/>
+                                    <action selector="modalBtnTouched:" destination="Clm-T5-ANA" eventType="touchUpInside" id="zlL-ML-7S6"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="eZh-O6-y0R" firstAttribute="centerX" secondItem="SWv-9d-dU9" secondAttribute="centerX" id="3TV-kl-iVp"/>
+                            <constraint firstItem="8S1-To-u9l" firstAttribute="centerX" secondItem="SWv-9d-dU9" secondAttribute="centerX" id="09x-Pl-h3T"/>
                             <constraint firstItem="PAa-f8-5K6" firstAttribute="centerX" secondItem="SWv-9d-dU9" secondAttribute="centerX" id="5RA-wV-Uo0"/>
                             <constraint firstItem="g9B-nv-9i7" firstAttribute="centerX" secondItem="SWv-9d-dU9" secondAttribute="centerX" id="78w-ch-txB"/>
                             <constraint firstItem="syD-b3-2jf" firstAttribute="centerX" secondItem="SWv-9d-dU9" secondAttribute="centerX" id="LGE-mZ-o15"/>
@@ -229,8 +229,8 @@
                             <constraint firstItem="YmS-g9-OK0" firstAttribute="top" secondItem="syD-b3-2jf" secondAttribute="bottom" constant="80" id="Vol-Us-29J"/>
                             <constraint firstItem="oU3-Oa-yIE" firstAttribute="top" secondItem="I7o-Rc-3hj" secondAttribute="bottom" constant="120" id="bZQ-QR-YJV"/>
                             <constraint firstItem="oU3-Oa-yIE" firstAttribute="centerX" secondItem="SWv-9d-dU9" secondAttribute="centerX" id="dqI-6e-Gav"/>
-                            <constraint firstItem="eZh-O6-y0R" firstAttribute="top" secondItem="g9B-nv-9i7" secondAttribute="bottom" constant="16" id="moO-L9-3Lc"/>
                             <constraint firstItem="g9B-nv-9i7" firstAttribute="top" secondItem="PAa-f8-5K6" secondAttribute="bottom" constant="16" id="prQ-qv-v3K"/>
+                            <constraint firstItem="8S1-To-u9l" firstAttribute="top" secondItem="g9B-nv-9i7" secondAttribute="bottom" constant="16" id="xbU-mK-S1j"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
@@ -238,17 +238,16 @@
                         <segue destination="rAa-YP-XjS" kind="show" identifier="menu" id="3Te-N0-SSE"/>
                         <segue destination="Foz-KP-l0e" kind="show" identifier="about" id="Rxr-2q-jEv"/>
                         <segue destination="dMk-jf-SM1" kind="show" identifier="option" id="WH5-I7-Ki9"/>
-                        <segue destination="mQX-ti-ntW" kind="presentation" identifier="navigation" id="efD-pY-lW2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6AT-XH-2yU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="440" y="-354"/>
         </scene>
-        <!--Navigation Example View Controller-->
+        <!--Modal Example View Controller-->
         <scene sceneID="dga-Zl-TI8">
             <objects>
-                <viewController storyboardIdentifier="navigationExample" id="k31-Bv-FOj" customClass="NavigationExampleViewController" customModule="ElasticTransitionExample" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="modalExample" id="k31-Bv-FOj" customClass="ModalExampleViewController" customModule="ElasticTransitionExample" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Xqj-1b-xFQ"/>
                         <viewControllerLayoutGuide type="bottom" id="dj0-F0-4M1"/>
@@ -257,9 +256,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can drag down or drag from the left edge to dismiss" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hT7-K2-Qmx">
+                                <rect key="frame" x="47" y="128" width="225" height="41"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="225" id="zLW-Bd-LZD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="0.51324246453900713" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UKE-la-heg">
+                                <rect key="frame" x="102" y="324" width="117" height="30"/>
+                                <state key="normal" title="Show From Right">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="showFromRight:" destination="k31-Bv-FOj" eventType="touchUpInside" id="QL2-eQ-RrM"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="acf-0f-sKv">
-                                <rect key="frame" x="99" y="269" width="123" height="30"/>
-                                <state key="normal" title="Show More Pages">
+                                <rect key="frame" x="42" y="269" width="236" height="30"/>
+                                <state key="normal" title="Show Another Modal From Bottom">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -271,48 +288,17 @@
                         <constraints>
                             <constraint firstItem="acf-0f-sKv" firstAttribute="centerX" secondItem="GQm-RX-CCQ" secondAttribute="centerX" id="AOS-47-mXJ"/>
                             <constraint firstItem="acf-0f-sKv" firstAttribute="centerY" secondItem="GQm-RX-CCQ" secondAttribute="centerY" id="gIq-o3-54g"/>
+                            <constraint firstItem="UKE-la-heg" firstAttribute="centerX" secondItem="GQm-RX-CCQ" secondAttribute="centerX" id="hE2-Uw-BSN"/>
+                            <constraint firstItem="UKE-la-heg" firstAttribute="top" secondItem="acf-0f-sKv" secondAttribute="bottom" constant="25" id="ydd-VQ-T3g"/>
+                            <constraint firstItem="hT7-K2-Qmx" firstAttribute="centerX" secondItem="GQm-RX-CCQ" secondAttribute="centerX" id="yvs-Hk-Y7O"/>
+                            <constraint firstItem="acf-0f-sKv" firstAttribute="top" secondItem="hT7-K2-Qmx" secondAttribute="bottom" constant="100" id="zuI-lZ-kVH"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="CVn-tr-CLc">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="uCl-PW-oxf">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5tU-Pj-YeS">
-                                <rect key="frame" x="264" y="2" width="40" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="PRJ-OB-FgT"/>
-                                    <constraint firstAttribute="width" constant="40" id="mRw-xI-coe"/>
-                                </constraints>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" image="ic_close">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="dismiss:" destination="k31-Bv-FOj" eventType="touchUpInside" id="8dv-66-JcE"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                    </navigationItem>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eYE-jz-sAQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1236" y="-354"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="ZvM-fb-f0H">
-            <objects>
-                <navigationController id="mQX-ti-ntW" sceneMemberID="viewController">
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="dkB-H7-L2e">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="k31-Bv-FOj" kind="relationship" relationship="rootViewController" id="2Ax-1c-bsP"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="O90-bm-lMV" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="850" y="-354"/>
         </scene>
         <!--Menu View Controller-->
         <scene sceneID="yrD-a4-7Qy">
@@ -426,12 +412,6 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;-- Try dragging from the edges --&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rMj-66-9MG">
-                                <rect key="frame" x="27" y="140" width="265" height="20"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" white="1" alpha="0.49191046099290781" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vIK-gd-Qo9">
                                 <rect key="frame" x="60" y="485" width="40" height="40"/>
                                 <constraints>
@@ -449,11 +429,9 @@
                         </subviews>
                         <color key="backgroundColor" red="0.94117647059999998" green="0.35294117650000001" blue="0.32549019610000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="rMj-66-9MG" firstAttribute="top" secondItem="5qW-Zo-wC9" secondAttribute="bottom" constant="80" id="4uh-Oa-Moc"/>
                             <constraint firstItem="wVZ-Qz-CNe" firstAttribute="centerX" secondItem="kMs-k7-VKd" secondAttribute="centerX" constant="20" id="8Wz-hC-ucc"/>
                             <constraint firstItem="5qW-Zo-wC9" firstAttribute="top" secondItem="1tN-Hy-Faa" secondAttribute="bottom" id="HX4-bR-J46"/>
                             <constraint firstItem="wVZ-Qz-CNe" firstAttribute="leading" secondItem="vIK-gd-Qo9" secondAttribute="trailing" id="IBb-qp-B7x"/>
-                            <constraint firstItem="rMj-66-9MG" firstAttribute="centerX" secondItem="kMs-k7-VKd" secondAttribute="centerX" id="NI8-Fb-Fxl"/>
                             <constraint firstItem="ra6-w0-TkT" firstAttribute="centerX" secondItem="kMs-k7-VKd" secondAttribute="centerX" id="O0T-6T-D5c"/>
                             <constraint firstItem="vwQ-OA-tdw" firstAttribute="top" secondItem="wVZ-Qz-CNe" secondAttribute="bottom" constant="53.5" id="Q2S-7o-CEc"/>
                             <constraint firstItem="5qW-Zo-wC9" firstAttribute="leading" secondItem="kMs-k7-VKd" secondAttribute="leading" constant="12" id="XTu-CE-6jU"/>

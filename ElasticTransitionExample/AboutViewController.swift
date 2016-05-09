@@ -15,44 +15,13 @@ func getRandomColor() -> UIColor{
   let randomBlue:CGFloat = CGFloat(drand48())
   return UIColor(red: randomRed, green: randomGreen, blue: randomBlue, alpha: 1.0)
 }
-class AboutViewController: UIViewController {
-  var transition:ElasticTransition!
-  var nextViewController:AboutViewController!
-  let lgr = UIScreenEdgePanGestureRecognizer()
-  let rgr = UIScreenEdgePanGestureRecognizer()
+
+class AboutViewController: UIViewController, ElasticMenuTransitionDelegate {
+  var dismissByForegroundDrag: Bool = true
 
   override func viewDidLoad() {
     super.viewDidLoad()
     view.backgroundColor = getRandomColor()
-    
-    // gesture recognizer
-    lgr.addTarget(self, action: #selector(AboutViewController.handleLeftPan(_:)))
-    rgr.addTarget(self, action: #selector(AboutViewController.handleRightPan(_:)))
-    lgr.edges = .Left
-    rgr.edges = .Right
-    view.addGestureRecognizer(lgr)
-    view.addGestureRecognizer(rgr)
-  }
-  
-  func handleLeftPan(pan:UIPanGestureRecognizer){
-    if pan.state == .Began{
-      transition.dissmissInteractiveTransition(self, gestureRecognizer: pan, completion: nil)
-    }else{
-      transition.updateInteractiveTransition(gestureRecognizer: pan)
-    }
-  }
-  
-  func handleRightPan(pan:UIPanGestureRecognizer){
-    if pan.state == .Began{
-      nextViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("about") as! AboutViewController
-      nextViewController.transition = transition
-      nextViewController.transitioningDelegate = transition
-      nextViewController.modalPresentationStyle = .Custom
-      transition.edge = .Right
-      transition.startInteractiveTransition(self, toViewController: nextViewController, gestureRecognizer: pan)
-    }else{
-      transition.updateInteractiveTransition(gestureRecognizer: pan)
-    }
   }
   
   @IBAction func dismiss(sender: AnyObject) {
@@ -62,5 +31,4 @@ class AboutViewController: UIViewController {
   override func preferredStatusBarStyle() -> UIStatusBarStyle {
     return .LightContent
   }
-  
 }

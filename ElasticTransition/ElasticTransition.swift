@@ -58,12 +58,6 @@ func avg(a:CGFloat, _ b:CGFloat) -> CGFloat{
 @available(iOS 7.0, *)
 public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
 
-  override
-  public var edge:Edge{
-    didSet{
-      navigationExitPanGestureRecognizer.edges = [edge.opposite().toUIRectEdge()]
-    }
-  }
   /**
    The curvature of the elastic edge.
 
@@ -230,7 +224,6 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
   var pushedControllers:[UIViewController] = []
   var backgroundExitPanGestureRecognizer = UIPanGestureRecognizer()
   var foregroundExitPanGestureRecognizer = UIPanGestureRecognizer()
-  var navigationExitPanGestureRecognizer = UIScreenEdgePanGestureRecognizer()
 
   public func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
     if transitioning{
@@ -255,9 +248,6 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
   public func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
     if touch.view!.isKindOfClass(UISlider.self) {
       return false
-    }
-    if gestureRecognizer == navigationExitPanGestureRecognizer{
-      return true
     }
     if let vc = pushedControllers.last{
       if let delegate = vc as? ElasticMenuTransitionDelegate {
@@ -339,9 +329,6 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
     if let vc = pushedControllers.last{
       switch (pan.state) {
       case UIGestureRecognizerState.Began:
-        if pan == navigationExitPanGestureRecognizer{
-          navigation = true
-        }
         dissmissInteractiveTransition(vc, gestureRecognizer: pan, completion: nil)
       default:
         updateInteractiveTransition(gestureRecognizer: pan)
@@ -363,9 +350,6 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
     backgroundExitPanGestureRecognizer.addTarget(self, action:#selector(ElasticTransition.handleOffstagePan(_:)))
     foregroundExitPanGestureRecognizer.delegate = self
     foregroundExitPanGestureRecognizer.addTarget(self, action:#selector(ElasticTransition.handleForegroundOffstagePan(_:)))
-    navigationExitPanGestureRecognizer.delegate = self
-    navigationExitPanGestureRecognizer.addTarget(self, action:#selector(ElasticTransition.handleOffstagePan(_:)))
-    navigationExitPanGestureRecognizer.edges = [edge.opposite().toUIRectEdge()]
   }
 
   deinit{
@@ -508,9 +492,6 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
     presentationController.shadowView.frame = container.bounds
     if let frontViewBackgroundColor = frontViewBackgroundColor{
       presentationController.shadowMaskLayer.fillColor = frontViewBackgroundColor.CGColor
-    }else if let vc = frontViewController as? UINavigationController,
-      let rootVC = vc.childViewControllers.last{
-      presentationController.shadowMaskLayer.fillColor = rootVC.view.backgroundColor?.CGColor
     }else{
       presentationController.shadowMaskLayer.fillColor = frontView.backgroundColor?.CGColor
     }
@@ -535,12 +516,8 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
       rect.size.height = contentLength
     }
     frontView.frame = rect
-    if navigation{
-      frontViewController.navigationController?.view.addGestureRecognizer(navigationExitPanGestureRecognizer)
-    }else{
-      if shouldAddGestureRecognizers {
-        frontView.addGestureRecognizer(foregroundExitPanGestureRecognizer)
-      }
+    if shouldAddGestureRecognizers {
+      frontView.addGestureRecognizer(foregroundExitPanGestureRecognizer)
     }
 //    frontView.layoutIfNeeded()
 

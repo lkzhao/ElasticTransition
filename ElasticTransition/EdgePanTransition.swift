@@ -26,7 +26,7 @@ SOFTWARE.
 
 import UIKit
 
-public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate{
+public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning, UIViewControllerTransitioningDelegate{
   public var panThreshold:CGFloat = 0.2
   public var edge:Edge = .Right
   
@@ -34,7 +34,6 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
   var transitioning = false
   var presenting = true
   var interactive = false
-  var navigation = false
   var transitionContext:UIViewControllerContextTransitioning!
   var container:UIView!
   var size:CGSize{
@@ -80,12 +79,10 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
     container.insertSubview(backView, atIndex: 0)
     container.addSubview(frontView)
   }
-  
+
   func clean(finished: Bool){
-    if !navigation {
-      // bug: http://openradar.appspot.com/radar?id=5320103646199808
-      UIApplication.sharedApplication().keyWindow!.addSubview(finished ? toView : fromView)
-    }
+    // bug: http://openradar.appspot.com/radar?id=5320103646199808
+    UIApplication.sharedApplication().keyWindow!.addSubview(finished ? toView : fromView)
 
     if(!presenting && finished || presenting && !finished){
       frontView.removeFromSuperview()
@@ -98,7 +95,6 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
     currentPanGR = nil
     interactive = false
     transitioning = false
-    navigation = false
     transitionContext.completeTransition(finished)
     transitionContext = nil
     container = nil
@@ -130,11 +126,7 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
         fromVC.presentViewController(toVC, animated: true, completion: nil)
       }
     }else{
-      if navigation{
-        fromVC.navigationController?.popViewControllerAnimated(true)
-      }else{
-        fromVC.dismissViewControllerAnimated(true, completion: completion)
-      }
+      fromVC.dismissViewControllerAnimated(true, completion: completion)
     }
   }
   
@@ -256,22 +248,6 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
     }
     self.presenting = false
     return self.interactive ? self : nil
-  }
-  
-  public func navigationController(navigationController: UINavigationController, interactionControllerForAnimationController animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-    if transitioning{
-      return nil
-    }
-    return self.interactive ? self : nil
-  }
-  
-  public func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-    if transitioning{
-      return nil
-    }
-    navigation = true
-    presenting = operation == .Push
-    return self
   }
 
   var presentationController:ElasticTransitionPresentationController!

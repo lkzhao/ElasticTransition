@@ -71,25 +71,15 @@ class InitialViewController: UIViewController {
     performSegueWithIdentifier("about", sender: self)
   }
   
-  @IBAction func navigationBtnTouched(sender: AnyObject) {
-    transition.edge = .Right
-    transition.startingPoint = sender.center
-    performSegueWithIdentifier("navigation", sender: self)
+  @IBAction func modalBtnTouched(sender: AnyObject) {
+    let modalViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("modalExample") as! ModalExampleViewController
+    presentViewController(modalViewController, animated: true, completion: nil)
   }
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     let vc = segue.destinationViewController
     vc.transitioningDelegate = transition
     vc.modalPresentationStyle = .Custom
-    if segue.identifier == "navigation"{
-      if let vc = vc as? UINavigationController{
-        vc.delegate = transition
-      }
-    }else{
-      if let vc = vc as? AboutViewController{
-        vc.transition = transition
-      }
-    }
   }
   
 }

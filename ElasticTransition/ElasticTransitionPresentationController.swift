@@ -103,7 +103,6 @@ class ElasticTransitionPresentationController:UIPresentationController,UIAdaptiv
         if transition?.transitioning == false{
             let f = frameOfPresentedViewInContainerView()
             presentedView()?.frame = f
-            shadowView.frame = f
             if let containerView = containerView{
                 presentingViewController.view.bounds = containerView.bounds
                 presentingViewController.view.center = containerView.center
