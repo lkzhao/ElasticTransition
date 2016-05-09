@@ -23,7 +23,7 @@ A UIKit custom modal transition that simulates an elastic drag. Written in Swift
 
 ```ruby
 use_frameworks!
-pod "ElasticTransition"
+pod "ElasticTransition", "~> 3.0.0"
 ```
 
 ####Manual
