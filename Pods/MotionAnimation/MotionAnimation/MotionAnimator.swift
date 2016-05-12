@@ -12,16 +12,9 @@ public protocol MotionAnimatorObserver{
   func animatorDidUpdate(animator:MotionAnimator, dt:CGFloat)
 }
 
-
-private func sync(closure: () -> Void) {
-  objc_sync_enter(MotionAnimator.sharedInstance)
-  closure()
-  objc_sync_exit(MotionAnimator.sharedInstance)
-}
-
 public class MotionAnimator: NSObject {
   public static let sharedInstance = MotionAnimator()
-  var updateObservers:[MotionAnimationObserverKey:MotionAnimatorObserver] = [:]
+  var updateObservers:[MotionAnimationObserverKey:Weak<MotionAnimatorObserver>] = [:]
 
   public var debugEnabled = false
   var displayLinkPaused:Bool{
@@ -61,7 +54,7 @@ public class MotionAnimator: NSObject {
       displayLinkPaused = true
     }
     for (_, o) in updateObservers{
-      o.animatorDidUpdate(self, dt: duration)
+      o.value?.animatorDidUpdate(self, dt: duration)
     }
   }
 
@@ -79,12 +72,12 @@ public class MotionAnimator: NSObject {
 
   public func addUpdateObserver(observer:MotionAnimatorObserver) -> MotionAnimationObserverKey {
     let key = NSUUID()
-    updateObservers[key] = observer
+    updateObservers[key] = Weak(value: observer)
     return key
   }
 
   public func observerWithKey(observerKey:MotionAnimationObserverKey) -> MotionAnimatorObserver? {
-    return updateObservers[observerKey]
+    return updateObservers[observerKey]?.value
   }
 
   public func removeUpdateObserverWithKey(observerKey:MotionAnimationObserverKey) {

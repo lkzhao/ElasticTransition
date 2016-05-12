@@ -15,7 +15,7 @@ import UIKit
 
 internal class MotionAnimationPropertyState:NSObject, MotionAnimationDelegate{
 
-  var velocityUpdateCallbacks:[NSUUID:MotionAnimationVelocityObserver] = [:]
+  var velocityUpdateCallbacks:[NSUUID:MotionAnimationValueObserver] = [:]
   var valueUpdateCallbacks:[NSUUID:MotionAnimationValueObserver] = [:]
 
   var animation:MotionAnimation?
@@ -33,7 +33,7 @@ internal class MotionAnimationPropertyState:NSObject, MotionAnimationDelegate{
     self.setter = setter
   }
 
-  private var _tempVelocityUpdate: MotionAnimationVelocityObserver?
+  private var _tempVelocityUpdate: MotionAnimationValueObserver?
   private var _tempValueUpdate: MotionAnimationValueObserver?
   private var _tempCompletion: (() -> Void)?
   func animate(
@@ -42,7 +42,7 @@ internal class MotionAnimationPropertyState:NSObject, MotionAnimationDelegate{
     damping:CGFloat? = nil,
     threshold:CGFloat? = nil,
     valueUpdate:MotionAnimationValueObserver? = nil,
-    velocityUpdate:MotionAnimationVelocityObserver? = nil,
+    velocityUpdate:MotionAnimationValueObserver? = nil,
     completion:(() -> Void)? = nil) {
 
     let anim:SpringValueAnimation
@@ -82,7 +82,7 @@ internal class MotionAnimationPropertyState:NSObject, MotionAnimationDelegate{
     animation?.stop()
   }
 
-  func addVelocityUpdateCallback(velocityUpdateCallback:MotionAnimationVelocityObserver) -> MotionAnimationObserverKey{
+  func addVelocityUpdateCallback(velocityUpdateCallback:MotionAnimationValueObserver) -> MotionAnimationObserverKey{
     let uuid = NSUUID()
     self.velocityUpdateCallbacks[uuid] = velocityUpdateCallback
     return uuid

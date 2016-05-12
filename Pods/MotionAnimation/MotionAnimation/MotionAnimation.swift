@@ -25,12 +25,7 @@ public class MotionAnimation: NSObject {
     return animator != nil
   }
 
-  override public init() {
-    super.init()
-    play()
-  }
-
-  public init(playImmediately:Bool) {
+  public init(playImmediately:Bool = true) {
     super.init()
     if playImmediately { play() }
   }

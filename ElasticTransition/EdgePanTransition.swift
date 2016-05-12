@@ -103,11 +103,12 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
   var timeoutTimer:NSTimer?
   func resetTimeout(){
     timeoutTimer?.invalidate()
-    timeoutTimer = NSTimer.schedule(delay: 3.0, handler: { [weak self] (timer) in
-      if self?.currentPanGR == nil || self!.currentPanGR!.state != .Changed {
-        self?.endInteractiveTransition()
-      }
-    })
+    timeoutTimer = NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: #selector(timedOut), userInfo: nil, repeats: false)
+  }
+  func timedOut(){
+    if currentPanGR == nil || currentPanGR!.state != .Changed {
+      endInteractiveTransition()
+    }
   }
   func startInteractivePresent(fromViewController fromVC:UIViewController, toViewController toVC:UIViewController?, identifier:String?, pan:UIPanGestureRecognizer, presenting:Bool, completion:(() -> Void)? = nil){
     if transitioning {

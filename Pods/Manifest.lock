@@ -1,10 +1,10 @@
 PODS:
-  - MotionAnimation (0.1.0)
+  - MotionAnimation (0.1.1)
 
 DEPENDENCIES:
-  - MotionAnimation (~> 0.1.0)
+  - MotionAnimation (~> 0.1.1)
 
 SPEC CHECKSUMS:
-  MotionAnimation: cd8fa1ab4207da5650e106f9eca94df653a052df
+  MotionAnimation: ff356cfdbedcab52a5bfc94cc96ed44ea2f652e0
 
 COCOAPODS: 0.39.0

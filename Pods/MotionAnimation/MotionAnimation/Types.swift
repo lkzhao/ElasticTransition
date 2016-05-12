@@ -9,15 +9,58 @@
 import UIKit
 
 public typealias MotionAnimationObserverKey = NSUUID
-
 public typealias MotionAnimationValueObserver = ([CGFloat]) -> Void
-public typealias MotionAnimationVelocityObserver = MotionAnimationValueObserver
 
-public func CGPointObserver(ob:(CGPoint) -> Void) -> MotionAnimationValueObserver{
-  return { values in
-    ob(CGPointMake(values[0], values[1]))
+public protocol MotionAnimationAnimatable {
+  func defaultGetterAndSetterForKey(key:String) -> (CGFloatValueBlock, CGFloatValueBlock)?
+}
+
+class Weak<T: AnyObject> {
+  weak var value : T?
+  init (value: T) {
+    self.value = value
   }
 }
+
+extension UIView:MotionAnimationAnimatable{
+  public func defaultGetterAndSetterForKey(key: String) -> (CGFloatValueBlock, CGFloatValueBlock)? {
+    switch key {
+    case "frame", "bounds":
+      return ({ [weak self] values in
+        self?.valueForKey(key)?.CGRectValue().toCGFloatValues(&values)
+        }, { [weak self] values in
+          self?.setValue(NSValue(CGRect:CGRect.fromCGFloatValues(values)), forKey: key)
+        })
+    case "backgroundColor", "tintColor":
+      return ({ [weak self] values in
+        (self?.valueForKey(key) as? UIColor)?.toCGFloatValues(&values)
+        }, { [weak self] values in
+          self?.setValue(UIColor.fromCGFloatValues(values), forKey: key)
+        })
+    case "center":
+      return ({ [weak self] values in
+        self?.center.toCGFloatValues(&values)
+        }, { [weak self] values in
+          self?.center = CGPoint.fromCGFloatValues(values)
+        })
+    case "alpha":
+      return ({ [weak self] values in
+        self?.alpha.toCGFloatValues(&values)
+        }, { [weak self] values in
+          self?.alpha = CGFloat.fromCGFloatValues(values)
+        })
+    case "scale", "scale.x", "scale.y", "scale.z", "rotation", "rotation.x", "rotation.y", "rotation.z", "translation.x", "translation.y", "translation.z":
+      return ({ [weak self] values in
+        self?.valueForKeyPath("layer.transform.\(key)")?.doubleValue.toCGFloatValues(&values)
+        }, { [weak self] values in
+          self?.setValue(Double.fromCGFloatValues(values), forKeyPath: "layer.transform.\(key)")
+        })
+    default:
+      return nil
+    }
+  }
+}
+
 
 public protocol MotionAnimatableProperty{
   var CGFloatValues:[CGFloat] { get }

@@ -336,15 +336,20 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
     }
   }
 
-  var multiValueObserverKey:MotionAnimationObserverKey!
+  var animationObserverKey:MotionAnimationObserverKey!
+  var needUpdate = false
   public override init(){
     super.init()
 
     cc = DynamicItem(center: CGPointZero)
     lc = DynamicItem(center: CGPointZero)
-    multiValueObserverKey = NSObject.m_addCallbackForAnyValueUpdated([cc:["center"],lc:["center"]]) { [weak self] _ in
-      self?.updateShape()
+    cc.m_addValueUpdateCallback("center") { [weak self] (values:CGPoint) in
+      self?.needUpdate = true
     }
+    lc.m_addValueUpdateCallback("center") { [weak self] (values:CGPoint) in
+      self?.needUpdate = true
+    }
+    animationObserverKey = MotionAnimator.sharedInstance.addUpdateObserver(self)
 
     backgroundExitPanGestureRecognizer.delegate = self
     backgroundExitPanGestureRecognizer.addTarget(self, action:#selector(ElasticTransition.handleOffstagePan(_:)))
@@ -353,7 +358,7 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
   }
 
   deinit{
-    NSObject.m_removeMultiValueObserver(multiValueObserverKey)
+    MotionAnimator.sharedInstance.removeUpdateObserverWithKey(animationObserverKey)
   }
 
   override func update() {
@@ -635,3 +640,11 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
   }
 }
 
+
+extension ElasticTransition:MotionAnimatorObserver{
+  public func animatorDidUpdate(animator: MotionAnimator, dt: CGFloat) {
+    if needUpdate {
+      updateShape()
+    }
+  }
+}
