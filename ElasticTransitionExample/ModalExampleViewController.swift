@@ -15,14 +15,14 @@ class ModalExampleViewController: ElasticModalViewController {
     view.backgroundColor = getRandomColor()
   }
 
-  @IBAction func showMore(sender: AnyObject) {
-    let nextViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("modalExample") as! ModalExampleViewController
-    presentViewController(nextViewController, animated: true, completion: nil)
+  @IBAction func showMore(_ sender: AnyObject) {
+    let nextViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "modalExample") as! ModalExampleViewController
+    present(nextViewController, animated: true, completion: nil)
   }
 
-  @IBAction func showFromRight(sender: AnyObject) {
-    let nextViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("modalExample") as! ModalExampleViewController
-    nextViewController.modalTransition.edge = .Right
-    presentViewController(nextViewController, animated: true, completion: nil)
+  @IBAction func showFromRight(_ sender: AnyObject) {
+    let nextViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "modalExample") as! ModalExampleViewController
+    nextViewController.modalTransition.edge = .right
+    present(nextViewController, animated: true, completion: nil)
   }
 }

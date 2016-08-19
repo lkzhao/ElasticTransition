@@ -29,12 +29,12 @@ import UIKit
 
 
 public class ElasticShapeLayer: CAShapeLayer {
-  public var edge:Edge = .Bottom{
+  public var edge:Edge = .bottom{
     didSet{
       path = currentPath()
     }
   }
-  public var dragPoint:CGPoint = CGPointZero{
+  public var dragPoint:CGPoint = CGPoint.zero{
     didSet{
       path = currentPath()
     }
@@ -51,8 +51,8 @@ public class ElasticShapeLayer: CAShapeLayer {
   override public init() {
     super.init()
     
-    backgroundColor = UIColor.clearColor().CGColor
-    fillColor = UIColor.blackColor().CGColor
+    backgroundColor = UIColor.clear.cgColor
+    fillColor = UIColor.black.cgColor
     actions = ["path" : NSNull(), "position" : NSNull(), "bounds" : NSNull(), "fillColor" : NSNull()]
   }
   override public init(layer: AnyObject) {
@@ -68,101 +68,105 @@ public class ElasticShapeLayer: CAShapeLayer {
     
     let leftPoint:CGPoint,rightPoint:CGPoint,bottomRightPoint:CGPoint,bottomLeftPoint:CGPoint
     switch edge{
-    case .Top:
-      leftPoint = CGPointMake(0 - max(0,bounds.width/2 - dragPoint.x), bounds.minY)
-      rightPoint = CGPointMake(bounds.width + max(0,dragPoint.x-bounds.width/2), bounds.minY)
-      bottomRightPoint = CGPointMake(bounds.maxX, bounds.maxY)
-      bottomLeftPoint = CGPointMake(bounds.minX, bounds.maxY)
-    case .Bottom:
-      leftPoint = CGPointMake(bounds.width + max(0,dragPoint.x-bounds.width/2), bounds.maxY)
-      rightPoint = CGPointMake(0 - max(0,bounds.width/2 - dragPoint.x), bounds.maxY)
-      bottomRightPoint = CGPointMake(bounds.minX, bounds.minY)
-      bottomLeftPoint = CGPointMake(bounds.maxX, bounds.minY)
-    case .Left:
-      leftPoint = CGPointMake(bounds.minX, bounds.height + max(0,dragPoint.y-bounds.height/2))
-      rightPoint = CGPointMake(bounds.minX, 0 - max(0,bounds.height/2 - dragPoint.y))
-      bottomRightPoint = CGPointMake(bounds.maxX, bounds.minY)
-      bottomLeftPoint = CGPointMake(bounds.maxX, bounds.maxY)
-    case .Right:
-      leftPoint = CGPointMake(bounds.maxX, 0 - max(0,bounds.height/2 - dragPoint.y))
-      rightPoint = CGPointMake(bounds.maxX, bounds.height + max(0,dragPoint.y-bounds.height/2))
-      bottomRightPoint = CGPointMake(bounds.minX, bounds.maxY)
-      bottomLeftPoint = CGPointMake(bounds.minX, bounds.minY)
+    case .top:
+      leftPoint = CGPoint(x: 0 - max(0,bounds.width/2 - dragPoint.x), y: bounds.minY)
+      rightPoint = CGPoint(x: bounds.width + max(0,dragPoint.x-bounds.width/2), y: bounds.minY)
+      bottomRightPoint = CGPoint(x: bounds.maxX, y: bounds.maxY)
+      bottomLeftPoint = CGPoint(x: bounds.minX, y: bounds.maxY)
+    case .bottom:
+      leftPoint = CGPoint(x: bounds.width + max(0,dragPoint.x-bounds.width/2), y: bounds.maxY)
+      rightPoint = CGPoint(x: 0 - max(0,bounds.width/2 - dragPoint.x), y: bounds.maxY)
+      bottomRightPoint = CGPoint(x: bounds.minX, y: bounds.minY)
+      bottomLeftPoint = CGPoint(x: bounds.maxX, y: bounds.minY)
+    case .left:
+      leftPoint = CGPoint(x: bounds.minX, y: bounds.height + max(0,dragPoint.y-bounds.height/2))
+      rightPoint = CGPoint(x: bounds.minX, y: 0 - max(0,bounds.height/2 - dragPoint.y))
+      bottomRightPoint = CGPoint(x: bounds.maxX, y: bounds.minY)
+      bottomLeftPoint = CGPoint(x: bounds.maxX, y: bounds.maxY)
+    case .right:
+      leftPoint = CGPoint(x: bounds.maxX, y: 0 - max(0,bounds.height/2 - dragPoint.y))
+      rightPoint = CGPoint(x: bounds.maxX, y: bounds.height + max(0,dragPoint.y-bounds.height/2))
+      bottomRightPoint = CGPoint(x: bounds.minX, y: bounds.maxY)
+      bottomLeftPoint = CGPoint(x: bounds.minX, y: bounds.minY)
     }
     
     let shapePath = UIBezierPath()
-    shapePath.moveToPoint(leftPoint)
+    shapePath.move(to: leftPoint)
     
     if radiusFactor>=0.5{
       let rightControl:CGPoint,leftControl:CGPoint;
       switch edge{
-      case .Top,.Bottom:
-        rightControl = CGPointMake((rightPoint.x - centerPoint.x)*0.8+centerPoint.x, centerPoint.y)
-        leftControl = CGPointMake((centerPoint.x - leftPoint.x)*0.2+leftPoint.x, centerPoint.y)
-      case .Left,.Right:
-        rightControl = CGPointMake(centerPoint.x, (rightPoint.y - centerPoint.y)*0.8+centerPoint.y)
-        leftControl = CGPointMake(centerPoint.x, (centerPoint.y - leftPoint.y)*0.2+leftPoint.y)
+      case .top,.bottom:
+        rightControl = CGPoint(x: (rightPoint.x - centerPoint.x)*0.8+centerPoint.x, y: centerPoint.y)
+        leftControl = CGPoint(x: (centerPoint.x - leftPoint.x)*0.2+leftPoint.x, y: centerPoint.y)
+      case .left,.right:
+        rightControl = CGPoint(x: centerPoint.x, y: (rightPoint.y - centerPoint.y)*0.8+centerPoint.y)
+        leftControl = CGPoint(x: centerPoint.x, y: (centerPoint.y - leftPoint.y)*0.2+leftPoint.y)
       }
       
-      shapePath.addCurveToPoint(
-        centerPoint,
+      shapePath.addCurve(
+        to: centerPoint,
         controlPoint1: leftPoint,
         controlPoint2: leftControl)
       
-      shapePath.addCurveToPoint(
-        rightPoint,
+      shapePath.addCurve(
+        to: rightPoint,
         controlPoint1: centerPoint,
         controlPoint2: rightControl)
     }else{
       let rightControl:CGPoint,leftControl:CGPoint,rightRightControl:CGPoint,leftLeftControl:CGPoint;
       switch edge{
-      case .Top:
+      case .top:
         centerPoint.y += (centerPoint.y - bounds.minY)/4
-      case .Bottom:
+      case .bottom:
         centerPoint.y += (centerPoint.y - bounds.maxY)/4
-      case .Left:
+      case .left:
         centerPoint.x += (centerPoint.x - bounds.minX)/4
-      case .Right:
+      case .right:
         centerPoint.x += (centerPoint.x - bounds.maxX)/4
       }
       switch edge{
-      case .Top,.Bottom:
-        rightControl = CGPointMake((rightPoint.x - centerPoint.x)*radiusFactor+centerPoint.x, (centerPoint.y + rightPoint.y)/2)
-        leftControl = CGPointMake((centerPoint.x - leftPoint.x)*(1-radiusFactor)+leftPoint.x, (centerPoint.y + leftPoint.y)/2)
+      case .top,.bottom:
+        rightControl = CGPoint(x: (rightPoint.x - centerPoint.x)*radiusFactor+centerPoint.x, y: (centerPoint.y + rightPoint.y)/2)
+        leftControl = CGPoint(x: (centerPoint.x - leftPoint.x)*(1-radiusFactor)+leftPoint.x, y: (centerPoint.y + leftPoint.y)/2)
         // | --- (1 - 2*radiusFactor) --- leftLeftControl --- radiusFactor --- leftControl --- radiusFactor --- center --- ...
         
-        rightRightControl = CGPointMake((rightPoint.x - centerPoint.x)*(2*radiusFactor)+centerPoint.x, (centerPoint.y > rightPoint.y ? min : max)(centerPoint.y,rightPoint.y))
-        leftLeftControl = CGPointMake((centerPoint.x - leftPoint.x)*(1-2*radiusFactor)+leftPoint.x, (centerPoint.y > rightPoint.y ? min : max)(centerPoint.y,leftPoint.y))
-      case .Left,.Right:
-        rightControl = CGPointMake((centerPoint.x + rightPoint.x)/2, (rightPoint.y - centerPoint.y)*radiusFactor+centerPoint.y)
-        leftControl = CGPointMake((centerPoint.x + leftPoint.x)/2, (centerPoint.y - leftPoint.y)*(1-radiusFactor)+leftPoint.y)
+        rightRightControl = CGPoint(x: (rightPoint.x - centerPoint.x)*(2*radiusFactor)+centerPoint.x, y: (centerPoint.y > rightPoint.y ? min : max)(centerPoint.y,rightPoint.y))
         
-        rightRightControl = CGPointMake((centerPoint.x > rightPoint.x ? min : max)(centerPoint.x,rightPoint.x),(rightPoint.y - centerPoint.y)*(2*radiusFactor)+centerPoint.y)
-        leftLeftControl = CGPointMake((centerPoint.x > rightPoint.x ? min : max)(centerPoint.x,leftPoint.x), (centerPoint.y - leftPoint.y)*(1-2*radiusFactor)+leftPoint.y)
+        let a = (centerPoint.x - leftPoint.x)
+        let b = (1-2*radiusFactor)+leftPoint.x
+        
+        leftLeftControl = CGPoint(x: a*b, y: (centerPoint.y > rightPoint.y ? min : max)(centerPoint.y,leftPoint.y))
+      case .left,.right:
+        rightControl = CGPoint(x: (centerPoint.x + rightPoint.x)/2, y: (rightPoint.y - centerPoint.y)*radiusFactor+centerPoint.y)
+        leftControl = CGPoint(x: (centerPoint.x + leftPoint.x)/2, y: (centerPoint.y - leftPoint.y)*(1-radiusFactor)+leftPoint.y)
+        
+        rightRightControl = CGPoint(x: (centerPoint.x > rightPoint.x ? min : max)(centerPoint.x,rightPoint.x),y: (rightPoint.y - centerPoint.y)*(2*radiusFactor)+centerPoint.y)
+        leftLeftControl = CGPoint(x: (centerPoint.x > rightPoint.x ? min : max)(centerPoint.x,leftPoint.x), y: (centerPoint.y - leftPoint.y)*(1-2*radiusFactor)+leftPoint.y)
       }
       
-      shapePath.addCurveToPoint(
-        leftControl,
+      shapePath.addCurve(
+        to: leftControl,
         controlPoint1: leftPoint,
         controlPoint2: leftLeftControl)
       
-      shapePath.addCurveToPoint(
-        rightControl,
+      shapePath.addCurve(
+        to: rightControl,
         controlPoint1: leftControl,
         controlPoint2: centerPoint)
       
-      shapePath.addCurveToPoint(
-        rightPoint,
+      shapePath.addCurve(
+        to: rightPoint,
         controlPoint1: rightControl,
         controlPoint2: rightRightControl)
       
     }
     
-    shapePath.addLineToPoint(bottomRightPoint)
-    shapePath.addLineToPoint(bottomLeftPoint)
-    shapePath.addLineToPoint(leftPoint)
-    shapePath.closePath()
+    shapePath.addLine(to: bottomRightPoint)
+    shapePath.addLine(to: bottomLeftPoint)
+    shapePath.addLine(to: leftPoint)
+    shapePath.close()
     
-    return shapePath.CGPath
+    return shapePath.cgPath
   }
 }

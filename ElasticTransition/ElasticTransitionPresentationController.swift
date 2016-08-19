@@ -15,26 +15,26 @@ class ElasticTransitionPresentationController:UIPresentationController,UIAdaptiv
     var shadowView = UIView()
     var shadowMaskLayer = ElasticShapeLayer()
 
-    override init(presentedViewController: UIViewController, presentingViewController: UIViewController) {
-        super.init(presentedViewController:presentedViewController, presentingViewController:presentingViewController)
+    override init(presentedViewController: UIViewController, presenting presentingViewController: UIViewController?) {
+        super.init(presentedViewController:presentedViewController, presenting:presentingViewController)
 
         shadowView.layer.addSublayer(shadowMaskLayer)
       let tapGR = UITapGestureRecognizer(target: self, action: #selector(overlayTapped(_:)))
-        overlayView.opaque = false
+        overlayView.isOpaque = false
         overlayView.addGestureRecognizer(tapGR)
-        overlayView.userInteractionEnabled = true
-        shadowView.opaque = false
+        overlayView.isUserInteractionEnabled = true
+        shadowView.isOpaque = false
         shadowView.layer.masksToBounds = false
         overlayView.layer.zPosition = 298
         shadowView.layer.zPosition = 299
     }
 
-    func overlayTapped(tapGR:UITapGestureRecognizer){
+    func overlayTapped(_ tapGR:UITapGestureRecognizer){
         if let delegate = presentedViewController as? ElasticMenuTransitionDelegate {
             let touchToDismiss = delegate.dismissByBackgroundTouch ?? false
             if touchToDismiss{
-                transition?.startingPoint = tapGR.locationInView(nil)
-                presentedViewController.dismissViewControllerAnimated(true, completion:nil)
+                transition?.startingPoint = tapGR.location(in: nil)
+                presentedViewController.dismiss(animated: true, completion:nil)
             }
         }
     }
@@ -44,15 +44,15 @@ class ElasticTransitionPresentationController:UIPresentationController,UIAdaptiv
         containerView?.addSubview(overlayView)
     }
 
-    override func presentationTransitionDidEnd(completed: Bool) {
+    override func presentationTransitionDidEnd(_ completed: Bool) {
         if completed{
             hidePresentingViewIfCovered()
         }
     }
     override func dismissalTransitionWillBegin() {
-        presentingViewController.view.hidden = false
+        presentingViewController.view.isHidden = false
     }
-    override func dismissalTransitionDidEnd(completed: Bool) {
+    override func dismissalTransitionDidEnd(_ completed: Bool) {
         if !completed {
             hidePresentingViewIfCovered()
         }
@@ -60,28 +60,29 @@ class ElasticTransitionPresentationController:UIPresentationController,UIAdaptiv
 
     func hidePresentingViewIfCovered(){
         if let containerBounds = containerView?.bounds {
-            let size = sizeForChildContentContainer(presentedViewController, withParentContainerSize: containerBounds.size)
+            let size = self.size(forChildContentContainer: presentedViewController, withParentContainerSize: containerBounds.size)
             if size == containerBounds.size{
-                presentingViewController.view.hidden = true
+                presentingViewController.view.isHidden = true
             }
         }
     }
-    override func frameOfPresentedViewInContainerView() -> CGRect {
-        if let transition = transition, containerBounds = containerView?.bounds {
-            let size = sizeForChildContentContainer(presentedViewController, withParentContainerSize: containerBounds.size)
+    
+    override var frameOfPresentedViewInContainerView: CGRect {
+        if let transition = transition, let containerBounds = containerView?.bounds {
+            let size = self.size(forChildContentContainer: presentedViewController, withParentContainerSize: containerBounds.size)
             switch transition.edge{
-            case .Left, .Top:
-                return CGRect(origin: CGPointZero, size: size)
-            case .Right:
-                return CGRect(origin: CGPointMake(containerBounds.width - size.width, 0), size: size)
-            case .Bottom:
-                return CGRect(origin: CGPointMake(0, containerBounds.height - size.height), size: size)
+            case .left, .top:
+                return CGRect(origin: CGPoint.zero, size: size)
+            case .right:
+                return CGRect(origin: CGPoint(x: containerBounds.width - size.width, y: 0), size: size)
+            case .bottom:
+                return CGRect(origin: CGPoint(x: 0, y: containerBounds.height - size.height), size: size)
             }
         }
         return presentingViewController.view.bounds
     }
 
-    override func sizeForChildContentContainer(container: UIContentContainer, withParentContainerSize parentSize: CGSize) -> CGSize {
+    override func size(forChildContentContainer container: UIContentContainer, withParentContainerSize parentSize: CGSize) -> CGSize {
         if let transition = transition {
             var contentLength:CGFloat?
             if let vc = presentedViewController as? ElasticMenuTransitionDelegate,
@@ -90,10 +91,10 @@ class ElasticTransitionPresentationController:UIPresentationController,UIAdaptiv
             }
 
             switch transition.edge{
-            case .Left, .Right:
-                return CGSizeMake(contentLength ?? parentSize.width, parentSize.height)
-            case .Top, .Bottom:
-                return CGSizeMake(parentSize.width, contentLength ?? parentSize.height)
+            case .left, .right:
+                return CGSize(width: contentLength ?? parentSize.width, height: parentSize.height)
+            case .top, .bottom:
+                return CGSize(width: parentSize.width, height: contentLength ?? parentSize.height)
             }
         }
         return parentSize
@@ -101,8 +102,8 @@ class ElasticTransitionPresentationController:UIPresentationController,UIAdaptiv
 
     override func containerViewWillLayoutSubviews() {
         if transition?.transitioning == false{
-            let f = frameOfPresentedViewInContainerView()
-            presentedView()?.frame = f
+            let f = frameOfPresentedViewInContainerView
+            presentedView?.frame = f
             if let containerView = containerView{
                 presentingViewController.view.bounds = containerView.bounds
                 presentingViewController.view.center = containerView.center
@@ -112,28 +113,31 @@ class ElasticTransitionPresentationController:UIPresentationController,UIAdaptiv
     }
 
 
-    func updateShadow(progress:CGFloat){
-        if let transition = transition where transition.showShadow{
-            shadowView.layer.shadowColor = transition.shadowColor.CGColor
+    func updateShadow(_ progress:CGFloat){
+        if let transition = transition , transition.showShadow{
+            shadowView.layer.shadowColor = transition.shadowColor.cgColor
             shadowView.layer.shadowRadius = transition.shadowRadius
-            shadowView.layer.shadowOffset = CGSizeMake(0, 0)
+            shadowView.layer.shadowOffset = CGSize(width: 0, height: 0)
             shadowView.layer.shadowOpacity = Float(progress)
             shadowView.layer.masksToBounds = false
         }else{
             shadowView.layer.shadowColor = nil
             shadowView.layer.shadowRadius = 0
-            shadowView.layer.shadowOffset = CGSizeMake(0, 0)
+            shadowView.layer.shadowOffset = CGSize(width: 0, height: 0)
             shadowView.layer.shadowOpacity = 0
             shadowView.layer.masksToBounds = true
         }
     }
+    
+    
 
-    override func shouldPresentInFullscreen() -> Bool {
+    
+    override var shouldPresentInFullscreen: Bool {
         return true
     }
-
-    override func adaptivePresentationStyle() -> UIModalPresentationStyle {
-        return UIModalPresentationStyle.FullScreen
+    
+    override var adaptivePresentationStyle: UIModalPresentationStyle {
+        return UIModalPresentationStyle.fullScreen
     }
 
 }

@@ -24,11 +24,10 @@ class AboutViewController: UIViewController, ElasticMenuTransitionDelegate {
     view.backgroundColor = getRandomColor()
   }
   
-  @IBAction func dismiss(sender: AnyObject) {
-    dismissViewControllerAnimated(true, completion: nil)
+  @IBAction func dismiss(_ sender: AnyObject) {
+    self.dismiss(animated: true, completion: nil)
   }
 
-  override func preferredStatusBarStyle() -> UIStatusBarStyle {
-    return .LightContent
-  }
+
+  override var preferredStatusBarStyle: UIStatusBarStyle { return UIStatusBarStyle.lightContent }
 }

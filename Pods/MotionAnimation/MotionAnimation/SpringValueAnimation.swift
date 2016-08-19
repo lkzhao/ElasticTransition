@@ -15,7 +15,7 @@ public class SpringValueAnimation:ValueAnimation {
   public var damping:CGFloat = 10
 
   //from https://github.com/chenglou/react-motion
-  public override func update(dt:CGFloat) -> Bool{
+  public override func update(_ dt:CGFloat) -> Bool{
     var running = false
     for i in 0..<values.count{
       // Force

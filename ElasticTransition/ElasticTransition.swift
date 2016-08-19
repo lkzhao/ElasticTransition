@@ -28,7 +28,7 @@ import UIKit
 import MotionAnimation
 
 @objc public enum ElasticTransitionBackgroundTransform:Int{
-  case None, Rotate, TranslateMid, TranslatePull, TranslatePush, Subtle
+  case none, rotate, translateMid, translatePull, translatePush, subtle
 }
 
 @objc public protocol Scrollable {
@@ -43,16 +43,16 @@ extension UIScrollView:Scrollable{
 
 @objc
 public protocol ElasticMenuTransitionDelegate{
-  optional var contentLength:CGFloat {get}
-  optional var dismissByBackgroundTouch:Bool {get}
-  optional var dismissByBackgroundDrag:Bool {get}
-  optional var dismissByForegroundDrag:Bool {get}
-  optional func elasticTransitionWillDismiss(transition:ElasticTransition)
-  optional func elasticTransitionDidDismiss(transition:ElasticTransition)
+  @objc optional var contentLength:CGFloat {get}
+  @objc optional var dismissByBackgroundTouch:Bool {get}
+  @objc optional var dismissByBackgroundDrag:Bool {get}
+  @objc optional var dismissByForegroundDrag:Bool {get}
+  @objc optional func elasticTransitionWillDismiss(_ transition:ElasticTransition)
+  @objc optional func elasticTransitionDidDismiss(_ transition:ElasticTransition)
 }
 
 
-func avg(a:CGFloat, _ b:CGFloat) -> CGFloat{
+func avg(_ a:CGFloat, _ b:CGFloat) -> CGFloat{
   return (a+b)/2
 }
 @available(iOS 7.0, *)
@@ -147,7 +147,7 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
   public var transform:((progress:CGFloat, view:UIView) -> Void)?
 
   // Transform Type
-  public var transformType:ElasticTransitionBackgroundTransform = .TranslateMid{
+  public var transformType:ElasticTransitionBackgroundTransform = .translateMid{
     didSet{
       if container != nil{
         container.layoutIfNeeded()
@@ -191,32 +191,32 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
     return (damping + 0.5) * (interactive ? 30 : 20)
   }
   var contentLength:CGFloat = 0
-  var lastPoint:CGPoint = CGPointZero
+  var lastPoint:CGPoint = CGPoint.zero
   var stickDistance:CGFloat{
     return sticky ? contentLength * panThreshold : 0
   }
 
-  func finalPoint(presenting:Bool? = nil) -> CGPoint{
+  func finalPoint(_ presenting:Bool? = nil) -> CGPoint{
     let p = presenting ?? self.presenting
     switch edge{
-    case .Left:
-      return p ? CGPointMake(contentLength, dragPoint.y) : CGPointMake(0, dragPoint.y)
-    case .Right:
-      return p ? CGPointMake(size.width - contentLength, dragPoint.y) : CGPointMake(size.width, dragPoint.y)
-    case .Bottom:
-      return p ? CGPointMake(dragPoint.x, size.height - contentLength) : CGPointMake(dragPoint.x, size.height)
-    case .Top:
-      return p ? CGPointMake(dragPoint.x, contentLength) : CGPointMake(dragPoint.x, 0)
+    case .left:
+      return p ? CGPoint(x: contentLength, y: dragPoint.y) : CGPoint(x: 0, y: dragPoint.y)
+    case .right:
+      return p ? CGPoint(x: size.width - contentLength, y: dragPoint.y) : CGPoint(x: size.width, y: dragPoint.y)
+    case .bottom:
+      return p ? CGPoint(x: dragPoint.x, y: size.height - contentLength) : CGPoint(x: dragPoint.x, y: size.height)
+    case .top:
+      return p ? CGPoint(x: dragPoint.x, y: contentLength) : CGPoint(x: dragPoint.x, y: 0)
     }
   }
 
   func translatedPoint() -> CGPoint{
     let initialPoint = self.finalPoint(!self.presenting)
     switch edge{
-    case .Left, .Right:
-      return CGPointMake(max(0,min(size.width,initialPoint.x+translation.x)), initialPoint.y)
-    case .Top,.Bottom:
-      return CGPointMake(initialPoint.x, max(0,min(size.height,initialPoint.y+translation.y)))
+    case .left, .right:
+      return CGPoint(x: max(0,min(size.width,initialPoint.x+translation.x)), y: initialPoint.y)
+    case .top,.bottom:
+      return CGPoint(x: initialPoint.x, y: max(0,min(size.height,initialPoint.y+translation.y)))
     }
   }
 
@@ -225,28 +225,28 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
   var backgroundExitPanGestureRecognizer = UIPanGestureRecognizer()
   var foregroundExitPanGestureRecognizer = UIPanGestureRecognizer()
 
-  public func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+  public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
     if transitioning{
       return false
     }
     if let panGR = gestureRecognizer as? UIPanGestureRecognizer{
-      let v = panGR.velocityInView(panGR.view!)
+      let v = panGR.velocity(in: panGR.view!)
       switch edge{
-      case .Left:
+      case .left:
         return v.x < -abs(v.y)
-      case .Right:
+      case .right:
         return v.x > abs(v.y)
-      case .Bottom:
+      case .bottom:
         return panGR == foregroundExitPanGestureRecognizer || v.y > abs(v.x)
-      case .Top:
+      case .top:
         return v.y < -abs(v.x)
       }
     }
     return true
   }
 
-  public func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
-    if touch.view!.isKindOfClass(UISlider.self) {
+  public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+    if touch.view!.isKind(of: UISlider.self) {
       return false
     }
     if let vc = pushedControllers.last{
@@ -263,10 +263,10 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
 
     return false;
   }
-  public func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+  public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
     if let otherGestureRecognizer = otherGestureRecognizer as? UIPanGestureRecognizer,
-        scrollView = otherGestureRecognizer.view as? Scrollable
-        where gestureRecognizer == foregroundExitPanGestureRecognizer && edge == .Bottom {
+        let scrollView = otherGestureRecognizer.view as? Scrollable
+        , gestureRecognizer == foregroundExitPanGestureRecognizer && edge == .bottom {
         if self.foregroundScrollView == nil {
             if let superScrollView = scrollView.superview as? UIScrollView {
                 self.foregroundScrollView = superScrollView
@@ -291,47 +291,47 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
     }
     return false
   }
-  func handleForegroundOffstagePan(pan: UIPanGestureRecognizer){
+  func handleForegroundOffstagePan(_ pan: UIPanGestureRecognizer){
     if let vc = pushedControllers.last{
       switch (pan.state) {
-      case .Began, .Changed:
+      case .began, .changed:
         if let startingPoint = foregroundStartingLocation {
-          dragPoint = pan.locationInView(nil)
-          translation = CGPointMake(dragPoint.x - startingPoint.x, dragPoint.y - startingPoint.y)
+          dragPoint = pan.location(in: nil)
+          translation = CGPoint(x: dragPoint.x - startingPoint.x, y: dragPoint.y - startingPoint.y)
           update()
           resetTimeout()
-        } else if let scrollView = foregroundScrollView where edge == .Bottom {
+        } else if let scrollView = foregroundScrollView , edge == .bottom {
           // if we are recognizing simutaneously with a scrollView and the edge is .Bottom
           // we only trigger the transition when user is dragging down and the scrollView's
           // contentOffset is <= 0
           if !shouldForegroundDismiss() { return }
-          let v = pan.velocityInView(pan.view!)
+          let v = pan.velocity(in: pan.view!)
           if v.y > abs(v.x) && scrollView.contentOffset.y <= 0{
             scrollView.bounces = false
             dissmissInteractiveTransition(vc, gestureRecognizer: pan, completion: nil)
-            foregroundStartingLocation = pan.locationInView(nil)
+            foregroundStartingLocation = pan.location(in: nil)
           }
         } else {
           if !shouldForegroundDismiss() { return }
           dissmissInteractiveTransition(vc, gestureRecognizer: pan, completion: nil)
-          foregroundStartingLocation = pan.locationInView(nil)
+          foregroundStartingLocation = pan.location(in: nil)
         }
       default:
         if foregroundExitStarted{
           foregroundStartingLocation = nil
-          endInteractiveTransition()
+          _ = endInteractiveTransition()
         }
       }
     }
   }
 
-  func handleOffstagePan(pan: UIPanGestureRecognizer){
+  func handleOffstagePan(_ pan: UIPanGestureRecognizer){
     if let vc = pushedControllers.last{
       switch (pan.state) {
-      case UIGestureRecognizerState.Began:
+      case UIGestureRecognizerState.began:
         dissmissInteractiveTransition(vc, gestureRecognizer: pan, completion: nil)
       default:
-        updateInteractiveTransition(gestureRecognizer: pan)
+        _ = updateInteractiveTransition(gestureRecognizer: pan)
       }
     }
   }
@@ -341,12 +341,12 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
   public override init(){
     super.init()
 
-    cc = DynamicItem(center: CGPointZero)
-    lc = DynamicItem(center: CGPointZero)
-    cc.m_addValueUpdateCallback("center") { [weak self] (values:CGPoint) in
+    cc = DynamicItem(center: CGPoint.zero)
+    lc = DynamicItem(center: CGPoint.zero)
+    _ = cc.m_addValueUpdateCallback("center") { [weak self] (values:CGPoint) in
       self?.needUpdate = true
     }
-    lc.m_addValueUpdateCallback("center") { [weak self] (values:CGPoint) in
+    _ = lc.m_addValueUpdateCallback("center") { [weak self] (values:CGPoint) in
       self?.needUpdate = true
     }
     animationObserverKey = MotionAnimator.sharedInstance.addUpdateObserver(self)
@@ -370,20 +370,20 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
     let initialPoint = self.finalPoint(!self.presenting)
     let p = (useTranlation && interactive) ? translatedPoint() : dragPoint
     switch edge{
-    case .Left:
-      ccToPoint = CGPointMake(p.x < contentLength ? p.x : (p.x-contentLength)/3+contentLength, dragPoint.y)
-      lcToPoint = CGPointMake(min(contentLength, p.distance(initialPoint) < stickDistance ? initialPoint.x : p.x), dragPoint.y)
-    case .Right:
+    case .left:
+      ccToPoint = CGPoint(x: p.x < contentLength ? p.x : (p.x-contentLength)/3+contentLength, y: dragPoint.y)
+      lcToPoint = CGPoint(x: min(contentLength, p.distance(initialPoint) < stickDistance ? initialPoint.x : p.x), y: dragPoint.y)
+    case .right:
       let maxX = size.width - contentLength
-      ccToPoint = CGPointMake(p.x > maxX ? p.x : maxX - (maxX - p.x)/3, dragPoint.y)
-      lcToPoint = CGPointMake(max(maxX, p.distance(initialPoint) < stickDistance ? initialPoint.x : p.x), dragPoint.y)
-    case .Bottom:
+      ccToPoint = CGPoint(x: p.x > maxX ? p.x : maxX - (maxX - p.x)/3, y: dragPoint.y)
+      lcToPoint = CGPoint(x: max(maxX, p.distance(initialPoint) < stickDistance ? initialPoint.x : p.x), y: dragPoint.y)
+    case .bottom:
       let maxY = size.height - contentLength
-      ccToPoint = CGPointMake(dragPoint.x, p.y > maxY ? p.y : maxY - (maxY - p.y)/3)
-      lcToPoint = CGPointMake(dragPoint.x, max(maxY, p.distance(initialPoint) < stickDistance ? initialPoint.y : p.y))
-    case .Top:
-      ccToPoint = CGPointMake(dragPoint.x, p.y < contentLength ? p.y : (p.y-contentLength)/3+contentLength)
-      lcToPoint = CGPointMake(dragPoint.x, min(contentLength, p.distance(initialPoint) < stickDistance ? initialPoint.y : p.y))
+      ccToPoint = CGPoint(x: dragPoint.x, y: p.y > maxY ? p.y : maxY - (maxY - p.y)/3)
+      lcToPoint = CGPoint(x: dragPoint.x, y: max(maxY, p.distance(initialPoint) < stickDistance ? initialPoint.y : p.y))
+    case .top:
+      ccToPoint = CGPoint(x: dragPoint.x, y: p.y < contentLength ? p.y : (p.y-contentLength)/3+contentLength)
+      lcToPoint = CGPoint(x: dragPoint.x, y: min(contentLength, p.distance(initialPoint) < stickDistance ? initialPoint.y : p.y))
     }
     cc.m_animate("center", to: ccToPoint, stiffness: animationCenterStiffness, damping: animationDamping, threshold: animationThreshold)
     lc.m_animate("center", to: lcToPoint, stiffness: animationSideStiffness, damping: animationDamping, threshold: animationThreshold)
@@ -400,61 +400,61 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
     let initialPoint = self.finalPoint(false)
     let progress = 1 - lc.center.distance(finalPoint) / initialPoint.distance(finalPoint)
     switch edge{
-    case .Left:
+    case .left:
       frontView.frame.origin.x = min(cc.center.x, lc.center.x) - contentLength
-      presentationController.shadowMaskLayer.frame = CGRectMake(0, 0, lc.center.x, size.height)
-    case .Right:
+      presentationController.shadowMaskLayer.frame = CGRect(x: 0, y: 0, width: lc.center.x, height: size.height)
+    case .right:
       frontView.frame.origin.x = max(cc.center.x, lc.center.x)
-      presentationController.shadowMaskLayer.frame = CGRectMake(lc.center.x, 0, size.width - lc.center.x, size.height)
-    case .Bottom:
+      presentationController.shadowMaskLayer.frame = CGRect(x: lc.center.x, y: 0, width: size.width - lc.center.x, height: size.height)
+    case .bottom:
       frontView.frame.origin.y = max(cc.center.y, lc.center.y)
-      presentationController.shadowMaskLayer.frame = CGRectMake(0, lc.center.y, size.width, size.height - lc.center.y)
-    case .Top:
+      presentationController.shadowMaskLayer.frame = CGRect(x: 0, y: lc.center.y, width: size.width, height: size.height - lc.center.y)
+    case .top:
       frontView.frame.origin.y = min(cc.center.y, lc.center.y) - contentLength
-      presentationController.shadowMaskLayer.frame = CGRectMake(0, 0, size.width, lc.center.y)
+      presentationController.shadowMaskLayer.frame = CGRect(x: 0, y: 0, width: size.width, height: lc.center.y)
     }
-    presentationController.shadowMaskLayer.dragPoint = presentationController.shadowMaskLayer.convertPoint(cc.center, fromLayer: container.layer)
+    presentationController.shadowMaskLayer.dragPoint = presentationController.shadowMaskLayer.convert(cc.center, from: container.layer)
 
     if transform != nil{
       transform!(progress: progress, view: backView)
     }else{
       // transform backView
       switch transformType{
-      case .Rotate:
+      case .rotate:
         let scale:CGFloat = min(1, 1 - 0.2 * progress)
         let rotate = max(0, 0.15 * progress)
-        let rotateY:CGFloat = edge == .Left ? -1.0 : edge == .Right ? 1.0 : 0
-        let rotateX:CGFloat = edge == .Bottom ? -1.0 : edge == .Top ? 1.0 : 0
+        let rotateY:CGFloat = edge == .left ? -1.0 : edge == .right ? 1.0 : 0
+        let rotateX:CGFloat = edge == .bottom ? -1.0 : edge == .top ? 1.0 : 0
         var t = CATransform3DMakeScale(scale, scale, 1)
         t.m34 = 1.0 / -500;
         t = CATransform3DRotate(t, rotate, rotateX, rotateY, 0.0)
         backView.layer.transform = t
-      case .TranslateMid, .TranslatePull, .TranslatePush:
+      case .translateMid, .translatePull, .translatePush:
         var x:CGFloat = 0, y:CGFloat = 0
         container.backgroundColor = backView.backgroundColor
-        let minFunc = transformType == .TranslateMid ? avg : transformType == .TranslatePull ? max : min
-        let maxFunc = transformType == .TranslateMid ? avg : transformType == .TranslatePull ? min : max
+        let minFunc = transformType == .translateMid ? avg : transformType == .translatePull ? max : min
+        let maxFunc = transformType == .translateMid ? avg : transformType == .translatePull ? min : max
         switch edge{
-        case .Left:
+        case .left:
           x = minFunc(cc.center.x, lc.center.x)
-        case .Right:
+        case .right:
           x = maxFunc(cc.center.x, lc.center.x) - size.width
-        case .Bottom:
+        case .bottom:
           y = maxFunc(cc.center.y, lc.center.y) - size.height
-        case .Top:
+        case .top:
           y = minFunc(cc.center.y, lc.center.y)
         }
         backView.layer.transform = CATransform3DMakeTranslation(x, y, 0)
-      case .Subtle:
+      case .subtle:
         var x:CGFloat = 0, y:CGFloat = 0
         switch edge{
-        case .Left:
+        case .left:
           x = avg(cc.center.x, lc.center.x)
-        case .Right:
+        case .right:
           x = avg(cc.center.x, lc.center.x) - size.width
-        case .Bottom:
+        case .bottom:
           y = avg(cc.center.y, lc.center.y) - size.height
-        case .Top:
+        case .top:
           y = avg(cc.center.y, lc.center.y)
         }
         backView.layer.transform = CATransform3DMakeTranslation(x*0.2, y*0.2, 0)
@@ -470,7 +470,7 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
   }
 
 
-  public func manuallyPushed(viewController:UIViewController){
+  public func manuallyPushed(_ viewController:UIViewController){
     if shouldAddGestureRecognizers{
       viewController.view.addGestureRecognizer(foregroundExitPanGestureRecognizer)
     }
@@ -483,9 +483,9 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
     // 1. get content length
 //    frontView.layoutIfNeeded()
     switch edge{
-    case .Left, .Right:
+    case .left, .right:
       contentLength = frontView.bounds.width
-    case .Top, .Bottom:
+    case .top, .bottom:
       contentLength = frontView.bounds.height
     }
     if let vc = frontViewController as? ElasticMenuTransitionDelegate,
@@ -496,12 +496,12 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
     // 2. setup shadow and background view
     presentationController.shadowView.frame = container.bounds
     if let frontViewBackgroundColor = frontViewBackgroundColor{
-      presentationController.shadowMaskLayer.fillColor = frontViewBackgroundColor.CGColor
+      presentationController.shadowMaskLayer.fillColor = frontViewBackgroundColor.cgColor
     }else{
-      presentationController.shadowMaskLayer.fillColor = frontView.backgroundColor?.CGColor
+      presentationController.shadowMaskLayer.fillColor = frontView.backgroundColor?.cgColor
     }
     presentationController.shadowMaskLayer.edge = edge.opposite()
-    if let interactiveRadiusFactor = interactiveRadiusFactor where interactive{
+    if let interactiveRadiusFactor = interactiveRadiusFactor , interactive{
       presentationController.shadowMaskLayer.radiusFactor = interactiveRadiusFactor
     } else {
       presentationController.shadowMaskLayer.radiusFactor = radiusFactor
@@ -515,9 +515,9 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
     // 4. setup front view
     var rect = container.bounds
     switch edge{
-    case .Right, .Left:
+    case .right, .left:
       rect.size.width = contentLength
-    case .Bottom, .Top:
+    case .bottom, .top:
       rect.size.height = contentLength
     }
     frontView.frame = rect
@@ -528,7 +528,7 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
 
     // 5. container color
     switch transformType{
-    case .TranslateMid, .TranslatePull, .TranslatePush:
+    case .translateMid, .translatePull, .translatePush:
       container.backgroundColor = backView.backgroundColor
     default:
       container.backgroundColor = containerColor
@@ -563,7 +563,7 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
   }
 
 
-  override func clean(finished:Bool){
+  override func clean(_ finished:Bool){
     frontView.layer.zPosition = 0
     startingPoint = nil
     if let scrollView = foregroundScrollView{
@@ -578,8 +578,8 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
               delegate.elasticTransitionDidDismiss?(self)
           }
       }
-      pushedControllers.popLast()
-      if let vc = pushedControllers.last where shouldAddGestureRecognizers {
+      _ = pushedControllers.popLast()
+      if let vc = pushedControllers.last , shouldAddGestureRecognizers {
         vc.view.addGestureRecognizer(foregroundExitPanGestureRecognizer)
       }
     }
@@ -635,14 +635,14 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
     }
   }
 
-  override public func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+  override public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
     return 0.7
   }
 }
 
 
 extension ElasticTransition:MotionAnimatorObserver{
-  public func animatorDidUpdate(animator: MotionAnimator, dt: CGFloat) {
+  public func animatorDidUpdate(_ animator: MotionAnimator, dt: CGFloat) {
     if needUpdate {
       updateShape()
     }

@@ -9,16 +9,16 @@
 import UIKit
 
 enum LeftMenuType{
-  case Switch(name:String, on:Bool, onChange:(on:Bool)->Void)
-  case Slider(name:String, value:Float, onChange:(value:Float)->Void)
-  case Segment(name:String, values:[Any], selected:Int, onChange:(value:Any)->Void)
+  case `switch`(name:String, on:Bool, onChange:(on:Bool)->Void)
+  case slider(name:String, value:Float, onChange:(value:Float)->Void)
+  case segment(name:String, values:[Any], selected:Int, onChange:(value:Any)->Void)
 }
 class SwitchCell:UITableViewCell{
   @IBOutlet weak var nameLabel: UILabel!
   @IBOutlet weak var control: UISwitch!
   var onChange:((on:Bool)->Void)?
-  @IBAction func switchChanged(sender: UISwitch) {
-    onChange?(on: sender.on)
+  @IBAction func switchChanged(_ sender: UISwitch) {
+    onChange?(on: sender.isOn)
   }
 }
 class SliderCell:UITableViewCell{
@@ -26,7 +26,7 @@ class SliderCell:UITableViewCell{
   @IBOutlet weak var slider: UISlider!
   
   var onChange:((value:Float)->Void)?
-  @IBAction func sliderChanged(sender: UISlider) {
+  @IBAction func sliderChanged(_ sender: UISlider) {
     onChange?(value: sender.value)
   }
 }
@@ -37,7 +37,7 @@ class SegmentCell:UITableViewCell{
   var values:[Any] = []
   var onChange:((value:Any)->Void)?
 
-  @IBAction func segmentChanged(sender: UISegmentedControl) {
+  @IBAction func segmentChanged(_ sender: UISegmentedControl) {
     onChange?(value: values[sender.selectedSegmentIndex])
   }
 }
@@ -55,67 +55,65 @@ class OptionsViewController: UIViewController, ElasticMenuTransitionDelegate {
   override func viewDidLoad() {
     super.viewDidLoad()
     let tm = self.transitioningDelegate as! ElasticTransition
-    let va:[Any] = [ElasticTransitionBackgroundTransform.Subtle,ElasticTransitionBackgroundTransform.Rotate,ElasticTransitionBackgroundTransform.TranslateMid]
+    let va:[Any] = [ElasticTransitionBackgroundTransform.subtle,ElasticTransitionBackgroundTransform.rotate,ElasticTransitionBackgroundTransform.translateMid]
     menu = []
-    menu.append(.Switch(name: "Sticky", on:tm.sticky, onChange: {on in
+    menu.append(.switch(name: "Sticky", on:tm.sticky, onChange: {on in
       tm.sticky = on
     }))
-    menu.append(.Switch(name: "Shadow", on:tm.showShadow, onChange: {on in
+    menu.append(.switch(name: "Shadow", on:tm.showShadow, onChange: {on in
       tm.showShadow = on
     }))
-    menu.append(LeftMenuType.Segment(name: "Transform Type",values:va,selected:tm.transformType.rawValue, onChange: {value in
+    menu.append(LeftMenuType.segment(name: "Transform Type",values:va,selected:tm.transformType.rawValue, onChange: {value in
       tm.transformType = value as! ElasticTransitionBackgroundTransform
     }))
-    menu.append(.Slider(name: "Damping", value:Float(tm.damping), onChange: {value in
+    menu.append(.slider(name: "Damping", value:Float(tm.damping), onChange: {value in
       tm.damping = CGFloat(value)
     }))
-    menu.append(.Slider(name: "Stiffness", value:Float(tm.stiffness), onChange: {value in
+    menu.append(.slider(name: "Stiffness", value:Float(tm.stiffness), onChange: {value in
       tm.stiffness = CGFloat(value)
     }))
-    menu.append(.Slider(name: "Radius Factor", value:Float(tm.radiusFactor)/0.5, onChange: {value in
+    menu.append(.slider(name: "Radius Factor", value:Float(tm.radiusFactor)/0.5, onChange: {value in
       tm.radiusFactor = CGFloat(value) * CGFloat(0.5)
     }))
-    menu.append(.Slider(name: "Pan Theashold", value:Float(tm.panThreshold), onChange: {value in
+    menu.append(.slider(name: "Pan Theashold", value:Float(tm.panThreshold), onChange: {value in
       tm.panThreshold = CGFloat(value)
     }))
     
     for i in 0..<menu.count{
-      contentLength += self.tableView(self.tableView, heightForRowAtIndexPath: NSIndexPath(forRow:i, inSection:0))
+      contentLength += self.tableView(self.tableView, heightForRowAt: IndexPath(row:i, section:0))
     }
     tableView.reloadData()
   }
   
-  override func preferredStatusBarStyle() -> UIStatusBarStyle {
-    return .LightContent
-  }
+  override var preferredStatusBarStyle: UIStatusBarStyle { return UIStatusBarStyle.lightContent }
 }
 
 extension OptionsViewController: UITableViewDelegate, UITableViewDataSource{
-  func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+  func numberOfSections(in tableView: UITableView) -> Int {
     return 1
   }
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell:UITableViewCell
-    switch menu[indexPath.item]{
-    case .Switch(let name, let on, let onChange):
-      let switchCell = tableView.dequeueReusableCellWithIdentifier("switch", forIndexPath: indexPath) as! SwitchCell
+    switch menu[(indexPath as NSIndexPath).item]{
+    case .switch(let name, let on, let onChange):
+      let switchCell = tableView.dequeueReusableCell(withIdentifier: "switch", for: indexPath) as! SwitchCell
       switchCell.onChange = onChange
       switchCell.nameLabel.text = name
-      switchCell.control.on = on
+      switchCell.control.isOn = on
       cell = switchCell
-    case .Segment(let name, let values, let selected, let onChange):
-      let segmentCell  = tableView.dequeueReusableCellWithIdentifier("segment", forIndexPath: indexPath) as! SegmentCell
+    case .segment(let name, let values, let selected, let onChange):
+      let segmentCell  = tableView.dequeueReusableCell(withIdentifier: "segment", for: indexPath) as! SegmentCell
       segmentCell.onChange = onChange
       segmentCell.nameLabel.text = name
       segmentCell.segment.removeAllSegments()
       segmentCell.values = values
-      for v in values.reverse(){
-        segmentCell.segment.insertSegmentWithTitle("\(v)", atIndex: 0, animated: false)
+      for v in values.reversed(){
+        segmentCell.segment.insertSegment(withTitle: "\(v)", at: 0, animated: false)
       }
       segmentCell.segment.selectedSegmentIndex = selected
       cell = segmentCell
-    case .Slider(let name, let value, let onChange):
-      let sliderCell  = tableView.dequeueReusableCellWithIdentifier("slider", forIndexPath: indexPath) as! SliderCell
+    case .slider(let name, let value, let onChange):
+      let sliderCell  = tableView.dequeueReusableCell(withIdentifier: "slider", for: indexPath) as! SliderCell
       sliderCell.onChange = onChange
       sliderCell.nameLabel.text = name
       sliderCell.slider.maximumValue = 1.0
@@ -125,14 +123,14 @@ extension OptionsViewController: UITableViewDelegate, UITableViewDataSource{
     }
     return cell
   }
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return menu.count
   }
-  func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-    switch menu[indexPath.item]{
-    case .Switch:
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    switch menu[(indexPath as NSIndexPath).item]{
+    case .switch:
       return 54
-    case .Slider:
+    case .slider:
       return 62
     default:
       return 72
