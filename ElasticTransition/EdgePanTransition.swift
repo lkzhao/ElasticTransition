@@ -28,7 +28,7 @@ import UIKit
 
 public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning, UIViewControllerTransitioningDelegate{
   public var panThreshold:CGFloat = 0.2
-  public var edge:Edge = .Right
+  public var edge:Edge = .right
   
   // private
   var transitioning = false
@@ -58,16 +58,16 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
     return fromViewController.view
   }
   var toViewController:UIViewController{
-    return transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
+    return transitionContext.viewController(forKey: UITransitionContextToViewControllerKey)!
   }
   var fromViewController:UIViewController{
-    return transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
+    return transitionContext.viewController(forKey: UITransitionContextFromViewControllerKey)!
   }
   
   var currentPanGR: UIPanGestureRecognizer?
   
-  var translation:CGPoint = CGPointZero
-  var dragPoint:CGPoint = CGPointZero
+  var translation:CGPoint = CGPoint.zero
+  var dragPoint:CGPoint = CGPoint.zero
   
   func update(){}
   
@@ -76,13 +76,13 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
 
     backViewController.viewWillDisappear(true)
     
-    container.insertSubview(backView, atIndex: 0)
+    container.insertSubview(backView, at: 0)
     container.addSubview(frontView)
   }
 
-  func clean(finished: Bool){
+  func clean(_ finished: Bool){
     // bug: http://openradar.appspot.com/radar?id=5320103646199808
-    UIApplication.sharedApplication().keyWindow!.addSubview(finished ? toView : fromView)
+    UIApplication.shared.keyWindow!.addSubview(finished ? toView : fromView)
 
     if(!presenting && finished || presenting && !finished){
       frontView.removeFromSuperview()
@@ -91,7 +91,7 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
       backViewController.viewDidAppear(true)
     }
 
-    dragPoint = CGPointZero
+    dragPoint = CGPoint.zero
     currentPanGR = nil
     interactive = false
     transitioning = false
@@ -100,14 +100,14 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
     container = nil
   }
 
-  var timeoutTimer:NSTimer?
+  var timeoutTimer:Timer?
   func resetTimeout(){
     timeoutTimer?.invalidate()
-    timeoutTimer = NSTimer.scheduledTimerWithTimeInterval(3.0, target: self, selector: #selector(timedOut), userInfo: nil, repeats: false)
+    timeoutTimer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(timedOut), userInfo: nil, repeats: false)
   }
   func timedOut(){
-    if currentPanGR == nil || currentPanGR!.state != .Changed {
-      endInteractiveTransition()
+    if currentPanGR == nil || currentPanGR!.state != .changed {
+      _ = endInteractiveTransition()
     }
   }
   func startInteractivePresent(fromViewController fromVC:UIViewController, toViewController toVC:UIViewController?, identifier:String?, pan:UIPanGestureRecognizer, presenting:Bool, completion:(() -> Void)? = nil){
@@ -118,16 +118,16 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
     resetTimeout()
     interactive = true
     currentPanGR = pan
-    translation = pan.translationInView(pan.view!)
-    dragPoint = pan.locationInView(pan.view!)
+    translation = pan.translation(in: pan.view!)
+    dragPoint = pan.location(in: pan.view!)
     if presenting{
       if let identifier = identifier{
-        fromVC.performSegueWithIdentifier(identifier, sender: self)
+        fromVC.performSegue(withIdentifier: identifier, sender: self)
       }else if let toVC = toVC{
-        fromVC.presentViewController(toVC, animated: true, completion: nil)
+        fromVC.present(toVC, animated: true, completion: nil)
       }
     }else{
-      fromVC.dismissViewControllerAnimated(true, completion: completion)
+      fromVC.dismiss(animated: true, completion: completion)
     }
   }
   
@@ -135,9 +135,9 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
     if !transitioning{
       return nil
     }
-    if pan.state == .Changed{
-      translation = pan.translationInView(pan.view!)
-      dragPoint = pan.locationInView(pan.view!)
+    if pan.state == .changed{
+      translation = pan.translation(in: pan.view!)
+      dragPoint = pan.location(in: pan.view!)
       update()
       resetTimeout()
       return nil
@@ -146,30 +146,30 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
     }
   }
   
-  public func startInteractiveTransition(fromViewController:UIViewController, segueIdentifier identifier:String, gestureRecognizer pan:UIPanGestureRecognizer){
+  public func startInteractiveTransition(_ fromViewController:UIViewController, segueIdentifier identifier:String, gestureRecognizer pan:UIPanGestureRecognizer){
     self.startInteractivePresent(fromViewController:fromViewController, toViewController:nil, identifier:identifier, pan: pan, presenting: true)
   }
   
-  public func startInteractiveTransition(fromViewController:UIViewController, toViewController:UIViewController, gestureRecognizer pan:UIPanGestureRecognizer){
+  public func startInteractiveTransition(_ fromViewController:UIViewController, toViewController:UIViewController, gestureRecognizer pan:UIPanGestureRecognizer){
     self.startInteractivePresent(fromViewController:fromViewController, toViewController:toViewController, identifier:nil, pan: pan, presenting: true)
   }
   
-  public func dissmissInteractiveTransition(viewController:UIViewController, gestureRecognizer pan:UIPanGestureRecognizer, completion:(() -> Void)?){
+  public func dissmissInteractiveTransition(_ viewController:UIViewController, gestureRecognizer pan:UIPanGestureRecognizer, completion:(() -> Void)?){
     self.startInteractivePresent(fromViewController:viewController, toViewController:nil, identifier:nil, pan: pan, presenting: false, completion: completion)
   }
   
   
-  public func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+  public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
     if transitioning {
         return
     }
     self.transitionContext = transitionContext
-    self.container = transitionContext.containerView()
+    self.container = transitionContext.containerView
     setup()
   }
   
-  public func startInteractiveTransition(transitionContext: UIViewControllerContextTransitioning){
-    animateTransition(transitionContext)
+  public func startInteractiveTransition(_ transitionContext: UIViewControllerContextTransitioning){
+    animateTransition(using: transitionContext)
   }
   
   func cancelInteractiveTransition(){
@@ -185,16 +185,16 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
     timeoutTimer?.invalidate()
     let finished:Bool
     if let pan = currentPanGR{
-      let translation = pan.translationInView(pan.view!)
+      let translation = pan.translation(in: pan.view!)
       var progress:CGFloat
       switch edge{
-      case .Left:
+      case .left:
         progress =  translation.x / pan.view!.frame.width
-      case .Right:
+      case .right:
         progress =  translation.x / pan.view!.frame.width * -1
-      case .Bottom:
+      case .bottom:
         progress =  translation.y / pan.view!.frame.height * -1
-      case .Top:
+      case .top:
         progress =  translation.y / pan.view!.frame.height
       }
       progress = presenting ? progress : -progress
@@ -215,11 +215,11 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
   }
   
   
-  public func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+  public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
     return 0.5
   }
   
-  public func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+  public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
     if transitioning{
         return nil
     }
@@ -227,7 +227,7 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
     return self
   }
   
-  public func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+  public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
     if transitioning{
       return nil
     }
@@ -235,7 +235,7 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
     return self
   }
   
-  public func interactionControllerForPresentation(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+  public func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
     if transitioning{
       return nil
     }
@@ -243,7 +243,7 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
     return self.interactive ? self : nil
   }
   
-  public func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+  public func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
     if transitioning{
       return nil
     }
@@ -252,8 +252,8 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
   }
 
   var presentationController:ElasticTransitionPresentationController!
-  public func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController, sourceViewController source: UIViewController) -> UIPresentationController? {
-    presentationController = ElasticTransitionPresentationController(presentedViewController: presented, presentingViewController: presenting)
+  public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+    presentationController = ElasticTransitionPresentationController(presentedViewController: presented, presenting: presenting)
     presentationController.transition = self as? ElasticTransition
     return presentationController
   }

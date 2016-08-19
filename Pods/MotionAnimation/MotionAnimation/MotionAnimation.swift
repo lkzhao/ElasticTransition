@@ -9,8 +9,8 @@
 import UIKit
 
 public protocol MotionAnimationDelegate:class {
-  func animationDidStop(animation:MotionAnimation)
-  func animationDidPerformStep(animation:MotionAnimation)
+  func animationDidStop(_ animation:MotionAnimation)
+  func animationDidPerformStep(_ animation:MotionAnimation)
 }
 
 public class MotionAnimation: NSObject {
@@ -51,7 +51,7 @@ extension MotionAnimation{
   // returning true means require next update(not yet reached target state)
   // behaviors can call animator.addAnimation to wake up the animator when
   // the target value changed
-  public func update(dt:CGFloat) -> Bool{
+  public func update(_ dt:CGFloat) -> Bool{
     return false
   }
 

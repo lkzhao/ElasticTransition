@@ -21,7 +21,7 @@ class InitialViewController: UIViewController {
     transition.sticky = true
     transition.showShadow = true
     transition.panThreshold = 0.3
-    transition.transformType = .TranslateMid
+    transition.transformType = .translateMid
     
 //    transition.overlayColor = UIColor(white: 0, alpha: 0.5)
 //    transition.shadowColor = UIColor(white: 0, alpha: 0.5)
@@ -29,57 +29,57 @@ class InitialViewController: UIViewController {
     // gesture recognizer
     lgr.addTarget(self, action: #selector(InitialViewController.handlePan(_:)))
     rgr.addTarget(self, action: #selector(InitialViewController.handleRightPan(_:)))
-    lgr.edges = .Left
-    rgr.edges = .Right
+    lgr.edges = .left
+    rgr.edges = .right
     view.addGestureRecognizer(lgr)
     view.addGestureRecognizer(rgr)
   }
   
-  func handlePan(pan:UIPanGestureRecognizer){
-    if pan.state == .Began{
-      transition.edge = .Left
+  func handlePan(_ pan:UIPanGestureRecognizer){
+    if pan.state == .began{
+      transition.edge = .left
       transition.startInteractiveTransition(self, segueIdentifier: "menu", gestureRecognizer: pan)
     }else{
-      transition.updateInteractiveTransition(gestureRecognizer: pan)
+      _ = transition.updateInteractiveTransition(gestureRecognizer: pan)
     }
   }
   
-  func handleRightPan(pan:UIPanGestureRecognizer){
-    if pan.state == .Began{
-      transition.edge = .Right
+  func handleRightPan(_ pan:UIPanGestureRecognizer){
+    if pan.state == .began{
+      transition.edge = .right
       transition.startInteractiveTransition(self, segueIdentifier: "about", gestureRecognizer: pan)
     }else{
-      transition.updateInteractiveTransition(gestureRecognizer: pan)
+      _ = transition.updateInteractiveTransition(gestureRecognizer: pan)
     }
   }
   
-  @IBAction func codeBtnTouched(sender: AnyObject) {
-    transition.edge = .Left
+  @IBAction func codeBtnTouched(_ sender: AnyObject) {
+    transition.edge = .left
     transition.startingPoint = sender.center
-    performSegueWithIdentifier("menu", sender: self)
+    performSegue(withIdentifier: "menu", sender: self)
   }
   
-  @IBAction func optionBtnTouched(sender: AnyObject) {
-    transition.edge = .Bottom
+  @IBAction func optionBtnTouched(_ sender: AnyObject) {
+    transition.edge = .bottom
     transition.startingPoint = sender.center
-    performSegueWithIdentifier("option", sender: self)
+    performSegue(withIdentifier: "option", sender: self)
   }
 
-  @IBAction func aboutBtnTouched(sender: AnyObject) {
-    transition.edge = .Right
+  @IBAction func aboutBtnTouched(_ sender: AnyObject) {
+    transition.edge = .right
     transition.startingPoint = sender.center
-    performSegueWithIdentifier("about", sender: self)
+    performSegue(withIdentifier: "about", sender: self)
   }
   
-  @IBAction func modalBtnTouched(sender: AnyObject) {
-    let modalViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("modalExample") as! ModalExampleViewController
-    presentViewController(modalViewController, animated: true, completion: nil)
+  @IBAction func modalBtnTouched(_ sender: AnyObject) {
+    let modalViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "modalExample") as! ModalExampleViewController
+    present(modalViewController, animated: true, completion: nil)
   }
   
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    let vc = segue.destinationViewController
+  override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
+    let vc = segue.destination
     vc.transitioningDelegate = transition
-    vc.modalPresentationStyle = .Custom
+    vc.modalPresentationStyle = .custom
   }
   
 }

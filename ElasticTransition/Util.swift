@@ -30,49 +30,49 @@ import MotionAnimation
 let π:CGFloat = CGFloat(M_PI)
 
 @objc public enum Edge:Int{
-  case Top, Bottom, Left, Right
+  case top, bottom, left, right
   public func opposite() -> Edge{
     switch self {
-    case .Left:
-      return .Right
-    case .Right:
-      return .Left
-    case .Bottom:
-      return .Top
-    case .Top:
-      return .Bottom
+    case .left:
+      return .right
+    case .right:
+      return .left
+    case .bottom:
+      return .top
+    case .top:
+      return .bottom
     }
   }
   public func toUIRectEdge() -> UIRectEdge{
     switch self {
-    case .Left:
-      return .Left
-    case .Right:
-      return .Right
-    case .Bottom:
-      return .Bottom
-    case .Top:
-      return .Top
+    case .left:
+      return .left
+    case .right:
+      return .right
+    case .bottom:
+      return .bottom
+    case .top:
+      return .top
     }
   }
 }
 
 extension CGPoint{
-  func translate(dx:CGFloat, dy:CGFloat) -> CGPoint{
-    return CGPointMake(self.x+dx, self.y+dy)
+  func translate(_ dx:CGFloat, dy:CGFloat) -> CGPoint{
+    return CGPoint(x: self.x+dx, y: self.y+dy)
   }
 
-  func transform(t:CGAffineTransform) -> CGPoint{
-    return CGPointApplyAffineTransform(self, t)
+  func transform(_ t:CGAffineTransform) -> CGPoint{
+    return self.applying(t)
   }
 
-  func distance(b:CGPoint)->CGFloat{
+  func distance(_ b:CGPoint)->CGFloat{
     return sqrt(pow(self.x-b.x,2)+pow(self.y-b.y,2));
   }
 }
 
 class DynamicItem:NSObject{
-  var center: CGPoint = CGPointZero
+  var center: CGPoint = CGPoint.zero
   init(center:CGPoint) {
     self.center = center
     super.init()

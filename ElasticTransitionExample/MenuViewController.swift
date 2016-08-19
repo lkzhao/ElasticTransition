@@ -31,7 +31,5 @@ class MenuViewController: UIViewController, ElasticMenuTransitionDelegate {
       "vc.modalPresentationStyle = .Custom\n"
   }
 
-  override func preferredStatusBarStyle() -> UIStatusBarStyle {
-    return .LightContent
-  }
+  override var preferredStatusBarStyle: UIStatusBarStyle { return UIStatusBarStyle.lightContent }
 }

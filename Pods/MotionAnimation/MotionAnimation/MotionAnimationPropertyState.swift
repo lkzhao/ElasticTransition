@@ -15,8 +15,8 @@ import UIKit
 
 internal class MotionAnimationPropertyState:NSObject, MotionAnimationDelegate{
 
-  var velocityUpdateCallbacks:[NSUUID:MotionAnimationValueObserver] = [:]
-  var valueUpdateCallbacks:[NSUUID:MotionAnimationValueObserver] = [:]
+  var velocityUpdateCallbacks:[UUID:MotionAnimationValueObserver] = [:]
+  var valueUpdateCallbacks:[UUID:MotionAnimationValueObserver] = [:]
 
   var animation:MotionAnimation?
 
@@ -37,7 +37,7 @@ internal class MotionAnimationPropertyState:NSObject, MotionAnimationDelegate{
   private var _tempValueUpdate: MotionAnimationValueObserver?
   private var _tempCompletion: (() -> Void)?
   func animate(
-    toValues:[CGFloat],
+    _ toValues:[CGFloat],
     stiffness:CGFloat? = nil,
     damping:CGFloat? = nil,
     threshold:CGFloat? = nil,
@@ -50,7 +50,7 @@ internal class MotionAnimationPropertyState:NSObject, MotionAnimationDelegate{
       anim = animation
     }else{
       animation?.stop()
-      if let getter = getter, setter = setter {
+      if let getter = getter, let setter = setter {
         anim = SpringValueAnimation(count: toValues.count, getter: getter, setter: setter)
       } else {
         anim = SpringValueAnimation(count: toValues.count, getter: { [weak self] newValues in
@@ -82,23 +82,23 @@ internal class MotionAnimationPropertyState:NSObject, MotionAnimationDelegate{
     animation?.stop()
   }
 
-  func addVelocityUpdateCallback(velocityUpdateCallback:MotionAnimationValueObserver) -> MotionAnimationObserverKey{
-    let uuid = NSUUID()
+  func addVelocityUpdateCallback(_ velocityUpdateCallback:MotionAnimationValueObserver) -> MotionAnimationObserverKey{
+    let uuid = UUID()
     self.velocityUpdateCallbacks[uuid] = velocityUpdateCallback
     return uuid
   }
 
-  func addValueUpdateCallback(valueUpdateCallback:MotionAnimationValueObserver) -> MotionAnimationObserverKey{
-    let uuid = NSUUID()
+  func addValueUpdateCallback(_ valueUpdateCallback:MotionAnimationValueObserver) -> MotionAnimationObserverKey{
+    let uuid = UUID()
     self.valueUpdateCallbacks[uuid] = valueUpdateCallback
     return uuid
   }
 
-  func removeCallback(key:MotionAnimationObserverKey) -> MotionAnimationValueObserver? {
-    return self.valueUpdateCallbacks.removeValueForKey(key) ?? self.velocityUpdateCallbacks.removeValueForKey(key)
+  func removeCallback(_ key:MotionAnimationObserverKey) -> MotionAnimationValueObserver? {
+    return self.valueUpdateCallbacks.removeValue(forKey: key as UUID) ?? self.velocityUpdateCallbacks.removeValue(forKey: key as UUID)
   }
 
-  internal func setValues(values:[CGFloat]){
+  internal func setValues(_ values:[CGFloat]){
     var values = values
     if let setter = setter{
         setter(&values)
@@ -107,7 +107,7 @@ internal class MotionAnimationPropertyState:NSObject, MotionAnimationDelegate{
     }
   }
 
-  internal func animationDidStop(animation:MotionAnimation){
+  internal func animationDidStop(_ animation:MotionAnimation){
     _tempValueUpdate = nil
     _tempVelocityUpdate = nil
     if let _tempCompletion = _tempCompletion{
@@ -116,7 +116,7 @@ internal class MotionAnimationPropertyState:NSObject, MotionAnimationDelegate{
     }
   }
 
-  internal func animationDidPerformStep(animation:MotionAnimation){
+  internal func animationDidPerformStep(_ animation:MotionAnimation){
     let animation = animation as! SpringValueAnimation
     if velocityUpdateCallbacks.count > 0 || _tempVelocityUpdate != nil{
       let v = animation.velocity
