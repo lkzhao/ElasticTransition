@@ -9,13 +9,13 @@
 import UIKit
 
 
-public class SpringValueAnimation:ValueAnimation {
-  public var threshold:CGFloat = 0.001
-  public var stiffness:CGFloat = 150
-  public var damping:CGFloat = 10
+open class SpringValueAnimation:ValueAnimation {
+  open var threshold:CGFloat = 0.001
+  open var stiffness:CGFloat = 150
+  open var damping:CGFloat = 10
 
   //from https://github.com/chenglou/react-motion
-  public override func update(_ dt:CGFloat) -> Bool{
+  open override func update(_ dt:CGFloat) -> Bool{
     var running = false
     for i in 0..<values.count{
       // Force

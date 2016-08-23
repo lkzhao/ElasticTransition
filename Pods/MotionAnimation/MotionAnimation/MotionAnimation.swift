@@ -13,15 +13,15 @@ public protocol MotionAnimationDelegate:class {
   func animationDidPerformStep(_ animation:MotionAnimation)
 }
 
-public class MotionAnimation: NSObject {
+open class MotionAnimation: NSObject {
   internal var animator:MotionAnimator?
 
-  weak public var delegate:MotionAnimationDelegate?
-  public var onCompletion:((animation:MotionAnimation) -> Void)?
-  public var onUpdate:((animation:MotionAnimation) -> Void)?
-  public var willStartPlaying:(()->Void)? = nil
+  weak open var delegate:MotionAnimationDelegate?
+  open var onCompletion:((_ animation:MotionAnimation) -> Void)?
+  open var onUpdate:((_ animation:MotionAnimation) -> Void)?
+  open var willStartPlaying:(()->Void)? = nil
 
-  public var playing:Bool {
+  open var playing:Bool {
     return animator != nil
   }
 
@@ -30,14 +30,14 @@ public class MotionAnimation: NSObject {
     if playImmediately { play() }
   }
 
-  public func play(){
+  open func play(){
     if !playing{
       willStartPlaying?()
       MotionAnimator.sharedInstance.addAnimation(self)
     }
   }
 
-  public func stop(){
+  open func stop(){
     MotionAnimator.sharedInstance.removeAnimation(self)
   }
 }

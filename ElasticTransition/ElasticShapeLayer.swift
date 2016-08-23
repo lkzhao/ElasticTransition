@@ -55,7 +55,7 @@ public class ElasticShapeLayer: CAShapeLayer {
     fillColor = UIColor.black.cgColor
     actions = ["path" : NSNull(), "position" : NSNull(), "bounds" : NSNull(), "fillColor" : NSNull()]
   }
-  override public init(layer: AnyObject) {
+  override public init(layer: Any) {
     super.init(layer: layer)
   }
 

@@ -58,10 +58,10 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
     return fromViewController.view
   }
   var toViewController:UIViewController{
-    return transitionContext.viewController(forKey: UITransitionContextToViewControllerKey)!
+    return transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!
   }
   var fromViewController:UIViewController{
-    return transitionContext.viewController(forKey: UITransitionContextFromViewControllerKey)!
+    return transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)!
   }
   
   var currentPanGR: UIPanGestureRecognizer?

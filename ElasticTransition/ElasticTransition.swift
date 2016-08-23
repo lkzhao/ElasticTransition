@@ -144,7 +144,7 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
   public var shadowRadius:CGFloat = 50
 
   // custom transform function
-  public var transform:((progress:CGFloat, view:UIView) -> Void)?
+  public var transform:((_ progress:CGFloat, _ view:UIView) -> Void)?
 
   // Transform Type
   public var transformType:ElasticTransitionBackgroundTransform = .translateMid{
@@ -416,7 +416,7 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
     presentationController.shadowMaskLayer.dragPoint = presentationController.shadowMaskLayer.convert(cc.center, from: container.layer)
 
     if transform != nil{
-      transform!(progress: progress, view: backView)
+      transform!(progress, backView)
     }else{
       // transform backView
       switch transformType{

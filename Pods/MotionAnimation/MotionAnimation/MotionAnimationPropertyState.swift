@@ -20,9 +20,9 @@ internal class MotionAnimationPropertyState:NSObject, MotionAnimationDelegate{
 
   var animation:MotionAnimation?
 
-  private var getter:CGFloatValueBlock?
-  private var setter:CGFloatValueBlock?
-  private var values:[CGFloat]?
+  fileprivate var getter:CGFloatValueBlock?
+  fileprivate var setter:CGFloatValueBlock?
+  fileprivate var values:[CGFloat]?
 
   init(values:[CGFloat]){
     self.values = values
@@ -33,9 +33,9 @@ internal class MotionAnimationPropertyState:NSObject, MotionAnimationDelegate{
     self.setter = setter
   }
 
-  private var _tempVelocityUpdate: MotionAnimationValueObserver?
-  private var _tempValueUpdate: MotionAnimationValueObserver?
-  private var _tempCompletion: (() -> Void)?
+  fileprivate var _tempVelocityUpdate: MotionAnimationValueObserver?
+  fileprivate var _tempValueUpdate: MotionAnimationValueObserver?
+  fileprivate var _tempCompletion: (() -> Void)?
   func animate(
     _ toValues:[CGFloat],
     stiffness:CGFloat? = nil,

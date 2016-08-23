@@ -9,11 +9,11 @@
 import UIKit
 
 public extension NSObject{
-  private struct m_associatedKeys {
+  fileprivate struct m_associatedKeys {
     static var m_propertyStates = "m_propertyStates_key"
   }
   // use NSMutableDictionary since swift dictionary requires a O(n) dynamic cast even when using as!
-  private var m_propertyStates:NSMutableDictionary{
+  fileprivate var m_propertyStates:NSMutableDictionary{
     get {
       // never use `as?` in this case. it is very expensive
       let rtn = objc_getAssociatedObject(self, &m_associatedKeys.m_propertyStates)
@@ -33,7 +33,7 @@ public extension NSObject{
     }
   }
   
-  private func getPropertyState(_ key:String) -> MotionAnimationPropertyState{
+  fileprivate func getPropertyState(_ key:String) -> MotionAnimationPropertyState{
     if m_propertyStates[key] == nil {
       if let animatable = self as? MotionAnimationAnimatable, let (getter, setter) = animatable.defaultGetterAndSetterForKey(key){
         m_propertyStates[key] = MotionAnimationPropertyState(getter: getter, setter: setter)
@@ -48,12 +48,12 @@ public extension NSObject{
   func m_setValues(_ values:[CGFloat], forCustomProperty key:String){
     getPropertyState(key).setValues(values)
   }
-  func m_defineCustomProperty<T:MotionAnimatableProperty>(_ key:String, initialValues:T, valueUpdateCallback:(T)->Void){
+  func m_defineCustomProperty<T:MotionAnimatableProperty>(_ key:String, initialValues:T, valueUpdateCallback:@escaping (T)->Void){
     if m_propertyStates[key] != nil{
       return
     }
     m_propertyStates[key] = MotionAnimationPropertyState(values: initialValues.CGFloatValues)
-    _ = getPropertyState(key).addValueUpdateCallback({ values in
+    getPropertyState(key).addValueUpdateCallback({ values in
       valueUpdateCallback(T.fromCGFloatValues(values))
     })
   }
@@ -68,18 +68,18 @@ public extension NSObject{
   }
   
   // add callbacks
-  func m_addValueUpdateCallback<T:MotionAnimatableProperty>(_ key:String, valueUpdateCallback:(T)->Void) -> MotionAnimationObserverKey{
+  func m_addValueUpdateCallback<T:MotionAnimatableProperty>(_ key:String, valueUpdateCallback:@escaping (T)->Void) -> MotionAnimationObserverKey{
     return getPropertyState(key).addValueUpdateCallback({ values in
       valueUpdateCallback(T.fromCGFloatValues(values))
     })
   }
-  func m_addVelocityUpdateCallback<T:MotionAnimatableProperty>(_ key:String, velocityUpdateCallback:(T)->Void) -> MotionAnimationObserverKey{
+  func m_addVelocityUpdateCallback<T:MotionAnimatableProperty>(_ key:String, velocityUpdateCallback:@escaping (T)->Void) -> MotionAnimationObserverKey{
     return getPropertyState(key).addVelocityUpdateCallback({ values in
       velocityUpdateCallback(T.fromCGFloatValues(values))
     })
   }
   func m_removeCallback(_ key:String, observerKey:MotionAnimationObserverKey){
-    _ = getPropertyState(key).removeCallback(observerKey)
+    getPropertyState(key).removeCallback(observerKey)
   }
   
   func m_isAnimating(_ key:String) -> Bool{

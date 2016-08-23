@@ -2,7 +2,18 @@ PODS:
   - MotionAnimation (0.1.1)
 
 DEPENDENCIES:
-  - MotionAnimation (~> 0.1.1)
+  - MotionAnimation (from `https://github.com/lkzhao/MotionAnimation.git`, branch
+    `swift3`)
+
+EXTERNAL SOURCES:
+  MotionAnimation:
+    :branch: swift3
+    :git: https://github.com/lkzhao/MotionAnimation.git
+
+CHECKOUT OPTIONS:
+  MotionAnimation:
+    :commit: f63e3f42c500f0bcb4568302d1a7bc2f342e45d7
+    :git: https://github.com/lkzhao/MotionAnimation.git
 
 SPEC CHECKSUMS:
   MotionAnimation: ff356cfdbedcab52a5bfc94cc96ed44ea2f652e0

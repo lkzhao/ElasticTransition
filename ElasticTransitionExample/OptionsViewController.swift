@@ -9,25 +9,25 @@
 import UIKit
 
 enum LeftMenuType{
-  case `switch`(name:String, on:Bool, onChange:(on:Bool)->Void)
-  case slider(name:String, value:Float, onChange:(value:Float)->Void)
-  case segment(name:String, values:[Any], selected:Int, onChange:(value:Any)->Void)
+  case `switch`(name:String, on:Bool, onChange:(_ on:Bool)->Void)
+  case slider(name:String, value:Float, onChange:(_ value:Float)->Void)
+  case segment(name:String, values:[Any], selected:Int, onChange:(_ value:Any)->Void)
 }
 class SwitchCell:UITableViewCell{
   @IBOutlet weak var nameLabel: UILabel!
   @IBOutlet weak var control: UISwitch!
-  var onChange:((on:Bool)->Void)?
+  var onChange:((_ on:Bool)->Void)?
   @IBAction func switchChanged(_ sender: UISwitch) {
-    onChange?(on: sender.isOn)
+    onChange?(sender.isOn)
   }
 }
 class SliderCell:UITableViewCell{
   @IBOutlet weak var nameLabel: UILabel!
   @IBOutlet weak var slider: UISlider!
   
-  var onChange:((value:Float)->Void)?
+  var onChange:((_ value:Float)->Void)?
   @IBAction func sliderChanged(_ sender: UISlider) {
-    onChange?(value: sender.value)
+    onChange?(sender.value)
   }
 }
 class SegmentCell:UITableViewCell{
@@ -35,7 +35,7 @@ class SegmentCell:UITableViewCell{
   @IBOutlet weak var segment: UISegmentedControl!
   
   var values:[Any] = []
-  var onChange:((value:Any)->Void)?
+  var onChange:((_ value:Any)->Void)?
 
   @IBAction func segmentChanged(_ sender: UISegmentedControl) {
     onChange?(value: values[sender.selectedSegmentIndex])

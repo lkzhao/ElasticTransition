@@ -76,7 +76,7 @@ class InitialViewController: UIViewController {
     present(modalViewController, animated: true, completion: nil)
   }
   
-  override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     let vc = segue.destination
     vc.transitioningDelegate = transition
     vc.modalPresentationStyle = .custom
