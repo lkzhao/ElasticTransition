@@ -63,14 +63,14 @@ public class ElasticModalViewController: UIViewController, ElasticMenuTransition
     modalTransition.transformType = dragDownTransformType
   }
   
-  func dismissFromTop(_ sender:UIView?){
+  public func dismissFromTop(_ sender:UIView?){
     modalTransition.edge = .bottom
     modalTransition.transformType = dragDownTransformType
     modalTransition.startingPoint = sender?.center
     dismiss(animated: true, completion: nil)
   }
   
-  func dismissFromLeft(_ sender:UIView?){
+  public func dismissFromLeft(_ sender:UIView?){
     modalTransition.transformType = dragRightTransformType
     modalTransition.edge = .right
     modalTransition.startingPoint = sender?.center
