@@ -27,7 +27,7 @@ extension UIView:MotionAnimationAnimatable{
     switch key {
     case "frame", "bounds":
       return ({ [weak self] values in
-        (self?.value(forKey: key) as AnyObject).cgRectValue.toCGFloatValues(&values)
+        (self?.value(forKey: key) as! NSValue).cgRectValue.toCGFloatValues(&values)
         }, { [weak self] values in
           self?.setValue(NSValue(cgRect:CGRect.fromCGFloatValues(values)), forKey: key)
         })
@@ -51,7 +51,7 @@ extension UIView:MotionAnimationAnimatable{
         })
     case "scale", "scale.x", "scale.y", "scale.z", "rotation", "rotation.x", "rotation.y", "rotation.z", "translation.x", "translation.y", "translation.z":
       return ({ [weak self] values in
-        (self?.value(forKeyPath: "layer.transform.\(key)") as AnyObject).doubleValue.toCGFloatValues(&values)
+        (self?.value(forKeyPath: "layer.transform.\(key)") as! NSNumber).doubleValue.toCGFloatValues(&values)
         }, { [weak self] values in
           self?.setValue(Double.fromCGFloatValues(values), forKeyPath: "layer.transform.\(key)")
         })

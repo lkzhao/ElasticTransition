@@ -27,7 +27,7 @@
 import UIKit
 import MotionAnimation
 
-@objc public enum ElasticTransitionBackgroundTransform:Int{
+public enum ElasticTransitionBackgroundTransform:Int{
   case none, rotate, translateMid, translatePull, translatePush, subtle
 }
 

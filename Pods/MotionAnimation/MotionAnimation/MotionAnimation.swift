@@ -40,23 +40,19 @@ open class MotionAnimation: NSObject {
   open func stop(){
     MotionAnimator.sharedInstance.removeAnimation(self)
   }
-}
-
-// override point for subclass
-extension MotionAnimation{
-  public func willUpdate() {
-
-  }
-
+  
+  
+  
+  // override point for subclass
+  open func willUpdate() {}
+  
   // returning true means require next update(not yet reached target state)
   // behaviors can call animator.addAnimation to wake up the animator when
   // the target value changed
-  public func update(_ dt:CGFloat) -> Bool{
+  open func update(_ dt:CGFloat) -> Bool{
     return false
   }
-
+  
   // this will be called on main thread. sync value back to the animated object
-  public func didUpdate(){
-
-  }
+  open func didUpdate(){}
 }

@@ -114,7 +114,6 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
     if transitioning {
       return
     }
-    print("!!! Elastic Transition started presenting:\(presenting)")
     resetTimeout()
     interactive = true
     currentPanGR = pan

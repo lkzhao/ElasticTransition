@@ -24,7 +24,7 @@ open class ValueAnimation:MotionAnimation {
     }
   }
 
-  public init(count:Int, getter:CGFloatValueBlock, setter:CGFloatValueBlock, target:[CGFloat]? = nil, velocity:[CGFloat]? = nil) {
+  public init(count:Int, getter:@escaping CGFloatValueBlock, setter:@escaping CGFloatValueBlock, target:[CGFloat]? = nil, velocity:[CGFloat]? = nil) {
     self.getter = getter
     self.setter = setter
     var values = Array<CGFloat>(repeating: 0, count: count)
@@ -35,7 +35,7 @@ open class ValueAnimation:MotionAnimation {
     super.init(playImmediately: target != nil)
   }
 
-  override public func didUpdate() {
+  override open func didUpdate() {
     setter(&values)
   }
 }

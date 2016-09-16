@@ -28,7 +28,7 @@ internal class MotionAnimationPropertyState:NSObject, MotionAnimationDelegate{
     self.values = values
   }
 
-  init(getter:CGFloatValueBlock, setter:CGFloatValueBlock){
+  init(getter:@escaping CGFloatValueBlock, setter:@escaping CGFloatValueBlock){
     self.getter = getter
     self.setter = setter
   }
@@ -82,13 +82,13 @@ internal class MotionAnimationPropertyState:NSObject, MotionAnimationDelegate{
     animation?.stop()
   }
 
-  func addVelocityUpdateCallback(_ velocityUpdateCallback:MotionAnimationValueObserver) -> MotionAnimationObserverKey{
+  func addVelocityUpdateCallback(_ velocityUpdateCallback:@escaping MotionAnimationValueObserver) -> MotionAnimationObserverKey{
     let uuid = UUID()
     self.velocityUpdateCallbacks[uuid] = velocityUpdateCallback
     return uuid
   }
 
-  func addValueUpdateCallback(_ valueUpdateCallback:MotionAnimationValueObserver) -> MotionAnimationObserverKey{
+  func addValueUpdateCallback(_ valueUpdateCallback:@escaping MotionAnimationValueObserver) -> MotionAnimationObserverKey{
     let uuid = UUID()
     self.valueUpdateCallbacks[uuid] = valueUpdateCallback
     return uuid
