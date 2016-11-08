@@ -24,8 +24,7 @@ A UIKit custom modal transition that simulates an elastic drag. Written in Swift
 
 ```ruby
 use_frameworks!
-pod "MotionAnimation", :git => 'https://github.com/lkzhao/MotionAnimation.git', :branch => 'swift3'
-pod "ElasticTransition", :git => 'https://github.com/lkzhao/ElasticTransition.git', :branch => 'swift3'
+pod "ElasticTransition"
 ```
 
 ## Usage
