@@ -180,7 +180,6 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
   }
   
   func endInteractiveTransition() -> Bool{
-    print("!!!! End Elastic Transition")
     timeoutTimer?.invalidate()
     let finished:Bool
     if let pan = currentPanGR{
