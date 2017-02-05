@@ -34,7 +34,7 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
   var transitioning = false
   var presenting = true
   var interactive = false
-  var transitionContext:UIViewControllerContextTransitioning!
+  weak var transitionContext:UIViewControllerContextTransitioning!
   var container:UIView!
   var size:CGSize{
     return container.bounds.size
