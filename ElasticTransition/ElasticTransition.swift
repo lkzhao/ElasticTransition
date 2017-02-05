@@ -567,8 +567,8 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
     frontView.layer.zPosition = 0
     startingPoint = nil
     if let scrollView = foregroundScrollView{
-        scrollView.bounces = true
-        foregroundScrollView = nil
+      scrollView.bounces = true
+      foregroundScrollView = nil
     }
     if presenting && finished{
       pushedControllers.append(frontViewController)
@@ -604,9 +604,9 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
     let finalPoint = self.finalPoint()
 
     if !presenting{
-        if let delegate = pushedControllers.last as? ElasticMenuTransitionDelegate {
-            delegate.elasticTransitionWillDismiss?(self)
-        }
+      if let delegate = pushedControllers.last as? ElasticMenuTransitionDelegate {
+        delegate.elasticTransitionWillDismiss?(self)
+      }
     }
     lc.m_animate("center", to: finalPoint, stiffness: animationSideStiffness, damping: animationDamping, threshold: animationThreshold)
     cc.m_animate("center", to: finalPoint, stiffness: animationCenterStiffness, damping: animationDamping, threshold: animationThreshold){
@@ -619,7 +619,7 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
 
   override func endInteractiveTransition() -> Bool{
     if !transitioning {
-        return false
+      return false
     }
     let finalPoint = self.finalPoint()
     let initialPoint = self.finalPoint(!self.presenting)

@@ -161,7 +161,7 @@
 				TargetAttributes = {
 					B12BC0921C21FA470016D774 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = G7UGV2H9R6;
+						DevelopmentTeam = 4VSEW78TKT;
 						LastSwiftMigration = 0800;
 					};
 				};
@@ -380,7 +380,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = G7UGV2H9R6;
+				DEVELOPMENT_TEAM = 4VSEW78TKT;
 				INFOPLIST_FILE = ElasticTransitionExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -396,7 +396,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = G7UGV2H9R6;
+				DEVELOPMENT_TEAM = 4VSEW78TKT;
 				INFOPLIST_FILE = ElasticTransitionExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

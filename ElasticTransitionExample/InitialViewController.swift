@@ -39,6 +39,7 @@ class InitialViewController: UIViewController {
     if pan.state == .began{
       transition.edge = .left
       transition.startInteractiveTransition(self, segueIdentifier: "menu", gestureRecognizer: pan)
+      transition.startInteractiveTransition(self, segueIdentifier: "menu", gestureRecognizer: pan)
     }else{
       _ = transition.updateInteractiveTransition(gestureRecognizer: pan)
     }
