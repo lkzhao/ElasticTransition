@@ -78,6 +78,8 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
     
     container.insertSubview(backView, at: 0)
     container.addSubview(frontView)
+
+    backViewController.viewDidDisappear(true)
   }
 
   func clean(_ finished: Bool){
@@ -85,6 +87,8 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
     UIApplication.shared.keyWindow!.addSubview(finished ? toView : fromView)
 
     if(!presenting && finished || presenting && !finished){
+      backViewController.viewWillAppear(true)
+
       frontView.removeFromSuperview()
       backView.layer.transform = CATransform3DIdentity
 
