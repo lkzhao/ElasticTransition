@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class ElasticModalViewController: UIViewController, ElasticMenuTransitionDelegate {
+open class ElasticModalViewController: UIViewController, ElasticMenuTransitionDelegate {
   
   public var dragDownTransformType:ElasticTransitionBackgroundTransform = .subtle
   public var dragRightTransformType:ElasticTransitionBackgroundTransform = .translatePull
@@ -48,7 +48,7 @@ public class ElasticModalViewController: UIViewController, ElasticMenuTransition
     modalPresentationStyle = .custom
   }
   
-  public override func viewWillAppear(_ animated: Bool) {
+  open override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
     leftDissmissPanGestureRecognizer.addTarget(self, action: #selector(handleLeftPan))
@@ -57,7 +57,7 @@ public class ElasticModalViewController: UIViewController, ElasticMenuTransition
     modalTransition.foregroundExitPanGestureRecognizer.require(toFail: leftDissmissPanGestureRecognizer)
   }
   
-  public override func viewDidAppear(_ animated: Bool) {
+  open override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     modalTransition.edge = .bottom
     modalTransition.transformType = dragDownTransformType
