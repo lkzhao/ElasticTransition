@@ -83,6 +83,7 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
   func clean(_ finished: Bool){
     // bug: http://openradar.appspot.com/radar?id=5320103646199808
     UIApplication.shared.keyWindow!.addSubview(finished ? toView : fromView)
+    UIApplication.shared.keyWindow!.bringSubview(toFront: finished ? toView : fromView)
 
     if(!presenting && finished || presenting && !finished){
       frontView.removeFromSuperview()
