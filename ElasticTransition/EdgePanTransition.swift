@@ -26,7 +26,7 @@ SOFTWARE.
 
 import UIKit
 
-public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning, UIViewControllerTransitioningDelegate{
+public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate {
   public var panThreshold:CGFloat = 0.2
   public var edge:Edge = .right
   
@@ -34,6 +34,7 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
   var transitioning = false
   var presenting = true
   var interactive = false
+  public var navigation = false
   weak var transitionContext:UIViewControllerContextTransitioning!
   var container:UIView!
   var size:CGSize{
@@ -81,9 +82,11 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
   }
 
   func clean(_ finished: Bool){
-    // bug: http://openradar.appspot.com/radar?id=5320103646199808
-    UIApplication.shared.keyWindow!.addSubview(finished ? toView : fromView)
-    UIApplication.shared.keyWindow!.bringSubview(toFront: finished ? toView : fromView)
+    if !navigation {
+      // bug: http://openradar.appspot.com/radar?id=5320103646199808
+      UIApplication.shared.keyWindow!.addSubview(finished ? toView : fromView)
+      UIApplication.shared.keyWindow!.bringSubview(toFront: finished ? toView : fromView)
+    }
 
     if(!presenting && finished || presenting && !finished){
       frontView.removeFromSuperview()
@@ -96,6 +99,7 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
     currentPanGR = nil
     interactive = false
     transitioning = false
+    navigation = false
     transitionContext.completeTransition(finished)
     transitionContext = nil
     container = nil
@@ -124,10 +128,18 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
       if let identifier = identifier{
         fromVC.performSegue(withIdentifier: identifier, sender: self)
       }else if let toVC = toVC{
-        fromVC.present(toVC, animated: true, completion: nil)
+        if navigation {
+          fromVC.navigationController?.pushViewController(toVC, animated: true)
+        } else {
+          fromVC.present(toVC, animated: true, completion: nil)
+        }
       }
     }else{
-      fromVC.dismiss(animated: true, completion: completion)
+      if navigation{
+        _ = fromVC.navigationController?.popViewController(animated: true)
+      }else{
+        fromVC.dismiss(animated: true, completion: completion)
+      }
     }
   }
   
@@ -249,11 +261,27 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
     self.presenting = false
     return self.interactive ? self : nil
   }
+  
+  public func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    if transitioning{
+      return nil
+    }
+    return self.interactive ? self : nil
+  }
+  
+  public func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    if transitioning{
+      return nil
+    }
+    navigation = true
+    presenting = operation == .push
+    return self
+  }
 
-  var presentationController:ElasticTransitionPresentationController!
+  var presentationController:ElasticTransitionPresentationController?
   public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
     presentationController = ElasticTransitionPresentationController(presentedViewController: presented, presenting: presenting)
-    presentationController.transition = self as? ElasticTransition
+    presentationController!.transition = self as? ElasticTransition
     return presentationController
   }
 }

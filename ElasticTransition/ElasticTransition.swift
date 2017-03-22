@@ -195,6 +195,9 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
   var stickDistance:CGFloat{
     return sticky ? contentLength * panThreshold : 0
   }
+  var overlayView = UIView()
+  var shadowView = UIView()
+  var shadowMaskLayer = ElasticShapeLayer()
 
   func finalPoint(_ presenting:Bool? = nil) -> CGPoint{
     let p = presenting ?? self.presenting
@@ -224,6 +227,7 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
   var pushedControllers:[UIViewController] = []
   var backgroundExitPanGestureRecognizer = UIPanGestureRecognizer()
   var foregroundExitPanGestureRecognizer = UIPanGestureRecognizer()
+  var navigationExitPanGestureRecognizer = UIScreenEdgePanGestureRecognizer()
 
   public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
     if transitioning{
@@ -248,6 +252,9 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
   public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
     if touch.view!.isKind(of: UISlider.self) {
       return false
+    }
+    if gestureRecognizer == navigationExitPanGestureRecognizer {
+      return true
     }
     if let vc = pushedControllers.last{
       if let delegate = vc as? ElasticMenuTransitionDelegate {
@@ -329,6 +336,11 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
     if let vc = pushedControllers.last{
       switch (pan.state) {
       case UIGestureRecognizerState.began:
+        if pan == navigationExitPanGestureRecognizer {
+          vc.navigationController?.delegate = self
+          edge = .right
+          navigation = true
+        }
         dissmissInteractiveTransition(vc, gestureRecognizer: pan, completion: nil)
       default:
         _ = updateInteractiveTransition(gestureRecognizer: pan)
@@ -355,10 +367,30 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
     backgroundExitPanGestureRecognizer.addTarget(self, action:#selector(ElasticTransition.handleOffstagePan(_:)))
     foregroundExitPanGestureRecognizer.delegate = self
     foregroundExitPanGestureRecognizer.addTarget(self, action:#selector(ElasticTransition.handleForegroundOffstagePan(_:)))
+    navigationExitPanGestureRecognizer.delegate = self
+    navigationExitPanGestureRecognizer.addTarget(self, action: #selector(ElasticTransition.handleOffstagePan(_:)))
+    navigationExitPanGestureRecognizer.edges = [edge.opposite().toUIRectEdge()]
+
+    shadowView.layer.addSublayer(shadowMaskLayer)
+    let tapGR = UITapGestureRecognizer(target: self, action: #selector(overlayTapped(_:)))
+    overlayView.isOpaque = false
+    overlayView.addGestureRecognizer(tapGR)
+    shadowView.isOpaque = false
+    shadowView.layer.masksToBounds = false
   }
 
   deinit{
     MotionAnimator.sharedInstance.removeUpdateObserverWithKey(animationObserverKey)
+  }
+
+  func overlayTapped(_ tapGR: UITapGestureRecognizer) {
+    if let vc = pushedControllers.last,
+      let delegate = vc as? ElasticMenuTransitionDelegate {
+      let touchToDismiss = delegate.dismissByBackgroundTouch ?? false
+      if touchToDismiss {
+        vc.dismiss(animated: true, completion: nil)
+      }
+    }
   }
 
   override func update() {
@@ -394,26 +426,34 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
       return
     }
     backView.layer.zPosition = 0
+    overlayView.layer.zPosition = 298
+    shadowView.layer.zPosition = 299
     frontView.layer.zPosition = 300
 
     let finalPoint = self.finalPoint(true)
     let initialPoint = self.finalPoint(false)
     let progress = 1 - lc.center.distance(finalPoint) / initialPoint.distance(finalPoint)
-    switch edge{
+    var shadowMaskLayer: ElasticShapeLayer
+    if let presentationController = presentationController {
+      shadowMaskLayer = presentationController.shadowMaskLayer
+    } else {
+      shadowMaskLayer = self.shadowMaskLayer
+    }
+    switch edge {
     case .left:
       frontView.frame.origin.x = min(cc.center.x, lc.center.x) - contentLength
-      presentationController.shadowMaskLayer.frame = CGRect(x: 0, y: 0, width: lc.center.x, height: size.height)
+      shadowMaskLayer.frame = CGRect(x: 0, y: 0, width: lc.center.x, height: size.height)
     case .right:
       frontView.frame.origin.x = max(cc.center.x, lc.center.x)
-      presentationController.shadowMaskLayer.frame = CGRect(x: lc.center.x, y: 0, width: size.width - lc.center.x, height: size.height)
+      shadowMaskLayer.frame = CGRect(x: lc.center.x, y: 0, width: size.width - lc.center.x, height: size.height)
     case .bottom:
       frontView.frame.origin.y = max(cc.center.y, lc.center.y)
-      presentationController.shadowMaskLayer.frame = CGRect(x: 0, y: lc.center.y, width: size.width, height: size.height - lc.center.y)
+      shadowMaskLayer.frame = CGRect(x: 0, y: lc.center.y, width: size.width, height: size.height - lc.center.y)
     case .top:
       frontView.frame.origin.y = min(cc.center.y, lc.center.y) - contentLength
-      presentationController.shadowMaskLayer.frame = CGRect(x: 0, y: 0, width: size.width, height: lc.center.y)
+      shadowMaskLayer.frame = CGRect(x: 0, y: 0, width: size.width, height: lc.center.y)
     }
-    presentationController.shadowMaskLayer.dragPoint = presentationController.shadowMaskLayer.convert(cc.center, from: container.layer)
+    shadowMaskLayer.dragPoint = shadowMaskLayer.convert(cc.center, from: container.layer)
 
     if transform != nil{
       transform!(progress, backView)
@@ -463,8 +503,13 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
       }
     }
 
-    presentationController.overlayView.alpha = progress
-    presentationController.updateShadow(progress)
+    if let presentationController = presentationController {
+      presentationController.overlayView.alpha = progress
+      presentationController.updateShadow(progress)
+    } else {
+      overlayView.alpha = progress
+      updateShadow(progress)
+    }
 
     transitionContext.updateInteractiveTransition(presenting ? progress : 1 - progress)
   }
@@ -494,23 +539,44 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
     }
 
     // 2. setup shadow and background view
-    presentationController.shadowView.frame = container.bounds
-    if let frontViewBackgroundColor = frontViewBackgroundColor{
-      presentationController.shadowMaskLayer.fillColor = frontViewBackgroundColor.cgColor
-    }else{
-      presentationController.shadowMaskLayer.fillColor = frontView.backgroundColor?.cgColor
-    }
-    presentationController.shadowMaskLayer.edge = edge.opposite()
-    if let interactiveRadiusFactor = interactiveRadiusFactor , interactive{
-      presentationController.shadowMaskLayer.radiusFactor = interactiveRadiusFactor
+    var shadowMaskLayer: ElasticShapeLayer
+    var shadowView: UIView
+    var overlayView: UIView
+    if let presentationController = presentationController {
+      shadowMaskLayer = presentationController.shadowMaskLayer
+      shadowView = presentationController.shadowView
+      overlayView = presentationController.overlayView
     } else {
-      presentationController.shadowMaskLayer.radiusFactor = radiusFactor
+      shadowMaskLayer = self.shadowMaskLayer
+      shadowView = self.shadowView
+      overlayView = self.overlayView
+    }
+    shadowView.frame = container.bounds
+    if let frontViewBackgroundColor = frontViewBackgroundColor {
+      shadowMaskLayer.fillColor = frontViewBackgroundColor.cgColor
+    } else if let vc = frontViewController as? UINavigationController,
+      let rootVC = vc.childViewControllers.last {
+      shadowMaskLayer.fillColor = rootVC.view.backgroundColor?.cgColor
+    } else {
+      shadowMaskLayer.fillColor = frontView.backgroundColor?.cgColor
+    }
+    shadowMaskLayer.edge = edge.opposite()
+    if let interactiveRadiusFactor = interactiveRadiusFactor, interactive {
+      shadowMaskLayer.radiusFactor = interactiveRadiusFactor
+    } else {
+      shadowMaskLayer.radiusFactor = radiusFactor
+    }
+    if presentationController == nil {
+      container.addSubview(shadowView)
     }
 
     // 3. setup overlay view
-    presentationController.overlayView.frame = container.bounds
-    presentationController.overlayView.backgroundColor = overlayColor
-    presentationController.overlayView.addGestureRecognizer(backgroundExitPanGestureRecognizer)
+    overlayView.frame = container.bounds
+    overlayView.backgroundColor = overlayColor
+    overlayView.addGestureRecognizer(backgroundExitPanGestureRecognizer)
+    if presentationController == nil {
+      container.addSubview(overlayView)
+    }
 
     // 4. setup front view
     var rect = container.bounds
@@ -521,8 +587,12 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
       rect.size.height = contentLength
     }
     frontView.frame = rect
-    if shouldAddGestureRecognizers {
-      frontView.addGestureRecognizer(foregroundExitPanGestureRecognizer)
+    if navigation {
+      frontView.addGestureRecognizer(navigationExitPanGestureRecognizer)
+    } else {
+      if shouldAddGestureRecognizers {
+        frontView.addGestureRecognizer(foregroundExitPanGestureRecognizer)
+      }
     }
 //    frontView.layoutIfNeeded()
 
@@ -570,6 +640,10 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
       scrollView.bounces = true
       foregroundScrollView = nil
     }
+    if navigation {
+      shadowView.removeFromSuperview()
+      overlayView.removeFromSuperview()
+    }
     if presenting && finished{
       pushedControllers.append(frontViewController)
     }else if !presenting && finished{
@@ -584,6 +658,22 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
       }
     }
     super.clean(finished)
+  }
+
+  func updateShadow(_ progress: CGFloat) {
+    if showShadow {
+      shadowView.layer.shadowColor = shadowColor.cgColor
+      shadowView.layer.shadowRadius = shadowRadius
+      shadowView.layer.shadowOffset = CGSize(width: 0, height: 0)
+      shadowView.layer.shadowOpacity = Float(progress)
+      shadowView.layer.masksToBounds = false
+    } else {
+      shadowView.layer.shadowColor = nil
+      shadowView.layer.shadowRadius = 0
+      shadowView.layer.shadowOffset = CGSize(width: 0, height: 0)
+      shadowView.layer.shadowOpacity = 0
+      shadowView.layer.masksToBounds = true
+    }
   }
 
   override func cancelInteractiveTransition(){

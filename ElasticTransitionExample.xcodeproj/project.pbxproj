@@ -22,6 +22,7 @@
 		B12BC0B41C21FA910016D774 /* ElasticShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BC0B11C21FA910016D774 /* ElasticShapeLayer.swift */; };
 		B12BC0B51C21FA910016D774 /* ElasticTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BC0B21C21FA910016D774 /* ElasticTransition.swift */; };
 		B12BC0B81C222C8F0016D774 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BC0B71C222C8F0016D774 /* InitialViewController.swift */; };
+		BAAF93151E82A08800747698 /* NavigationExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAF93141E82A08800747698 /* NavigationExampleViewController.swift */; };
 		FD246C9F99108524DBFB6970 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17C1D639543DCE2923CA4C1E /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +47,7 @@
 		B12BC0B11C21FA910016D774 /* ElasticShapeLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ElasticShapeLayer.swift; path = ElasticTransition/ElasticShapeLayer.swift; sourceTree = SOURCE_ROOT; };
 		B12BC0B21C21FA910016D774 /* ElasticTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; name = ElasticTransition.swift; path = ElasticTransition/ElasticTransition.swift; sourceTree = SOURCE_ROOT; tabWidth = 2; };
 		B12BC0B71C222C8F0016D774 /* InitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
+		BAAF93141E82A08800747698 /* NavigationExampleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationExampleViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 				B12BC0AA1C21FA7E0016D774 /* OptionsViewController.swift */,
 				B12BC0AB1C21FA7E0016D774 /* MenuViewController.swift */,
 				A3DF22061C38C61700BD164F /* ModalExampleViewController.swift */,
+				BAAF93141E82A08800747698 /* NavigationExampleViewController.swift */,
 				B12BC09A1C21FA470016D774 /* Main.storyboard */,
 				B12BC09D1C21FA470016D774 /* Assets.xcassets */,
 				B12BC09F1C21FA470016D774 /* LaunchScreen.storyboard */,
@@ -251,6 +254,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B12BC0AC1C21FA7E0016D774 /* AboutViewController.swift in Sources */,
+				BAAF93151E82A08800747698 /* NavigationExampleViewController.swift in Sources */,
 				B12BC0B81C222C8F0016D774 /* InitialViewController.swift in Sources */,
 				A3DF22071C38C61700BD164F /* ModalExampleViewController.swift in Sources */,
 				B12BC0B51C21FA910016D774 /* ElasticTransition.swift in Sources */,
