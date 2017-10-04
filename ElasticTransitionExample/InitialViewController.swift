@@ -39,7 +39,6 @@ class InitialViewController: UIViewController {
     if pan.state == .began{
       transition.edge = .left
       transition.startInteractiveTransition(self, segueIdentifier: "menu", gestureRecognizer: pan)
-      transition.startInteractiveTransition(self, segueIdentifier: "menu", gestureRecognizer: pan)
     }else{
       _ = transition.updateInteractiveTransition(gestureRecognizer: pan)
     }
@@ -81,6 +80,10 @@ class InitialViewController: UIViewController {
     let vc = segue.destination
     vc.transitioningDelegate = transition
     vc.modalPresentationStyle = .custom
+    if segue.identifier == "navigation"{
+        if let vc = vc as? UINavigationController{
+            vc.delegate = transition
+        }
+    }
   }
-  
 }
