@@ -91,9 +91,9 @@ public class EdgePanTransition: NSObject, UIViewControllerAnimatedTransitioning,
     if(!presenting && finished || presenting && !finished){
       frontView.removeFromSuperview()
 
+      backView.layer.transform = CATransform3DIdentity
       backViewController.viewDidAppear(true)
     }
-    backView.layer.transform = CATransform3DIdentity
 
     dragPoint = CGPoint.zero
     currentPanGR = nil
