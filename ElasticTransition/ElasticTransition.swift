@@ -680,8 +680,18 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
     super.cancelInteractiveTransition()
     let finalPoint = self.finalPoint(!presenting)
 
+    print("running cancel animation")
     lc.m_animate("center", to: finalPoint, stiffness: animationSideStiffness, damping: animationDamping, threshold: animationThreshold)
     cc.m_animate("center", to: finalPoint, stiffness: animationCenterStiffness, damping: animationDamping, threshold: animationThreshold){
+      self.cc.center = finalPoint
+      self.lc.center = finalPoint
+      self.updateShape()
+      self.clean(false)
+      print("cancel animation ran") //not being called because it's already a the final point
+    }
+
+    if cc.center == finalPoint {
+      print("already there")
       self.cc.center = finalPoint
       self.lc.center = finalPoint
       self.updateShape()
