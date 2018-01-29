@@ -1,3 +1,8 @@
-platform :ios, "8.0"
-use_frameworks!
-pod "MotionAnimation", :git => 'https://github.com/lkzhao/MotionAnimation.git', :branch => 'swift3'
+platform :ios, "9.2"
+
+target 'ElasticTransitionExample' do
+    use_frameworks!
+    
+    pod "MotionAnimation", :git => 'https://github.com/nucci/MotionAnimation.git', :branch => 'swift4'
+    
+end

@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double MotionAnimationVersionNumber;
-FOUNDATION_EXPORT const unsigned char MotionAnimationVersionString[];
+FOUNDATION_EXPORT double Pods_ElasticTransitionExampleVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_ElasticTransitionExampleVersionString[];
 

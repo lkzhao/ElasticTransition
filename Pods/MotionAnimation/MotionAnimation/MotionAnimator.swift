@@ -33,7 +33,7 @@ open class MotionAnimator: NSObject {
     super.init()
   }
 
-  func update() {
+  @objc func update() {
     _removeAllPendingStopAnimations()
 
     let duration = CGFloat(displayLink.duration)
