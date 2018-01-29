@@ -48,7 +48,13 @@ extension UIView:MotionAnimationAnimatable{
         self?.alpha.toCGFloatValues(&values)
         }, { [weak self] values in
           self?.alpha = CGFloat.fromCGFloatValues(values)
-        })
+      })
+    case "zPosition":
+      return ({ [weak self] values in
+        self?.layer.zPosition.toCGFloatValues(&values)
+      }, { [weak self] values in
+        self?.layer.zPosition = CGFloat.fromCGFloatValues(values)
+      })
     case "scale", "scale.x", "scale.y", "scale.z", "rotation", "rotation.x", "rotation.y", "rotation.z", "translation.x", "translation.y", "translation.z":
       return ({ [weak self] values in
         (self?.value(forKeyPath: "layer.transform.\(key)") as! NSNumber).doubleValue.toCGFloatValues(&values)
@@ -81,7 +87,11 @@ extension UIColor:MotionAnimatableProperty{
     return self.init(red: values[0], green: values[1], blue: values[2], alpha: values[3])
   }
   public func toCGFloatValues(_ values: inout [CGFloat]) {
-    self.getRed(&values[0], green: &values[1], blue: &values[2], alpha: &values[3])
+    var red = values[0]
+    var green = values[1]
+    var blue = values[2]
+    var alpha = values[3]
+    self.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
   }
 }
 

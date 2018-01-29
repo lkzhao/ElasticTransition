@@ -68,12 +68,12 @@ public extension NSObject{
   }
   
   // add callbacks
-  func m_addValueUpdateCallback<T:MotionAnimatableProperty>(_ key:String, valueUpdateCallback:@escaping (T)->Void) -> MotionAnimationObserverKey{
+  @discardableResult func m_addValueUpdateCallback<T:MotionAnimatableProperty>(_ key:String, valueUpdateCallback:@escaping (T)->Void) -> MotionAnimationObserverKey{
     return getPropertyState(key).addValueUpdateCallback({ values in
       valueUpdateCallback(T.fromCGFloatValues(values))
     })
   }
-  func m_addVelocityUpdateCallback<T:MotionAnimatableProperty>(_ key:String, velocityUpdateCallback:@escaping (T)->Void) -> MotionAnimationObserverKey{
+  @discardableResult func m_addVelocityUpdateCallback<T:MotionAnimatableProperty>(_ key:String, velocityUpdateCallback:@escaping (T)->Void) -> MotionAnimationObserverKey{
     return getPropertyState(key).addVelocityUpdateCallback({ values in
       velocityUpdateCallback(T.fromCGFloatValues(values))
     })

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5CDBA4C0004195048C283F19 /* Pods_ElasticTransitionExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8B8B1AC791E9EB56A389964 /* Pods_ElasticTransitionExample.framework */; };
 		A342B2F11CD03477004895E3 /* ElasticTransitionPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A342B2F01CD03477004895E3 /* ElasticTransitionPresentationController.swift */; };
 		A35F61D31C2A3740003012E4 /* EdgePanTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35F61D21C2A3740003012E4 /* EdgePanTransition.swift */; };
 		A35F61D51C2A386D003012E4 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35F61D41C2A386D003012E4 /* Util.swift */; };
@@ -22,13 +23,11 @@
 		B12BC0B41C21FA910016D774 /* ElasticShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BC0B11C21FA910016D774 /* ElasticShapeLayer.swift */; };
 		B12BC0B51C21FA910016D774 /* ElasticTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BC0B21C21FA910016D774 /* ElasticTransition.swift */; };
 		B12BC0B81C222C8F0016D774 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B12BC0B71C222C8F0016D774 /* InitialViewController.swift */; };
-		FD246C9F99108524DBFB6970 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17C1D639543DCE2923CA4C1E /* Pods.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0E5005F39367C24AEE4ECDE3 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		17C1D639543DCE2923CA4C1E /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		35C60A60CD7112509ACE6FF4 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		261C9BDA6B9E6F0EBBE41CFE /* Pods-ElasticTransitionExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ElasticTransitionExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-ElasticTransitionExample/Pods-ElasticTransitionExample.release.xcconfig"; sourceTree = "<group>"; };
 		A342B2F01CD03477004895E3 /* ElasticTransitionPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ElasticTransitionPresentationController.swift; path = ElasticTransition/ElasticTransitionPresentationController.swift; sourceTree = SOURCE_ROOT; };
 		A35F61D21C2A3740003012E4 /* EdgePanTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; name = EdgePanTransition.swift; path = ElasticTransition/EdgePanTransition.swift; sourceTree = SOURCE_ROOT; tabWidth = 2; };
 		A35F61D41C2A386D003012E4 /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Util.swift; path = ElasticTransition/Util.swift; sourceTree = SOURCE_ROOT; };
@@ -46,6 +45,8 @@
 		B12BC0B11C21FA910016D774 /* ElasticShapeLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ElasticShapeLayer.swift; path = ElasticTransition/ElasticShapeLayer.swift; sourceTree = SOURCE_ROOT; };
 		B12BC0B21C21FA910016D774 /* ElasticTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; name = ElasticTransition.swift; path = ElasticTransition/ElasticTransition.swift; sourceTree = SOURCE_ROOT; tabWidth = 2; };
 		B12BC0B71C222C8F0016D774 /* InitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
+		D8B8B1AC791E9EB56A389964 /* Pods_ElasticTransitionExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ElasticTransitionExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB9E6A017439002F35013C6A /* Pods-ElasticTransitionExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ElasticTransitionExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ElasticTransitionExample/Pods-ElasticTransitionExample.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,18 +54,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FD246C9F99108524DBFB6970 /* Pods.framework in Frameworks */,
+				5CDBA4C0004195048C283F19 /* Pods_ElasticTransitionExample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		711CA8C76E055B686F128E05 /* Pods */ = {
+		605839B54CC65DBD9E12C765 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				35C60A60CD7112509ACE6FF4 /* Pods.debug.xcconfig */,
-				0E5005F39367C24AEE4ECDE3 /* Pods.release.xcconfig */,
+				DB9E6A017439002F35013C6A /* Pods-ElasticTransitionExample.debug.xcconfig */,
+				261C9BDA6B9E6F0EBBE41CFE /* Pods-ElasticTransitionExample.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -73,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				17C1D639543DCE2923CA4C1E /* Pods.framework */,
+				D8B8B1AC791E9EB56A389964 /* Pods_ElasticTransitionExample.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -82,8 +84,8 @@
 			children = (
 				B12BC0951C21FA470016D774 /* ElasticTransitionExample */,
 				B12BC0941C21FA470016D774 /* Products */,
-				711CA8C76E055B686F128E05 /* Pods */,
 				7C86430CC7E3B0A68D693961 /* Frameworks */,
+				605839B54CC65DBD9E12C765 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -133,12 +135,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B12BC0A51C21FA470016D774 /* Build configuration list for PBXNativeTarget "ElasticTransitionExample" */;
 			buildPhases = (
-				301344455EBDB4923BE637CF /* Check Pods Manifest.lock */,
+				B5715052DC48FBF1A91A1C4E /* [CP] Check Pods Manifest.lock */,
 				B12BC08F1C21FA470016D774 /* Sources */,
 				B12BC0901C21FA470016D774 /* Frameworks */,
 				B12BC0911C21FA470016D774 /* Resources */,
-				B28D6B55AA8B1CC52B3C1F61 /* Embed Pods Frameworks */,
-				F03847BF7D178253D5E6441D /* Copy Pods Resources */,
+				43C0D2A7A5757905176DAA48 /* [CP] Embed Pods Frameworks */,
+				3CB2165081E8A45137622E10 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -198,49 +200,55 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		301344455EBDB4923BE637CF /* Check Pods Manifest.lock */ = {
+		3CB2165081E8A45137622E10 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ElasticTransitionExample/Pods-ElasticTransitionExample-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B28D6B55AA8B1CC52B3C1F61 /* Embed Pods Frameworks */ = {
+		43C0D2A7A5757905176DAA48 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ElasticTransitionExample/Pods-ElasticTransitionExample-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/MotionAnimation/MotionAnimation.framework",
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MotionAnimation.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ElasticTransitionExample/Pods-ElasticTransitionExample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F03847BF7D178253D5E6441D /* Copy Pods Resources */ = {
+		B5715052DC48FBF1A91A1C4E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ElasticTransitionExample-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -376,9 +384,8 @@
 		};
 		B12BC0A61C21FA470016D774 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 35C60A60CD7112509ACE6FF4 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = DB9E6A017439002F35013C6A /* Pods-ElasticTransitionExample.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 4VSEW78TKT;
 				INFOPLIST_FILE = ElasticTransitionExample/Info.plist;
@@ -386,15 +393,14 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lkzhao.ElasticTransitionExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
 		B12BC0A71C21FA470016D774 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0E5005F39367C24AEE4ECDE3 /* Pods.release.xcconfig */;
+			baseConfigurationReference = 261C9BDA6B9E6F0EBBE41CFE /* Pods-ElasticTransitionExample.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 4VSEW78TKT;
 				INFOPLIST_FILE = ElasticTransitionExample/Info.plist;
@@ -403,7 +409,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.lkzhao.ElasticTransitionExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
