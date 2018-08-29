@@ -8,9 +8,9 @@ A UIKit custom modal transition that simulates an elastic drag. Written in Swift
 
 ![demo](https://github.com/lkzhao/ElasticTransition/blob/master/imgs/demo.gif?raw=true)
 
-###Thanks to Matt Garnett (@c-o-l-o-r) for converting ElasticTransition to Swift 3
+### Thanks to Matt Garnett (@c-o-l-o-r) for converting ElasticTransition to Swift 3
 
-###Also, special thanks to [@taglia3](https://github.com/taglia3) for developing the [Objective-C version] (https://github.com/taglia3/ElasticTransition-ObjC). Check it out!
+### Also, special thanks to [@taglia3](https://github.com/taglia3) for developing the [Objective-C version] (https://github.com/taglia3/ElasticTransition-ObjC). Check it out!
 
 ## Requirements
 
@@ -20,7 +20,7 @@ A UIKit custom modal transition that simulates an elastic drag. Written in Swift
 
 ## Installation
 
-####CocoaPods
+#### CocoaPods
 
 ```ruby
 use_frameworks!
