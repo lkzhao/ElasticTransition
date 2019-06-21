@@ -13,7 +13,7 @@ public protocol MotionAnimatorObserver{
 }
 
 open class MotionAnimator: NSObject {
-  open static let sharedInstance = MotionAnimator()
+    public static let sharedInstance = MotionAnimator()
   var updateObservers:[MotionAnimationObserverKey:Weak<MotionAnimatorObserver>] = [:]
 
   open var debugEnabled = false
@@ -33,7 +33,7 @@ open class MotionAnimator: NSObject {
     super.init()
   }
 
-  func update() {
+    @objc func update() {
     _removeAllPendingStopAnimations()
 
     let duration = CGFloat(displayLink.duration)
@@ -111,7 +111,7 @@ open class MotionAnimator: NSObject {
       return
     }
     displayLink = CADisplayLink(target: self, selector: #selector(update))
-    displayLink.add(to: RunLoop.main, forMode: RunLoopMode(rawValue: RunLoopMode.commonModes.rawValue))
+    displayLink.add(to: RunLoop.main, forMode: RunLoop.Mode(rawValue: RunLoop.Mode.common.rawValue))
     printDebugMsg("displayLink started")
   }
 
@@ -120,7 +120,7 @@ open class MotionAnimator: NSObject {
       return
     }
     displayLink.isPaused = true
-    displayLink.remove(from: RunLoop.main, forMode: RunLoopMode(rawValue: RunLoopMode.commonModes.rawValue))
+    displayLink.remove(from: RunLoop.main, forMode: RunLoop.Mode(rawValue: RunLoop.Mode.common.rawValue))
     displayLink = nil
     printDebugMsg("displayLink ended")
   }

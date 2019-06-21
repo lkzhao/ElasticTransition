@@ -1,4 +1,4 @@
-# ElasticTransition (Swift 3)
+# ElasticTransition (Swift 4.2)
 
 [![Version](https://img.shields.io/cocoapods/v/ElasticTransition.svg?style=flat)](http://cocoapods.org/pods/ElasticTransition)
 [![License](https://img.shields.io/cocoapods/l/ElasticTransition.svg?style=flat)](http://cocoapods.org/pods/ElasticTransition)
@@ -14,9 +14,9 @@ A UIKit custom modal transition that simulates an elastic drag. Written in Swift
 
 ## Requirements
 
-* Xcode 8 or higher
-* iOS 8.0 or higher
-* Swift 3.0
+* Xcode 10 or higher
+* iOS 10.0 or higher
+* Swift 4.2
 
 ## Installation
 
