@@ -27,7 +27,7 @@
 import UIKit
 import MotionAnimation
 
-let π:CGFloat = CGFloat(M_PI)
+let π:CGFloat = CGFloat(Double.pi)
 
 @objc public enum Edge:Int{
   case top, bottom, left, right
