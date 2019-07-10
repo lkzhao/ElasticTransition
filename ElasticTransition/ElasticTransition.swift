@@ -291,7 +291,7 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
     }
     return false
   }
-  func handleForegroundOffstagePan(_ pan: UIPanGestureRecognizer){
+  @objc func handleForegroundOffstagePan(_ pan: UIPanGestureRecognizer){
     if let vc = pushedControllers.last{
       switch (pan.state) {
       case .began, .changed:
@@ -325,10 +325,10 @@ public class ElasticTransition: EdgePanTransition, UIGestureRecognizerDelegate{
     }
   }
 
-  func handleOffstagePan(_ pan: UIPanGestureRecognizer){
+  @objc func handleOffstagePan(_ pan: UIPanGestureRecognizer){
     if let vc = pushedControllers.last{
       switch (pan.state) {
-      case UIGestureRecognizerState.began:
+      case UIGestureRecognizer.State.began:
         dissmissInteractiveTransition(vc, gestureRecognizer: pan, completion: nil)
       default:
         _ = updateInteractiveTransition(gestureRecognizer: pan)

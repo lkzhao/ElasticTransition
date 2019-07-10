@@ -13,7 +13,7 @@ public protocol MotionAnimatorObserver{
 }
 
 open class MotionAnimator: NSObject {
-  open static let sharedInstance = MotionAnimator()
+  public static let sharedInstance = MotionAnimator()
   var updateObservers:[MotionAnimationObserverKey:Weak<MotionAnimatorObserver>] = [:]
 
   open var debugEnabled = false
@@ -33,7 +33,7 @@ open class MotionAnimator: NSObject {
     super.init()
   }
 
-  func update() {
+  @objc func update() {
     _removeAllPendingStopAnimations()
 
     let duration = CGFloat(displayLink.duration)
@@ -61,7 +61,7 @@ open class MotionAnimator: NSObject {
   // must be called in mutex
   func _removeAllPendingStopAnimations(){
     for b in pendingStopAnimations{
-      if let index = animations.index(of: b){
+      if let index = animations.firstIndex(of: b){
         animations.remove(at: index)
         b.delegate?.animationDidStop(b)
         b.onCompletion?(b)
@@ -85,10 +85,10 @@ open class MotionAnimator: NSObject {
   }
 
   open func addAnimation(_ b:MotionAnimation){
-    if let index = pendingStopAnimations.index(of: b){
+    if let index = pendingStopAnimations.firstIndex(of: b){
       pendingStopAnimations.remove(at: index)
     }
-    if animations.index(of: b) == nil {
+    if animations.firstIndex(of: b) == nil {
       animations.append(b)
       if displayLinkPaused {
         displayLinkPaused = false
@@ -97,10 +97,10 @@ open class MotionAnimator: NSObject {
     b.animator = self
   }
   open func hasAnimation(_ b:MotionAnimation) -> Bool{
-    return animations.index(of: b) != nil && pendingStopAnimations.index(of: b) == nil
+    return animations.firstIndex(of: b) != nil && pendingStopAnimations.firstIndex(of: b) == nil
   }
   open func removeAnimation(_ b:MotionAnimation){
-    if animations.index(of: b) != nil {
+    if animations.firstIndex(of: b) != nil {
       pendingStopAnimations.append(b)
     }
     b.animator = nil
@@ -111,7 +111,7 @@ open class MotionAnimator: NSObject {
       return
     }
     displayLink = CADisplayLink(target: self, selector: #selector(update))
-    displayLink.add(to: RunLoop.main, forMode: RunLoopMode(rawValue: RunLoopMode.commonModes.rawValue))
+    displayLink.add(to: RunLoop.main, forMode: RunLoop.Mode(rawValue: RunLoop.Mode.common.rawValue))
     printDebugMsg("displayLink started")
   }
 
@@ -120,7 +120,7 @@ open class MotionAnimator: NSObject {
       return
     }
     displayLink.isPaused = true
-    displayLink.remove(from: RunLoop.main, forMode: RunLoopMode(rawValue: RunLoopMode.commonModes.rawValue))
+    displayLink.remove(from: RunLoop.main, forMode: RunLoop.Mode(rawValue: RunLoop.Mode.common.rawValue))
     displayLink = nil
     printDebugMsg("displayLink ended")
   }

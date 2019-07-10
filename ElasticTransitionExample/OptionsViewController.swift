@@ -38,7 +38,7 @@ class SegmentCell:UITableViewCell{
   var onChange:((_ value:Any)->Void)?
 
   @IBAction func segmentChanged(_ sender: UISegmentedControl) {
-    onChange?(value: values[sender.selectedSegmentIndex])
+    onChange?(values[sender.selectedSegmentIndex])
   }
 }
 class OptionsViewController: UIViewController, ElasticMenuTransitionDelegate {
