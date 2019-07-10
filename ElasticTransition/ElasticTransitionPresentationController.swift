@@ -29,7 +29,7 @@ class ElasticTransitionPresentationController:UIPresentationController,UIAdaptiv
         shadowView.layer.zPosition = 299
     }
 
-    func overlayTapped(_ tapGR:UITapGestureRecognizer){
+    @objc func overlayTapped(_ tapGR:UITapGestureRecognizer){
         if let delegate = presentedViewController as? ElasticMenuTransitionDelegate {
             let touchToDismiss = delegate.dismissByBackgroundTouch ?? false
             if touchToDismiss{
