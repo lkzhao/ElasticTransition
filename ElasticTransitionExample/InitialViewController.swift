@@ -14,6 +14,7 @@ class InitialViewController: UIViewController {
   var transition = ElasticTransition()
   let lgr = UIScreenEdgePanGestureRecognizer()
   let rgr = UIScreenEdgePanGestureRecognizer()
+    
   override func viewDidLoad() {
     super.viewDidLoad()
     
